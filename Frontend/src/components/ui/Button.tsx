@@ -3,13 +3,14 @@ type ButtonVariant = "primary" | "secondary" | "submit" | "outline" | "link"
 type ButtonProps = {
     children: React.ReactNode,
     variant?: ButtonVariant,
+    className?: string
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 
-function Button({children, className = "", variant = "primary", ...props}: ButtonProps) {
+function Button({children, className, variant = "primary", ...props}: ButtonProps) {
 
 const variants: Record<ButtonVariant, string> = {
-    primary: "bg-blue-300 border-blue-900 border-blue-900 border-blue-900 hover:bg-blue-200",
+    primary: "bg-sky-300 border-sky-900 border-sky-900 border-sky-900 hover:bg-sky-200",
   secondary: "bg-lime-300 border-lime-900 shadow-lime-900 text-lime-900 hover:bg-lime-200",
   link: "bg-fuchsia-200 border-fuchsia-900 shadow-fuchsia-900 text-fuchsia-900 hover:bg-fuchsia-100",
   submit: "bg-orange-300 border-orange-900 shadow-orange-900 text-orange-900 hover:bg-orange-200",
