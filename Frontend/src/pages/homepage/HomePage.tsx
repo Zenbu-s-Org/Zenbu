@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <main>
       <section className='mt-20 flex flex-row justify-between'>
-      <section>
+      <section className="pl-4">
         <Label className="text-[11px] text-center rotate-4" variant="green">
           BETTER FOOD, LESS NOICE
         </Label>
@@ -34,7 +34,7 @@ function HomePage() {
      </Button>
      </div>
       <Banner/>
-      
+      <TheProcess/>
 
     </main>
   )
