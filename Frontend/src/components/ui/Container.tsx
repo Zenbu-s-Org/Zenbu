@@ -17,7 +17,7 @@ function Container({children, className, variant = "primary" }: ContainerProps) 
 
   return (
     <div className="relative flex">
-        <div className={`border-3 border-black p-2 z-2 bg-stone-50 rounded-xl ${className}`}>
+        <div className={`border-3 border-black p-2 z-2 bg-stone-50 rounded-xl w-full ${className}`}>
   {children}
 </div>
 <div className={`border-3 border-black absolute ${shadow} w-full h-full z-1 rounded-xl translate-x-2 translate-y-2`} />
