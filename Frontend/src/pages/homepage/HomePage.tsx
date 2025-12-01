@@ -34,7 +34,7 @@ function HomePage() {
      </Button>
      </div>
       <Banner/>
-      <TheProcess/>
+      
 
     </main>
   )
