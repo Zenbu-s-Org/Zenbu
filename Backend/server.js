@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./src/config/db.js";
+import menuRoutes from "./src/routes/menuRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+import orderRoutes from "./src/routes/orderRoutes.js";
 
 dotenv.config();
 
@@ -13,8 +16,13 @@ app.use(express.json()); // så att du kan läsa JSON i req.body
 
 // Test-route
 app.get("/", (req, res) => {
-  res.send("API is running 🚀");
+  res.send("API is running");
 });
+
+// Routes
+app.use("/api/menu", menuRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/users", userRoutes);
 
 // Starta servern + koppla DB
 const PORT = process.env.PORT || 5000;
