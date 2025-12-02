@@ -8,7 +8,7 @@ function HomePage() {
     <main>
       <section className='mt-15 flex flex-row justify-between'>
       <section className="pl-4">
-        <Label className="text-[11px] text-center rotate-4" variant="green">
+        <Label className="text-[11px] text-center rotate-4 mb-4" variant="green">
           BETTER FOOD, LESS NOICE
         </Label>
         <div className='text-[40px] font-[Bricolage_Grotesque] tracking-tighter leading-10 font-extrabold mt-1' >
