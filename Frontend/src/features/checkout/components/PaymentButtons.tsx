@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui"
 import { useState } from "react"
 
+
+
+// en hook för att kolla om en jwt är giltig eller ej? 
+
+
 function PaymentButtons({}) {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   return (
