@@ -1,0 +1,497 @@
+[
+  {
+    "name": "Tokyo Sunrise",
+    "description": "Sushiris, teriyaki-kyckling, edamame, gurka, avokado, sesamfrön, ponzu",
+    "price": 129,
+    "category": "signature-bowl",
+    "available": true,
+    "ingredients": ["Sushiris (vit)", "Teriyaki-kyckling", "Edamame", "Gurka", "Avokado", "Sesamfrön", "Ponzu"],
+    "customizable": false
+  },
+  {
+    "name": "Seoul Sister",
+    "description": "Jasminris, koreansk BBQ-biff, kimchi, picklad morot, vårlök, gochujang-mayo",
+    "price": 139,
+    "category": "signature-bowl",
+    "available": true,
+    "ingredients": ["Jasminris", "Koreansk BBQ-biff", "Kimchi", "Morot (picklad)", "Vårlök", "Koreansk gochujang-mayo"],
+    "customizable": false
+  },
+  {
+    "name": "Green Dragon",
+    "description": "Vegetarisk bowl med quinoa, crispy tofu, wakame, gurka, avokado, edamame, sesam-ingefära dressing",
+    "price": 125,
+    "category": "signature-bowl",
+    "available": true,
+    "ingredients": ["Quinoa", "Crispy tofu", "Wakame", "Gurka", "Avokado", "Edamame", "Sesam-ingefära"],
+    "customizable": false
+  },
+  {
+    "name": "Poke Paradise",
+    "description": "Sushiris, rå lax, mango, avokado, edamame, sesamfrön, yuzu-mayo",
+    "price": 145,
+    "category": "signature-bowl",
+    "available": true,
+    "ingredients": ["Sushiris (vit)", "Lax (rå poke-stil)", "Mango", "Avokado", "Edamame", "Sesamfrön", "Yuzu-majonnäs"],
+    "customizable": false
+  },
+  {
+    "name": "Bygg Din Egen Bowl",
+    "description": "Skapa din egen unika bowl med bas, protein, grönsaker och dressing",
+    "price": 135,
+    "category": "custom-bowl",
+    "available": true,
+    "ingredients": [],
+    "customizable": true
+  },
+  {
+    "name": "Sushiris (vit)",
+    "description": "Japansk sushiris",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Brunt ris",
+    "description": "Hälsosamt brunt ris",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Jasminris",
+    "description": "Doftande jasminris",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Udon-nudlar",
+    "description": "Tjocka japanska nudlar",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Soba-nudlar",
+    "description": "Bovete-nudlar",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Glasnudlar",
+    "description": "Genomskinliga risnudlar",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Salladsblanding",
+    "description": "Low-carb alternativ",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Quinoa",
+    "description": "Proteinrik quinoa",
+    "price": 0,
+    "category": "base",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Teriyaki-kyckling",
+    "description": "Sött och salt glaserad kyckling",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Koreansk BBQ-biff",
+    "description": "Marinerad koreansk biff",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Tempura-räkor",
+    "description": "Friterade räkor i tempurasmet",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Crispy tofu",
+    "description": "Krispig friterad tofu",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Lax (grillad)",
+    "description": "Grillad lax",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Lax (rå poke-stil)",
+    "description": "Rå marinerad lax",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Pulled pork",
+    "description": "Långkokt fläsk med hoisinsås",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Edamame",
+    "description": "Sojabönor (vegetariskt protein)",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Ägg (stekt)",
+    "description": "Stekt ägg",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Ägg (marinerat)",
+    "description": "Marinerat ägg",
+    "price": 0,
+    "category": "protein",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Edamame",
+    "description": "Sojabönor",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Gurka (skivad)",
+    "description": "Färsk skivad gurka",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Gurka (marinerad)",
+    "description": "Marinerad gurka",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Morot (strimlad)",
+    "description": "Färsk strimlad morot",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Morot (picklad)",
+    "description": "Picklad morot",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Rödkål (picklad)",
+    "description": "Picklad rödkål",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Avokado",
+    "description": "Färsk avokado",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Mango",
+    "description": "Färsk mango",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Sesamfrön",
+    "description": "Rostade sesamfrön",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Vårlök",
+    "description": "Färsk vårlök",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Koriander",
+    "description": "Färsk koriander",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Kimchi",
+    "description": "Fermenterad koreansk kål",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Wakame",
+    "description": "Sjögrässallad",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Picklad ingefära",
+    "description": "Syrlig ingefära",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Crispy onions",
+    "description": "Friterad lök",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Nori",
+    "description": "Torkad sjögräs",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Böngroddар",
+    "description": "Färska böngroddар",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Rädisor",
+    "description": "Färska rädisor",
+    "price": 0,
+    "category": "vegetable",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Srirachamajonnäs",
+    "description": "Kryddig mayo",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Ponzu",
+    "description": "Citrus-soja sås",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Sesam-ingefära",
+    "description": "Asiatisk dressing",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Sweet chili",
+    "description": "Söt och mild chilisås",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Teriyakisås",
+    "description": "Klassisk teriyaki",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Misoglaze",
+    "description": "Söt misoglaze",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Jordnötssås",
+    "description": "Thai-stil jordnötssås",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Koreansk gochujang-mayo",
+    "description": "Kryddig koreansk mayo",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Yuzu-majonnäs",
+    "description": "Citrus mayo",
+    "price": 0,
+    "category": "dressing",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Tempuraflakes",
+    "description": "Krispiga tempuraflagor",
+    "price": 0,
+    "category": "topping",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Wasabi-ärtor",
+    "description": "Kryddiga ärtor",
+    "price": 0,
+    "category": "topping",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Sesamfrön (rostade)",
+    "description": "Rostade sesamfrön",
+    "price": 0,
+    "category": "topping",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Chiliflakes",
+    "description": "Torkad chili",
+    "price": 0,
+    "category": "topping",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  },
+  {
+    "name": "Crispy wonton-strips",
+    "description": "Friterade wonton-remsor",
+    "price": 0,
+    "category": "topping",
+    "available": true,
+    "ingredients": [],
+    "customizable": false
+  }
+]

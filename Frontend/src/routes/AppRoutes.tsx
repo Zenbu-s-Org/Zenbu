@@ -1,17 +1,18 @@
 import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "@/layouts/MainLayout"
+import MenuPage from "@/pages/MenuPage/MenuPage"
 
 const router = createBrowserRouter([
     {
         element: <MainLayout />,
         children: [
-            {path: "/", element: <div>home</div>}
+            {path: "/", element: <div>home</div> }
         ]
     },
         {
         element: <MainLayout />,
         children: [
-            {path: "/menu", element: <div>menu</div>}
+            {path: "/menu", element: <MenuPage />}
         ]
     },
             {
