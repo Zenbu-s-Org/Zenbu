@@ -9,7 +9,6 @@ export const validateUser = (req, res, next) => {
     errors.push("Namn måste vara minst 4 tecken");
   }
 
-
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email) {
     errors.push("Email är obligatoriskt");
@@ -17,14 +16,12 @@ export const validateUser = (req, res, next) => {
     errors.push("Email är inte giltig");
   }
 
-
   if (!password) {
     errors.push("Lösenord är obligatoriskt");
   } else if (password.length < 8) {
     errors.push("Lösenord måste vara minst 8 tecken");
   }
 
- 
   if (role && !["customer", "admin"].includes(role)) {
     errors.push("Roll måste vara customer eller admin");
   }
