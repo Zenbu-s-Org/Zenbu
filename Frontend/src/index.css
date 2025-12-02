@@ -21,3 +21,8 @@
     @apply text-2xl
   }
 }
+
+.mySwiper .swiper-pagination {
+  bottom: -5px !important; /* move dots lower */
+}
+
