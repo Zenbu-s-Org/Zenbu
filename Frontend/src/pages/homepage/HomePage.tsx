@@ -1,6 +1,7 @@
 import { Label } from "../../components/ui"
 import { Button }from "../../components/ui"
 import Banner from "./components/Banner"
+import SignatureBowls from "./components/SignatureBowls"
 import TheProcess from "./components/TheProcess"
 function HomePage() {
   return (
@@ -33,9 +34,13 @@ function HomePage() {
       View
      </Button>
      </div>
+
       <Banner/>
+
       <TheProcess/>
 
+      <SignatureBowls/>
+      
     </main>
   )
 }
