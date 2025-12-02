@@ -19,16 +19,16 @@ const signatureInfo: signatureProps[] = [
 
 function SignatureBowls() {
   return (
-    <main className="pl-10 mb-10 ">
-        <h1 className="font-extrabold text-3xl mb-5">Signature Bowls</h1>
+    <main className="mb-10">
+        <h1 className="font-[Bricolage_Grotesque] pl-6 font-bold text-3xl mb-10">Signature Bowls</h1>
         <Swiper pagination={true} modules={[Pagination]} slidesPerView={1} className="mySwiper">
             {signatureInfo.map((info,index) => (
                 <SwiperSlide key={index} >
-                    <section className="w-[332px] h-[462px] border-2 rounded-xl p-2 flex flex-col justify-between mb-10">
+                    <section className="  border-2 rounded-xl p-6 flex flex-col justify-between mx-5 mb-5">
                     <img className="w-full h-full object-cover" src={info.src} alt={info.alt} />
                     <section className="flex flex-col gap-3">
-                    <p className="font-bold text-2xl">{info.title}</p>
-                    <p className="font-bold text-gray-500">{info.ingridient}</p>
+                    <p className="font-bold text-2xl font-[Nunito]">{info.title}</p>
+                    <p className="font-bold text-gray-500 font-[Nunito]">{info.ingridient}</p>
                     <button className="border-3 rounded-xl px-2 py-1 font-bold bg-lime-300 border-lime-900 text-lime-900 w-full">+ Buy</button>
                     </section>
                     </section>
