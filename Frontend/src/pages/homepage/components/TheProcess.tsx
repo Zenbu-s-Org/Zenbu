@@ -46,7 +46,7 @@ function TheProcess() {
         <Swiper pagination={true} modules={[Pagination]} slidesPerView={1} className="mySwiper" >
             {containerInfo.map((con,index) => (
                 <SwiperSlide key={index}>
-                <div className='p-6'>
+                <div className='p-6 pb-10'>
                 <Container className='p-2' variant={con.variant}>
                     <section className='flex flex-col items-center gap-5 w-[300px] h-[220px]'>
                         <section className='flex items-center w-full px-4'>

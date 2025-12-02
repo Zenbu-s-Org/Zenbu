@@ -24,7 +24,7 @@ function SignatureBowls() {
         <Swiper pagination={true} modules={[Pagination]} slidesPerView={1} className="mySwiper">
             {signatureInfo.map((info,index) => (
                 <SwiperSlide key={index} >
-                    <section className="  border-2 rounded-xl p-6 flex flex-col justify-between mx-5 mb-5">
+                    <section className="  border-2 rounded-xl p-6 flex flex-col justify-between mx-5 mb-8">
                     <img className="w-full h-full object-cover" src={info.src} alt={info.alt} />
                     <section className="flex flex-col gap-3">
                     <p className="font-bold text-2xl font-[Nunito]">{info.title}</p>
