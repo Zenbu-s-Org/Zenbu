@@ -7,7 +7,7 @@ function NavMenu() {
 
   return (
     <>
-      <nav className="relative">
+      <nav className="relative z-50">
 
         {!isOpen && (
           <button className="absolute top-5 right-4 lg:hidden" onClick={() => setIsOpen(true)}>
