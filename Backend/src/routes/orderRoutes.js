@@ -1,5 +1,6 @@
 import express from 'express';
 import Order from '../models/Order.js';
+import { validateOrder } from '../middlewares/validateOrder.js';
 
 const router = express.Router();
 
@@ -27,7 +28,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST anrop för att skapa ny order /api/orders
-router.post('/', async (req, res) => {
+router.post('/', validateOrder, async (req, res) => {
   try {
     const order = await Order.create(req.body);
     res.status(201).json(order);
