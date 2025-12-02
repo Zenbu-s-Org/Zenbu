@@ -9,13 +9,16 @@ function CartDisplay() {
   return (
     <>
     <Container variant="sky" className="min-h-60 flex flex-col items-center py-3">
-            <ul className="w-full">
-                {items.map((i) => (
-                    <li key={i.id}>
-                        <CartItem name={i.name} qty={i.qty}/>
-                    </li>
+        {items.length < 1 ? 
+        (<p>No cart found</p>) 
+        : 
+        (<ul className="w-full">
+            {items.map((i) => (
+                <li key={i.id}>
+                    <CartItem name={i.name} qty={i.qty}/>
+                </li>
                 ))}
-            </ul>
+        </ul>)}
             <span className="mt-auto text-2xl font-bold">{`Your Total: ${total} SEK`}</span>
         </Container>
     </>
