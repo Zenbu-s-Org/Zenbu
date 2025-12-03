@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui";
 import { type MenuItem } from "@/features/menu";
 import { useState } from "react";
-import { ArrowRightLeft } from "lucide-react";
+import { ArrowRightLeft, ArrowLeftRight } from "lucide-react";
 
 type SortButtonProps = {
     items: MenuItem[];
@@ -31,7 +31,7 @@ function SortButton({ items, onChange }: SortButtonProps) {
         ) : (
             <>
                 Price: low to high
-                <ArrowRightLeft />
+                <ArrowLeftRight />
             </>
         )}
     </Button>

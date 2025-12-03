@@ -29,6 +29,7 @@ function NavMenu() {
             <Link to="/" onClick={() => setIsOpen(false)}>Create your bowl</Link>
             <Link to="/about" onClick={() => setIsOpen(false)}>About us</Link>
             <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
+            <Link to="/signin" onClick={() => setIsOpen(false)}>Log In / Register</Link>
           </div>
 
           <div className="mt-auto pb-6 flex justify-center">
