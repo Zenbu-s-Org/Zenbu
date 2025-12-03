@@ -14,7 +14,7 @@ function CartDisplay() {
         : 
         (<ul className="w-full">
             {items.map((i) => (
-                <li key={i.id}>
+                <li key={i.id} className="my-1">
                     <CartItem name={i.name} qty={i.qty}/>
                 </li>
                 ))}
