@@ -25,10 +25,10 @@ function NavMenu() {
               close
             </button>
             
-            <Link to="/" onClick={() => setIsOpen(false)}>Menu</Link>
+            <Link to="/menu" onClick={() => setIsOpen(false)}>Menu</Link>
             <Link to="/" onClick={() => setIsOpen(false)}>Create your bowl</Link>
-            <Link to="/" onClick={() => setIsOpen(false)}>About us</Link>
-            <Link to="/" onClick={() => setIsOpen(false)}>Contact</Link>
+            <Link to="/about" onClick={() => setIsOpen(false)}>About us</Link>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
           </div>
 
           <div className="mt-auto pb-6 flex justify-center">
