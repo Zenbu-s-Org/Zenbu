@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type MenuItem } from "@/types/types";
+import { type MenuItem } from "@/features/menu";
 
 const allCategories = ["signature-bowl", "dressing"];
 

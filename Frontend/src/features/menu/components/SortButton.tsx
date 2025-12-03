@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui";
-import type { MenuItem } from "@/types/types";
+import { type MenuItem } from "@/features/menu";
 import { useState } from "react";
 import { ArrowRightLeft } from "lucide-react";
 
