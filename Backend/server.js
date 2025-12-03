@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/menu", menuRoutes);
-app.use("/api/orders", orderRoutes);
+app.use("/api/order", orderRoutes);
 app.use("/api/users", userRoutes);
 
 // Error handlers

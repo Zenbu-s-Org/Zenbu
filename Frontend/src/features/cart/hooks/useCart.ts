@@ -22,7 +22,7 @@ type CartState = {
     removeItem: (id: string) => void
     increaseQty: (id: string) => void 
     decreaseQty: (id: string) => void
-    // clearCart: () => void
+    clearCart: () => void
 
     getItemQty: (id: string) => number
     getTotalqty: () => number
@@ -89,6 +89,10 @@ export const useCart = create<CartState>((set, get) => ({
         const cart = get().items
         const total = cart.reduce((sum, item) => sum + item.qty * item.price, 0)
         return total
+    },
+    clearCart: () => {
+        saveCart([])
+        set({items: []})
     }
 
 }))

@@ -16,10 +16,10 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
     setPaymentMethod: (method) => set({paymentMethod: method}),
     setCustomer: (value) => set({ customer: value}),
     
-    submitOrder: () => {
+    submitOrder: async () => {
         const {paymentMethod, customer} = get()
-        const {items} = useCart.getState()
-        const totalPrice = useCart.getState().getTotalPrice()
+        const {items, getTotalPrice, clearCart} = useCart.getState()
+        const totalPrice = getTotalPrice()
 
         const order = {
             customer: customer,
@@ -28,7 +28,19 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
             totalPrice: totalPrice,
         }
 
-        console.log("order:", order)
+        const response = await fetch("http://localhost:5050/api/order", {
+            headers: {"Content-Type": "application/json"},
+            method: "POST", body: JSON.stringify(order)
+        })
+        if(!response.ok) {
+            console.error("Order failed")
+            return
+        }
+        const result = await response.json()
+        localStorage.setItem("currentOrder", result.orderNumber)     
+        clearCart()   
+        window.location.href = "/"
+
     },
 
 }))
