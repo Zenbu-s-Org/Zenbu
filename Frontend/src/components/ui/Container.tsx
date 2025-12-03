@@ -16,7 +16,7 @@ function Container({children, className, variant = "primary" }: ContainerProps) 
     const shadow = variants[variant]
 
   return (
-    <div className="relative flex">
+    <div className="relative flex z-0">
         <div className={`border-3 border-black p-2 z-2 bg-stone-50 rounded-xl w-full ${className}`}>
   {children}
 </div>
