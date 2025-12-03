@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import fireIcon from "../../../assets/flame-outline.png"
 import { Container } from '../../../components/ui'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -50,7 +50,7 @@ function TheProcess() {
                 <Container className='p-2' variant={con.variant}>
                     <section className='flex flex-col items-center gap-5 w-[300px] h-[220px]'>
                         <section className='flex items-center w-full px-4'>
-                        <img src="/flame-outline.png" alt="icon fire emoji" />
+                        <img src={fireIcon} alt="icon fire emoji" />
                         <p className='font-medium'>{con.title}</p>
                         </section>
                         <p className='max-w-[250px] font-medium font-[Nunito]' >{con.text}</p>

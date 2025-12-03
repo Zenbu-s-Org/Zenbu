@@ -1,4 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import laxbowl from "../../../assets/lax-bowl.png"
+import avocadobowl from "../../../assets/Avocado.png"
+import freshbowl from "../../../assets/freshbowl.png"
 import { Pagination } from 'swiper/modules';
 import "swiper/css";
 import "swiper/css/pagination";
@@ -11,9 +14,9 @@ type signatureProps = {
 }
 
 const signatureInfo: signatureProps[] = [
-    {src: "/lax-bowl.png",alt: "lax-bowl-spicy", title: "Spicy Bowl", ingridient: "Spicy | Fish"},
-    {src: "/Avocado.png",alt: "avocado-bowl-vegan", title: "Vegan Bowl", ingridient: "Mild | Vegan"},
-    {src: "/freshbowl.png",alt: "salmon-onion-mild", title: "Fresh Bowl", ingridient: "Mild |Fish"},
+    {src: laxbowl,alt: "lax-bowl-spicy", title: "Spicy Bowl", ingridient: "Spicy | Fish"},
+    {src: avocadobowl,alt: "avocado-bowl-vegan", title: "Vegan Bowl", ingridient: "Mild | Vegan"},
+    {src: freshbowl,alt: "salmon-onion-mild", title: "Fresh Bowl", ingridient: "Mild |Fish"},
   
 ]
 

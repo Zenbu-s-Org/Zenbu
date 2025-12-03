@@ -1,6 +1,10 @@
 import { Label } from "../../components/ui"
 import { Button }from "../../components/ui"
 import Banner from "./components/Banner"
+
+import heroImg from "../../assets/hero (1).png"
+import heroImg1 from "../../assets/hero.png"
+import waffle from "../../assets/Group.svg"
 import SignatureBowls from "./components/SignatureBowls"
 import TheProcess from "./components/TheProcess"
 function HomePage() {
@@ -20,9 +24,9 @@ function HomePage() {
       </section>
       <div className='absolute right-4 px-3'>
       <div className='relative w-[170px] h-[260px] mt-20 -z-24'>
-        <img className='w-[191px] absolute bottom-15 left-0 -z-10' src="/Group.svg" alt="" />
-        <img className='w-[145px] absolute top-0  z-4' src="/hero.png" alt="" />
-        <img className='w-[145px] absolute top-25 left-7  z-3'src="/hero (1).png" alt="" />
+        <img className='w-[191px] absolute bottom-15 left-0 -z-10' src={waffle} alt="" />
+        <img className='w-[145px] absolute top-0  z-4' src={heroImg1} alt="" />
+        <img className='w-[145px] absolute top-25 left-7  z-3'src={heroImg} alt="" />
       </div>
       </div>
       </section>
