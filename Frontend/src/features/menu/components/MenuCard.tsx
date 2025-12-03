@@ -10,7 +10,7 @@ type MenuCardProps = {
 }
 
 function MenuCard({ id, name, description, price }: MenuCardProps) {
-    const addItem = useCart((state) => state.addItem);
+    const {addItem} = useCart()
     
     const handleAddToCart = () => {
         addItem({ id, name, price });

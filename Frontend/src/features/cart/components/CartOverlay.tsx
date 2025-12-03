@@ -18,8 +18,10 @@ const totalPrice = getTotalPrice()
         {items.map(item => (
             <Counter id={item.id} key={item.id}/>
         ))}
-     <span className="mt-2 font-bold text-2xl">{`${totalPrice} SEK`}</span>   
+     <span className="mt-2 font-bold text-2xl">{`${totalPrice} SEK`}</span>
+     <a href="/order">   
     <Button variant="submit" className=" mb-2">View Order</Button>
+    </a>
     <button className="border-b-2 border-stone-900 text-xl px-2 mb-2"
     onClick={() => setOpen(false)}
     > Close Cart </button>
