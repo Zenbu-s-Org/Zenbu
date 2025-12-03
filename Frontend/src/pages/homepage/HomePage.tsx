@@ -1,7 +1,7 @@
 import { Label } from "../../components/ui"
 import { Button }from "../../components/ui"
 import Banner from "./components/Banner"
-
+import ConfirmationBanner from "@/features/orderconfirmation/ConfirmationBanner"
 import heroImg from "../../assets/hero (1).png"
 import heroImg1 from "../../assets/hero.png"
 import waffle from "../../assets/Group.svg"
@@ -10,6 +10,7 @@ import TheProcess from "./components/TheProcess"
 function HomePage() {
   return (
     <main>
+      <ConfirmationBanner/>
       <section className='mt-15 flex flex-row justify-between'>
       <section className="pl-4">
         <Label className="text-[11px] text-center rotate-4 mb-4" variant="green">
