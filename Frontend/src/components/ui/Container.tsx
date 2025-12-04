@@ -1,4 +1,4 @@
-type ContainerVariant = "primary" | "sky" | "green" | "orange"
+type ContainerVariant = "primary" | "sky" | "green" | "orange" 
 type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode;
   variant?: ContainerVariant;
