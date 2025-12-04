@@ -1,37 +1,49 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
+export function useFetch<T>(endpoint: string | null) {
+  const [data, setData] = useState<T | undefined>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-export function useFetch<T>(endpoint: string,) {
-    const [data, setData] = useState<T | undefined>();
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+  const BASE_URL = "http://localhost:5050/api";
+  const url = BASE_URL + endpoint ;
 
-    const BASE_URL = "http://localhost:5050/api";
-    const url = BASE_URL + endpoint
+  useEffect(() => {
 
-    useEffect(() => {
-        if (!url) return
-        async function fetchData() {
-          try {
-              setLoading(true)
-            const res = await fetch(url)
-            if (!res.ok) throw new Error(`HTTP error: ${res.status}`)
+    if (!url) {
+      setData(undefined);
+      setError(null);
+      setLoading(false);
+      return;
+    }
 
-            const json = (await res.json()) as T
-            setData(json)
+    let ignore = false; 
 
-          } catch (error: unknown) {
-            if(error instanceof Error) {
-                setError(error.message)
-            } else {
-                console.log("Unexpected error:", error)
-            }
-          } finally {
-            setLoading(false)
-          }        
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+
+        const json = (await res.json()) as T;
+        if (!ignore) setData(json);
+      } catch (err: unknown) {
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : "Unknown error");
         }
-        fetchData()
-    }, [url])
-        
-        return { data, loading, error}
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
+
+    fetchData();
+
+    return () => {
+      ignore = true; 
+    };
+  }, [url]);
+
+  return { data, loading, error };
 }

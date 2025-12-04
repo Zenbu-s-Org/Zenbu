@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 // GET-anrop för att hämta specifik order genom ID /api/orders/:id
 router.get("/:id", async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findOne({ orderNumber: req.params.id });
     if (!order) {
       return res.status(404).json({ message: "Order hittades inte" });
     }
