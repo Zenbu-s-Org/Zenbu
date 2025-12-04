@@ -8,27 +8,38 @@ const orderSchema = new mongoose.Schema(
       unique: true,
     },
     customer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      // ref: "User",
       required: true,
     },
     items: [
       {
-        menuItem: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "MenuItem",
+        id: {
+          type: String,
           required: true,
         },
-        quantity: {
+        name: {
+          type: String,
+          required: true,
+        },
+        qty: {
           type: Number,
           required: true,
           min: 1,
         },
-        customizations: [String],
+        price: {
+          type: Number,
+          required: true,
+        },
+        // customizations: [String],
       },
     ],
     totalPrice: {
       type: Number,
+      required: true,
+    },
+    paymentMethod: {
+      type: String,
       required: true,
     },
     status: {
@@ -36,12 +47,12 @@ const orderSchema = new mongoose.Schema(
       enum: ["pending", "preparing", "ready"],
       default: "pending",
     },
-    estimatedTime: {
-      type: Number,
-    },
-    specialInstructions: {
-      type: String,
-    },
+    // estimatedTime: {
+    //   type: Number,
+    // },
+    // specialInstructions: {
+    //   type: String,
+    // },
   },
   { timestamps: true }
 );

@@ -1,3 +1,4 @@
+import { useCheckout } from "../hooks/useCheckout"
 
 const methods = [
     {id: "swish", label: "Swish"},
@@ -5,10 +6,11 @@ const methods = [
     {id: "cash", label: "Cash"},
 ]
 
-function PaymentMethod({onSelect}: { onSelect: (value: string) => void}) {
+function PaymentMethod() {
+    const {setPaymentMethod} = useCheckout()
 
     function handleChange(value: string) {
-        onSelect(value)
+        setPaymentMethod(value)
     }
   return (
     <div className="w-full flex flex-col gap-4">

@@ -1,11 +1,10 @@
 import CartDisplay from "./components/CartDisplay"
 import PaymentMethod from "./components/PaymentMethod"
 import PaymentButtons from "./components/PaymentButtons"
-import { useState } from "react"
 
 function OrderPage() {
-    
-    const [paymentMethod, setPaymentMethod] = useState<string>("")
+  // funktion för att kolla om det är en guest eller inloggad
+
 
   return (
     <>
@@ -15,7 +14,7 @@ function OrderPage() {
         </section>
         <section className="w-full flex flex-col items-center gap-3">
         <h2>Payment Method</h2>
-        <PaymentMethod onSelect={(value) => setPaymentMethod(value)}/>
+        <PaymentMethod />
             </section>
             <section className="w-full flex flex-col items-center gap-3">
                 <PaymentButtons />

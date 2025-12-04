@@ -1,22 +1,21 @@
 export const validateOrder = (req, res, next) => {
-  const { orderNumber, customer, items, totalPrice } = req.body;
+  const { customer, items, totalPrice, paymentMethod } = req.body;
   const errors = [];
 
-  // Validera orderNumber, customer, items och totalPrice
-  if (!orderNumber) {
-    errors.push("Ordernummer är obligatoriskt");
-  }
-
   if (!customer) {
-    errors.push("Kund-ID är obligatoriskt");
+    errors.push("Customer must be provided");
   }
 
   if (!items || items.length === 0) {
-    errors.push("Order måste innehålla minst 1 item");
+    errors.push("Items must be more than 0");
+  }
+
+  if (!paymentMethod) {
+    errors.push("Payment method must be provided");
   }
 
   if (!totalPrice || totalPrice < 0) {
-    errors.push("Totalt pris är obligatoriskt och måste vara positivt");
+    errors.push("Total price of order must be provided");
   }
 
   // Om det uppstår fel, returnera dem

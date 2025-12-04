@@ -5,6 +5,10 @@ import { type MenuItem } from "@/features/menu";
 import { useState, useEffect } from "react";
 import { useFetch } from "@/hooks/useFetch";
 
+import { MenuList } from "@/features/menu";
+import type { MenuItem } from "@/features/menu";
+import { Cart } from "@/features/cart";
+
 function MenuPage() {
     const {data } = useFetch<MenuItem[]>("/menu")
     const [displayItems, setDisplayItems] = useState<MenuItem[]>([]);
@@ -21,6 +25,8 @@ function MenuPage() {
 
   return (
     <section className="flex flex-col items-center bg-stone-100">
+        <MenuList items={data} />
+        <Cart />
         <div className="w-full flex flex-col items-start mt-12 pl-12 gap-4">
           <SortButton  items={displayItems} onChange={setDisplayItems} />
           <CategoryFilter items={data ?? []} onChange={setDisplayItems} />
