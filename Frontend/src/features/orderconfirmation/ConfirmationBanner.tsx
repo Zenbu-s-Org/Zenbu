@@ -47,6 +47,8 @@ function ConfirmationBanner() {
     
 
   return (
+    <>
+    {orderId && 
     <main className={cn("w-[300px] text-[#7C2D12] absolute top-15 z-10",
         {"bg-orange-300": status === "pending"},
         {"bg-fuchsia-300": status === "preparing",},
@@ -58,7 +60,6 @@ function ConfirmationBanner() {
             <p className='font-bold'>Status: {status}</p>
         </section>
 
-        {/* {!orderId && <p className='text-center'>There is no order</p>}  */}
 
         {toggle && 
            items.map((e,i) => (
@@ -80,6 +81,11 @@ function ConfirmationBanner() {
               
         </section>
     </main>
+    
+    
+    }
+    
+    </>
   )
 }
 
