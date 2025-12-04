@@ -5,8 +5,6 @@ import { type MenuItem } from "@/features/menu";
 import { useState, useEffect } from "react";
 import { useFetch } from "@/hooks/useFetch";
 
-import { MenuList } from "@/features/menu";
-import type { MenuItem } from "@/features/menu";
 import { Cart } from "@/features/cart";
 
 function MenuPage() {
