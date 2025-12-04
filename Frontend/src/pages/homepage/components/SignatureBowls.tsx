@@ -22,7 +22,7 @@ const signatureInfo: signatureProps[] = [
 
 function SignatureBowls() {
   return (
-    <main className="mb-10">
+    <section className="mb-10">
         <h1 className="font-[Bricolage_Grotesque] pl-6 font-bold text-3xl mb-10">Signature Bowls</h1>
         <Swiper pagination={true} modules={[Pagination]} slidesPerView={1} className="mySwiper">
             {signatureInfo.map((info,index) => (
@@ -41,7 +41,7 @@ function SignatureBowls() {
             
         </Swiper>
         
-    </main>
+    </section>
   )
 }
 
