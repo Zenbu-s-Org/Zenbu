@@ -10,9 +10,18 @@ import { errorHandler, notFound } from "./src/middlewares/errorHandler.js";
 dotenv.config();
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://zenbu-app.s3-website.eu-north-1.amazonaws.com",
+];
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json()); // så att du kan läsa JSON i req.body
 
 // Test-route
