@@ -38,7 +38,7 @@ function TheProcess() {
 
     
   return (
-    <main className='mb-20 mt-5'>
+    <section className='mb-20 mt-5'>
         <section className='pl-8'>
         <h1 className='text-2xl font-bold font-[Bricolage_Grotesque]'>The Process</h1>
         <p className='mb-3'>Follow along how we do things</p>
@@ -68,7 +68,7 @@ function TheProcess() {
          </Swiper>
                  
        
-    </main>
+    </section>
   )
 }
 
