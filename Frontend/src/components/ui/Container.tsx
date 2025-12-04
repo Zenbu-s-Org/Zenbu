@@ -1,10 +1,10 @@
 type ContainerVariant = "primary" | "sky" | "green" | "orange"
-type ContainerProps = {
-    children: React.ReactNode 
-    variant?: ContainerVariant
-    className?: string
-}
-function Container({children, className, variant = "primary" }: ContainerProps) {
+type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode;
+  variant?: ContainerVariant;
+  className?: string;
+};
+function Container({children, className, variant = "primary", ...props }: ContainerProps) {
 
     const variants = {
         primary: "bg-black",
@@ -16,10 +16,10 @@ function Container({children, className, variant = "primary" }: ContainerProps) 
     const shadow = variants[variant]
 
   return (
-    <div className="relative flex z-0">
-        <div className={`border-3 border-black p-2 z-2 bg-stone-50 rounded-xl w-full ${className}`}>
-  {children}
-</div>
+    <div className="relative flex z-0" >
+        <div className={`border-3 border-black p-2 z-2 bg-stone-50 rounded-xl w-full ${className}`} {...props}>
+            {children}
+        </div>
 <div className={`border-3 border-black absolute ${shadow} w-full h-full z-1 rounded-xl translate-x-2 translate-y-2`} />
     </div>
 
