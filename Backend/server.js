@@ -5,6 +5,7 @@ import { connectDB } from "./src/config/db.js";
 import menuRoutes from "./src/routes/menuRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import orderRoutes from "./src/routes/orderRoutes.js";
+import { errorHandler, notFound } from "./src/middlewares/errorHandler.js";
 
 dotenv.config();
 
@@ -24,8 +25,12 @@ app.use("/api/menu", menuRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
 
+// Error handlers
+app.use(notFound);
+app.use(errorHandler);
+
 // Starta servern + koppla DB
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
