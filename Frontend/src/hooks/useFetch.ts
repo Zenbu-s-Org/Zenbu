@@ -5,7 +5,7 @@ export function useFetch<T>(endpoint: string | null) {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const BASE_URL = "http://localhost:5050/api";
+  const BASE_URL = "https://zenbu-ajsi.onrender.com/api";
   const url = BASE_URL + endpoint ;
 
   useEffect(() => {
