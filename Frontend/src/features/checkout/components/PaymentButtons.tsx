@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui";
 import { useCheckout } from "../hooks/useCheckout";
-import { useNavigate } from "react-router-dom";
 
 function PaymentButtons() {
   const { setCustomer, submitOrder, paymentMethod } = useCheckout();

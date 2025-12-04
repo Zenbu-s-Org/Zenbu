@@ -3,8 +3,6 @@ import laxbowl from "../../../assets/lax-bowl.png"
 import avocadobowl from "../../../assets/Avocado.png"
 import freshbowl from "../../../assets/freshbowl.png"
 import { Pagination } from 'swiper/modules';
-import "swiper/css";
-import "swiper/css/pagination";
 
 type signatureProps = {
     src: string,

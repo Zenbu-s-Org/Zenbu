@@ -2,11 +2,9 @@ import fireIcon from "../../../assets/flame-outline.png"
 import { Container } from '../../../components/ui'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import "swiper/css";
-import "swiper/css/pagination";
 
 type containerProps = {
-    variant: string,
+    variant: "sky" | "green" | "orange",
     title: string,
     text: string,
 }
