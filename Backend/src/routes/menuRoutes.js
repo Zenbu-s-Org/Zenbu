@@ -1,6 +1,6 @@
 import express from "express";
 import MenuItem from "../models/MenuItem.js";
-
+import { nanoid } from 'nanoid'
 const router = express.Router();
 
 // GET-anrop för att hämta alla rätter /api/menu
@@ -30,11 +30,14 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req,res) => {
   try {
-    const {name, price, category} = req.body
+    const {name, price, category, img} = req.body
+    const id = `prod-${nanoid(5)}`
     const newProduct = await MenuItem.create({
       name: name,
       price: price, 
       category: category,
+      img: img,
+      id: id,
       createdAt: new Date().toISOString()
     })
    
@@ -47,6 +50,27 @@ router.post("/", async (req,res) => {
   } catch (error) {
      res.status(500).json({ message: error.message });
     
+  }
+})
+
+//uppdatera menuproduct
+
+router.put("/:id", async (req,res) => {
+  try {
+    const { name, price, category, img } = req.body
+    
+    const updatedProduct = await MenuItem.findByIdAndUpdate(
+      req.params.id, //söker efter id
+      {name,price,category,img},
+      {new: true}
+    )
+    res.status(201).json({
+      success: true,
+      message: "product updated",
+      product: updatedProduct
+    })
+  } catch (error ) {
+    res.status(500).json({ message: error.message });
   }
 })
 
