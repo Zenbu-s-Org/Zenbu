@@ -48,25 +48,53 @@ router.post("/", validateOrder, async (req, res) => {
 //PUT-anrop för att updatera en order
 
 router.put("/:id", validateOrder, async (req,res) => {
-  
-  const {status} = req.body
+  try {
+    const {status} = req.body
   const updatedOrder = await Order.findOneAndUpdate(
-    {orderNumber: req.params.orderNumber}, //söker id
+    {orderNumber: req.params.id}, //söker id
     {status}, //req in body
     {new: true}
   )
-  res.status(200).json({
-    success: true,
-    message: "order updated",
-    order: updatedOrder
-  })
-  if(!updatedOrder){
-    res.status(404).json({
+    if(!updatedOrder){
+    return res.status(404).json({
       success: false,
       message: "order not found"
     })
   }
+  return res.status(200).json({
+    success: true,
+    message: "order updated",
+    order: updatedOrder
+  })
 
+
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  
 } )
+
+router.delete("/:id", async (req,res) => {
+  try {
+    const deleteOrder = await Order.findOneAndDelete(
+    {orderNumber: req.params.id}
+  )
+  if(!deleteOrder){
+    return res.status(404).json({
+      success: false,
+      message: "order hittades inte"
+    })
+  }
+  return res.status(200).json({
+    success: true,
+    message: "order raderad",
+    order: deleteOrder
+  })
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
 
 export default router;
