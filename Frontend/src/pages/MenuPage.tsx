@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useFetch } from "@/hooks/useFetch";
 
 import { Cart } from "@/features/cart";
+import BuildYourBowl from "@/features/buildyourbowl/BuildYourBowl";
 
 function MenuPage() {
     const {data } = useFetch<MenuItem[]>("/menu")
@@ -22,13 +23,14 @@ function MenuPage() {
     }, [data]);
 
   return (
-    <section className="flex flex-col items-center bg-stone-100">
+    <section className="flex flex-col items-center bg-stone-100 lg:px-35">
         <Cart />
         <div className="w-full flex flex-col items-start mt-12 pl-12 gap-4">
           <SortButton  items={displayItems} onChange={setDisplayItems} />
           <CategoryFilter items={data ?? []} onChange={setDisplayItems} />
         </div>
         <MenuList items={displayItems} />
+        <BuildYourBowl />
     </section>
   )
 }
