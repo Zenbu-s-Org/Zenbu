@@ -6,7 +6,7 @@ const menuItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    desc: {
       type: String,
     },
     price: {
@@ -27,6 +27,7 @@ const menuItemSchema = new mongoose.Schema(
         "vegetable",
         "dressing",
         "topping",
+        "bowl"
       ],
       required: true,
     },

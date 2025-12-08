@@ -49,10 +49,10 @@ router.post("/", validateOrder, async (req, res) => {
 
 router.put("/:id", validateOrder, async (req,res) => {
   try {
-    const {status} = req.body
+    const { status } = req.body
   const updatedOrder = await Order.findOneAndUpdate(
     {orderNumber: req.params.id}, //söker id
-    {status}, //req in body
+    { status }, //req in body
     {new: true}
   )
     if(!updatedOrder){

@@ -30,12 +30,13 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req,res) => {
   try {
-    const {name, price, category, img} = req.body
+    const {name, price, category, img, desc} = req.body
     const id = `prod-${nanoid(5)}`
     const newProduct = await MenuItem.create({
       name: name,
       price: price, 
       category: category,
+      desc: desc,
       img: img,
       id: id,
       createdAt: new Date().toISOString()
@@ -57,11 +58,11 @@ router.post("/", async (req,res) => {
 
 router.put("/:id", async (req,res) => {
   try {
-    const { name, price, category, img } = req.body
+    const { name, price, category, img ,desc } = req.body
     
     const updatedProduct = await MenuItem.findByIdAndUpdate(
       req.params.id, //söker efter id
-      {name,price,category,img}, //req body
+      {name,price,category,img,desc}, //req body
       {new: true}
     )
     res.status(201).json({
