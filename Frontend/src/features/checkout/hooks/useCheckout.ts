@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { useCart } from "@/features/cart";
 
-type CheckoutState = {
+type CheckoutProps = {
     paymentMethod: string | null,
     customer: string | null,
     setPaymentMethod: (method: string) => void,
@@ -9,7 +9,7 @@ type CheckoutState = {
     submitOrder: () => void
 }
 
-export const useCheckout = create<CheckoutState>((set, get) => ({
+export const useCheckout = create<CheckoutProps>((set, get) => ({
     paymentMethod: null,
     customer: null,
 
