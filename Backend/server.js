@@ -2,9 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./src/config/db.js";
+import cookieParser from "cookie-parser";
 import menuRoutes from "./src/routes/menuRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import orderRoutes from "./src/routes/orderRoutes.js";
+import authRoutes from "./src/routes/authRoutes.js";
 import { errorHandler, notFound } from "./src/middlewares/errorHandler.js";
 
 dotenv.config();
@@ -22,7 +24,8 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json()); // så att du kan läsa JSON i req.body
+app.use(express.json()); // för att kunna läsa JSON i request body
+app.use(cookieParser()); // För att du kan läsa cookies i req.cookies
 
 // Test-route
 app.get("/", (req, res) => {
@@ -33,6 +36,7 @@ app.get("/", (req, res) => {
 app.use("/api/menu", menuRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 // Error handlers
 app.use(notFound);
