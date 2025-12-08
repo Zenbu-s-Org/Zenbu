@@ -26,4 +26,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//post anrop för att göra ett nytt item i menyn
+
+router.post("/", async (req,res) => {
+  try {
+    const {name, price, category} = req.body
+    const newProduct = await MenuItem.create({
+      name: name,
+      price: price, 
+      category: category,
+      createdAt: new Date().toISOString()
+    })
+   
+        res.status(201).json({
+        success: true,
+        message: "product added to menu",
+        product: newProduct
+      })
+    
+  } catch (error) {
+     res.status(500).json({ message: error.message });
+    
+  }
+})
+
 export default router;
