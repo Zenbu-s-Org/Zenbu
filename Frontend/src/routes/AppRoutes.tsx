@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "@/layouts/MainLayout"
-import AdminLayout from "@/layouts/AdminLayout"
+import { AdminLayout } from "@/features/admin"
 import MenuPage from "@/pages/MenuPage"
 import OrderPage from "@/pages/OrderPage"
 import HomePage from "@/pages/homepage/HomePage"
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     path: "/admin",               
     element: <AdminLayout />,
     children: [
-      { index: true, element: <h1>Dashboard</h1> },   
+      { index: true, element: <><h1 className="text-2xl">Welcome to zenbu dashboard</h1></>},   
       { path: "orders", element: <h1>Orders</h1> },   
       { path: "menu", element: <h1>Menu</h1> },      
       { path: "inventory", element: <h1>Inventory</h1> }, 
