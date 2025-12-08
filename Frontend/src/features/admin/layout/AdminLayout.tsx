@@ -5,7 +5,7 @@ function AdminLayout() {
   return (
     <>
     <AdminHeader />
-    <main className="pt-5 flex flex-col items-center">
+    <main className="">
         <Outlet />
     </main>
     </>

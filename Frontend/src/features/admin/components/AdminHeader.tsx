@@ -16,7 +16,7 @@ function AdminHeader() {
             <Button variant="link">Sign Out</Button>
             </Link>
         </div>
-        <nav className="w-full border-b-3 border-stone-600 text-lg font-semibold flex justify-around">
+        <nav className="w-full border-b border-stone-400 text-lg font-semibold flex justify-around">
             <AdminNavLink to="/admin/orders">Orders</AdminNavLink>
             <AdminNavLink to="/admin/menu">Menu</AdminNavLink>
             <AdminNavLink to="/admin/inventory">Inventory</AdminNavLink>

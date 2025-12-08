@@ -4,17 +4,18 @@ type InputProps = {
     placeholder: string
     error?: string
     value: string | number
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    className?: string 
 }
 
-function Input({label, type, error, value, onChange, placeholder }: InputProps) {
+function Input({label, type, error, value, onChange, placeholder, className }: InputProps) {
   return (
     <div className="relative p-1 flex flex-col gap-1">
         <input type={type} 
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className="border-3 border-stone-900 shadow-[5px_5px_0_#1c1917] rounded-xl px-3 py-1"
+        className={`border-3 border-stone-900 shadow-[5px_5px_0_#1c1917] rounded-xl px-3 py-1 ${className}`}
         />
         <span className="absolute left-4 text-sm bg-stone-50 -top-1 px-2 font-semibold">{label}</span>
         {error && <span className="text-red-500 font-semibold">{error}</span>}
