@@ -61,7 +61,7 @@ router.put("/:id", async (req,res) => {
     
     const updatedProduct = await MenuItem.findByIdAndUpdate(
       req.params.id, //söker efter id
-      {name,price,category,img},
+      {name,price,category,img}, //req body
       {new: true}
     )
     res.status(201).json({
@@ -71,6 +71,26 @@ router.put("/:id", async (req,res) => {
     })
   } catch (error ) {
     res.status(500).json({ message: error.message });
+  }
+})
+
+//delete menu product
+
+router.delete("/:id", async (req,res) => {
+  try {
+    const deleteProduct = await MenuItem.findByIdAndDelete(
+      req.params.id,
+      
+    )
+    res.status(201).json({
+      success: true,
+      product: deleteProduct,
+      message: "product successfully deleted from menu"
+      
+
+    })
+  } catch (error) {
+    
   }
 })
 
