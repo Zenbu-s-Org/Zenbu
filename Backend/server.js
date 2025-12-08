@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./src/config/db.js";
 import menuRoutes from "./src/routes/menuRoutes.js";
+import ingredientRoutes from "./src/routes/ingredientRoutes.js"
 import userRoutes from "./src/routes/userRoutes.js";
 import orderRoutes from "./src/routes/orderRoutes.js";
 import { errorHandler, notFound } from "./src/middlewares/errorHandler.js";
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/menu", menuRoutes);
+app.use("/api/ingredients", ingredientRoutes)
 app.use("/api/order", orderRoutes);
 app.use("/api/users", userRoutes);
 
