@@ -1,8 +1,8 @@
 
 import { Button } from "@/components/ui"
-import type { Order } from "../types"
+import type { Order } from "@/features/admin/types"
 import { useModal } from "@/components/modal"
-import SectionLabel from "../../components/SectionLabel"
+import { SectionLabel } from "../../components"
 import { useState } from "react"
 
 type Props = {

@@ -2,7 +2,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { Label } from "@/components/ui";
 import {DataTable} from "@/components/ui";
 
-import type { Order } from "../types";
+import type { Order } from "@/features/admin/types"
 
 type OrderTableProps = {
     data: Order[]

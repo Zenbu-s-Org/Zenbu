@@ -1,6 +1,7 @@
 export type Ingredient = {
     id: string,
-    name: string
+    name: string,
+    category: string
 }
 
 export type Product = {
