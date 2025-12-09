@@ -1,6 +1,7 @@
 import express from "express";
 import Order from "../models/Order.js";
 import { validateOrder } from "../middlewares/validateOrder.js";
+import { protect } from "../middlewares/authMiddleware.js";
 import { nanoid } from "nanoid";
 const router = express.Router();
 
@@ -14,7 +15,48 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET-anrop för att hämta stats för en specifik användare /api/orders/stats/:userId
+router.get("/stats/:userId", protect, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Hämta alla orders för användaren
+    const orders = await Order.find({ customer: userId });
+
+    // Räkna ut statistik
+    const totalOrders = orders.length;
+    const amountSpent = orders.reduce(
+      (sum, order) => sum + order.totalPrice,
+      0
+    );
+
+    res.json({
+      totalOrders,
+      amountSpent,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET-anrop för att hämta alla orders för en specifik användare /api/order/user/:userId
+router.get("/user/:userId", protect, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const orders = await Order.find({ customer: userId })
+      .sort({ createdAt: -1 })
+      .limit(3);
+
+    res.json(orders);
+  } catch (error) {
+    console.error("Error fetching user orders:", error); // För debugging
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // GET-anrop för att hämta specifik order genom ID /api/orders/:id
+
 router.get("/:id", async (req, res) => {
   try {
     const order = await Order.findOne({ orderNumber: req.params.id });

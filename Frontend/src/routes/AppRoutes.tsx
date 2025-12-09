@@ -5,6 +5,7 @@ import OrderPage from "@/pages/OrderPage"
 import HomePage from "@/pages/homepage/HomePage"
 import LoginPage from "@/pages/LoginPage"
 import RegisterPage from "@/pages/RegisterPage"
+import UserDashboard from "@/features/dashboard/UserDashboard"
 
 const router = createBrowserRouter([
     {
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
             {path: "/contact", element: <div>contact</div>},
             {path: "/about", element: <div>about</div>},
             {path: "/login", element: <LoginPage />},
-            {path: "/register", element: <RegisterPage />}
+            {path: "/register", element: <RegisterPage />},
+            {path: "/dashboard", element: <UserDashboard />}
         ]
     }
 ])
