@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
 import redLogo from "../assets/red-logo.svg"
+import { useAuthStore } from "@/stores/authStore";
 
 function NavMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <>
@@ -26,10 +28,14 @@ function NavMenu() {
             </button>
             
             <Link to="/menu" onClick={() => setIsOpen(false)}>Menu</Link>
-            <Link to="/" onClick={() => setIsOpen(false)}>Create your bowl</Link>
             <Link to="/about" onClick={() => setIsOpen(false)}>About us</Link>
             <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
-            <Link to="/signin" onClick={() => setIsOpen(false)}>Log In / Register</Link>
+            <Link 
+              to={isAuthenticated ? "/myaccount" : "/login"} 
+              onClick={() => setIsOpen(false)}
+            >
+              {isAuthenticated ? "My Account" : "Sign In"}
+            </Link>
           </div>
 
           <div className="mt-auto pb-6 flex justify-center">
@@ -39,7 +45,6 @@ function NavMenu() {
         
         <div className="hidden lg:flex gap-12 font-bold text-stone-900 font-['Nunito'] text-xl">
           <Link to="/">Menu</Link>
-          <Link to="/">Create your bowl</Link>
           <Link to="/">About us</Link>
           <Link to="/">Contact</Link>
         </div>
