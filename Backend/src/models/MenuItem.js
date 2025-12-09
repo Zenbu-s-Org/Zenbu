@@ -6,23 +6,23 @@ const menuItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    desc: {
       type: String,
     },
     price: {
       type: Number,
       required: true,
     },
+    img: {
+      type: String,
+      required: true
+    },
     category: {
       type: String,
       enum: [
-        "signature-bowl",
-        "custom-bowl",
-        "base",
-        "protein",
-        "vegetable",
-        "dressing",
-        "topping",
+        "bowl",
+        "drink",
+        "extra"
       ],
       required: true,
     },
@@ -31,10 +31,6 @@ const menuItemSchema = new mongoose.Schema(
       default: true,
     },
     ingredients: [String],
-    customizable: {
-      type: Boolean,
-      default: false,
-    },
   },
   { timestamps: true }
 );
