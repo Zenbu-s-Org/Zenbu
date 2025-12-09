@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { type MenuItem } from "@/features/menu";
 
-const allCategories = ["signature-bowl", "dressing"];
+const allCategories = ["bowl", "drink"];
 
 const categoryTitles: Record<string, string> = {
-  "signature-bowl": "Signature Bowls",
-  "dressing": "Extras",
+  "bowl": "Signature Bowls",
+  "drink": "Drinks",
 };
 
 type CategoryFilterProps = {

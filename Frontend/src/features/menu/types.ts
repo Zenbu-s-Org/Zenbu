@@ -1,10 +1,16 @@
+export type MenuIngredient = {
+  id: string;
+  name: string;
+  type: "base" | "protein" | "veg" | "sauce" | string;
+}
+
 export type MenuItem = {
   _id: string;
+  id: string;
   name: string;
-  description?: string;
-  price: number;
   category: string;
-  available: boolean;
-  ingredients?: string[];
-  customizable: boolean;
+  img?: string;
+  price: number;
+  desc?: string
+  ingredients?: MenuIngredient[];
 };
