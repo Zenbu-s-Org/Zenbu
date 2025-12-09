@@ -1,8 +1,14 @@
+export type Ingredient = {
+    id: string,
+    name: string
+}
+
 export type Product = {
     name: string, 
     id: string,
     price: number,
-    qty: number
+    qty: number,
+    ingredients: Ingredient[]
 }
 
 export type Order = {

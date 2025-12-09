@@ -2,18 +2,13 @@ import { Input } from "@/components/ui"
 import { useState } from "react"
 import { testData } from "./testData"
 import OrdersTable from "./components/OrdersTable"
-import Modal from "../components/Modal"
-import type { Order } from "./types"
+import OrderModal from "./components/OrderModal"
+import { useModal } from "@/components/modal"
+
 
 function OrdersPage() {
   const [searchValue, setSearchValue] = useState<string>("")
-  const [selected, setSelected ] = useState<Order | null>(null)
-  const [open, setOpen ] = useState<boolean>(false)
-
-const handleClick = (e) => { 
-  setSelected(e)
-  setOpen(true)
-}
+  const {openModal} = useModal()
 
   return (
     
@@ -23,12 +18,9 @@ const handleClick = (e) => {
       <section className="w-full px-3">
         <OrdersTable 
         data={testData}
-        onSelect={handleClick}
+        onSelect={(order) => openModal(<OrderModal order={order} />)}
         />
       </section>
-      <Modal onClose={() => setOpen(false)} open={open}>
-        <span>{selected?.orderNumber}</span>
-      </Modal>
    </div>
   
   )

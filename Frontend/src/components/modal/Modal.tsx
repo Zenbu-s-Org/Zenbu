@@ -1,19 +1,16 @@
-import { motion, AnimatePresence } from "motion/react"
-import { Container } from "@/components/ui"
+import { motion, AnimatePresence } from "motion/react";
+import { useModal } from "./useModal";
+import { Container } from "../ui";
 
-type ModalProps = {
-  open: boolean
-  onClose: () => void
-  children: React.ReactNode
-}
+function Modal() {
+    const { isOpen, content, closeModal} = useModal()
 
-function Modal({ open, onClose, children }: ModalProps) {
-  return (
-    <AnimatePresence>
-      {open && (
+    return ( 
+         <AnimatePresence>
+      {isOpen && (
         <motion.div
           className="fixed inset-0 z-50 bg-black/20 backdrop-blur-xs"
-          onClick={onClose}
+          onClick={closeModal}
           initial={{opacity: 0}}
           animate={{opacity: 1}}
           exit={{opacity: 0}}
@@ -27,14 +24,14 @@ function Modal({ open, onClose, children }: ModalProps) {
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ type: "tween", ease: "easeOut" }}
           >
-            <Container className="min-h-100 flex flex-col">
-            {children}
+            <Container className="flex flex-col">
+            {content}
             </Container>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
-  )
+    )
 }
 
 export default Modal
