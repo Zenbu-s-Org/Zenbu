@@ -30,7 +30,7 @@ function SignatureBowls() {
       setToggle(true)
       setTimeout(()=> {
         setToggle(false)
-      },1500)
+      },2000)
         
     }
     
@@ -46,7 +46,7 @@ function SignatureBowls() {
                     <p className="font-bold text-2xl font-[Nunito]">{info.name}</p>
                     <p className="font-bold text-gray-500 font-[Nunito]">{info.ingredient}</p>
                     <button onClick={()=> handleButton(info)}className="border-3 rounded-xl px-2 py-1 font-bold bg-lime-300 border-lime-900 text-lime-900 w-full">+ Buy</button>
-                    {toggle && <p>Added to cart</p>}
+                    {toggle && <p className='absolute right-10  font-bold animate-bounce text-orange-600 border-b p-1'>Added to cart</p>}
                     </section>
                     </section>
             </SwiperSlide>
