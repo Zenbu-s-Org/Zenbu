@@ -7,6 +7,13 @@ import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import UserDashboard from "@/features/dashboard/UserDashboard";
 
+import { AdminLayout } from "@/features/admin";
+import {
+  AdminMenuPage,
+  AdminInventoryPage,
+  AdminOrdersPage,
+} from "@/features/admin";
+
 const router = createBrowserRouter([
   {
     element: <MainLayout />,
@@ -19,6 +26,23 @@ const router = createBrowserRouter([
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <RegisterPage /> },
       { path: "/dashboard", element: <UserDashboard /> },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <>
+            <h1 className="text-2xl">Welcome to zenbu dashboard</h1>
+          </>
+        ),
+      },
+      { path: "orders", element: <AdminOrdersPage /> },
+      { path: "menu", element: <AdminMenuPage /> },
+      { path: "inventory", element: <AdminInventoryPage /> },
     ],
   },
 ]);
