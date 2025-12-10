@@ -19,7 +19,6 @@ const statusMessages: Record<OrderStatus, string> = {
 }
 
 
-
 function OrderModal({order}: Props) {
 const {closeModal} = useModal()
 const date = new Date(order.createdAt)
@@ -28,7 +27,7 @@ const [status, setStatus ] = useState<OrderStatus>(order.status)
 const statusMsg = statusMessages[order.status]
 
   return (
-    <div className="flex flex-col items-center gap-5 p-5">
+    <div className="flex flex-col items-center gap-5">
       <h2>Order: {order.orderNumber}</h2>
       <p>Status: {statusMsg}</p>
       <SectionLabel label="customer"><p>{order.customer}</p></SectionLabel>

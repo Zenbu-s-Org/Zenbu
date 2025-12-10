@@ -2,6 +2,7 @@ import type { MenuItem } from "@/features/menu"
 import { Button, Input } from "@/components/ui"
 import { SectionLabel } from "../../components"
 import { useState } from "react"
+import { useModal } from "@/components/modal"
 
 type Props = {
   data: MenuItem
@@ -10,6 +11,8 @@ type Props = {
 const CATEGORY_OPTIONS = ["drink", "bowl", "extra"] as const
 
 function MenuModal({data}: Props) {
+  const {closeModal} = useModal()
+
   const [name, setName] = useState(data.name)
   const [desc, setDesc] = useState(data.description ?? "")
   const [price, setPrice] = useState(data.price)
@@ -27,8 +30,9 @@ function MenuModal({data}: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full gap-10 bg-stone-50">
       <h2>{data._id}</h2>
+      <div className="w-full flex flex-col gap-5">
       <Input 
         label="Name"
         type="text"
@@ -50,6 +54,7 @@ function MenuModal({data}: Props) {
         onChange={(e) => setDesc(e.target.value)}
         placeholder="Product Description"
       />
+      </div>
 
             <SectionLabel label="category">
                   <select
@@ -64,6 +69,10 @@ function MenuModal({data}: Props) {
           ))}
         </select>
       </SectionLabel>
+      <div className="w-full flex flex-col gap-3">
+      <Button variant="submit" onClick={handleSave}>Save Changes</Button>
+      <Button variant="outline" onClick={closeModal}>Cancel</Button>
+      </div>
     </div>
   )
 }

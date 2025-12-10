@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useModal } from "./useModal";
-import { Container } from "../ui";
+
 
 function Modal() {
     const { isOpen, content, closeModal} = useModal()
@@ -17,16 +17,16 @@ function Modal() {
           transition={{duration: 0.3}}
         >
           <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-100"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 min-w-100"
             onClick={(e) => e.stopPropagation()}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ type: "tween", ease: "easeOut" }}
           >
-            <Container className="flex flex-col">
+            <div className="flex flex-col rounded-lg border-3 border-stone-900 bg-stone-50 p-10">
             {content}
-            </Container>
+            </div>
           </motion.div>
         </motion.div>
       )}
