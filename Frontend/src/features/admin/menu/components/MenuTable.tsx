@@ -17,7 +17,7 @@ const columns: ColumnDef<MenuItem>[] = [
     accessorKey: "name",
     header: "Name",
     enableSorting: true,
-    cell: ({ getValue }) => <span className="font-semibold">{getValue<string>()}</span>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     accessorKey: "price",
