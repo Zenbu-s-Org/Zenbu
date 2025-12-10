@@ -1,8 +1,4 @@
-export type Ingredient = {
-    id: string,
-    name: string,
-    category: string
-}
+import type { Ingredient } from "../buildyourbowl/types"
 
 export type Product = {
     name: string, 

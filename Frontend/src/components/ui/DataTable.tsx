@@ -7,6 +7,7 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
 
 type DataTableProps<T extends object> = {
   data: T[];
@@ -40,8 +41,7 @@ function DataTable<T extends object>({data, columns, onSelect}: DataTableProps<T
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     {flexRender(header.column.columnDef.header, header.getContext())}
-                    {isSorted === "asc" && "▲"}
-                    {isSorted === "desc" && "▼"}
+                    {isSorted === "asc" ? <ChevronUp size={15}/> : isSorted === "desc" ? <ChevronDown size={15}/> : <ChevronsUpDown size={15}/>}
                   </div>
                 </th>
               );
