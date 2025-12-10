@@ -12,10 +12,12 @@ export type Product = {
     ingredients: Ingredient[]
 }
 
+export type OrderStatus = "pending" | "preparing" | "ready" | "completed" | "cancelled"
+
 export type Order = {
     orderNumber: string,
     customer: string,
-    status: string,
+    status: OrderStatus,
     totalPrice: number,
     createdAt: string
     paymentMethod?: string

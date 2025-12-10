@@ -1,5 +1,4 @@
 import { type ColumnDef } from "@tanstack/react-table";
-import { Label } from "@/components/ui";
 import {DataTable} from "@/components/ui";
 
 import type { Order } from "@/features/admin/types"
@@ -7,6 +6,14 @@ import type { Order } from "@/features/admin/types"
 type OrderTableProps = {
     data: Order[]
     onSelect: (order: Order) => void
+}
+
+const statusColors = {
+    pending: "text-orange-600",
+    preparing: "text-purple-600",
+    ready: "text-blue-600",
+    completed: "text-green-600",
+    cancelled: "text-red-600"
 }
 
 const columns: ColumnDef<Order>[] = [
@@ -51,10 +58,10 @@ const columns: ColumnDef<Order>[] = [
         header: "Status",
         cell: ({getValue}) => {
             const status =  getValue<Order["status"]>()
-            const color = status === "pending" ? "orange" : status === "preparing" ? "purple" : "green"
+            const textColor = statusColors[status]
             return (
-                <span>
-                    <Label variant={color}>{status}</Label>
+                <span className={`font-bold uppercase ${textColor}`}>
+                    {status}
                 </span>
             )
         }
