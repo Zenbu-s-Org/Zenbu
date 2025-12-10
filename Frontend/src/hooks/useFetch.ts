@@ -7,10 +7,9 @@ export function useFetch<T>(endpoint: string | null) {
 
   // const BASE_URL = "https://zenbu-ajsi.onrender.com/api";
   const BASE_URL = "http://localhost:5050/api";
-  const url = BASE_URL + endpoint ;
+  const url = BASE_URL + endpoint;
 
   useEffect(() => {
-
     if (!url) {
       setData(undefined);
       setError(null);
@@ -18,7 +17,7 @@ export function useFetch<T>(endpoint: string | null) {
       return;
     }
 
-    let ignore = false; 
+    let ignore = false;
 
     async function fetchData() {
       setLoading(true);
@@ -42,7 +41,7 @@ export function useFetch<T>(endpoint: string | null) {
     fetchData();
 
     return () => {
-      ignore = true; 
+      ignore = true;
     };
   }, [url]);
 

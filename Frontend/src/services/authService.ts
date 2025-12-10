@@ -1,8 +1,12 @@
-import { API_URL, getAuthHeaders } from "../config/apiConfig";
+import { API_URL, getAuthHeaders } from "@/config/apiConfig";
 import type { AuthResponse, CurrentUserResponse } from "../types/authTypes";
 
 class AuthService {
-  async register(name: string, email: string, password: string): Promise<AuthResponse> {
+  async register(
+    name: string,
+    email: string,
+    password: string
+  ): Promise<AuthResponse> {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: getAuthHeaders(),
@@ -38,7 +42,7 @@ class AuthService {
 
   async getCurrentUser(): Promise<CurrentUserResponse> {
     const token = localStorage.getItem("token");
-    
+
     if (!token) {
       throw new Error("No token found");
     }
