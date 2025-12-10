@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { authAPI } from "@/services/authService";
 import type { User } from "@/types/authTypes";
 
-
 interface AuthState {
   user: User | null;
   isLoading: boolean;

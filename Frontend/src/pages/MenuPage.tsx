@@ -3,9 +3,9 @@ import Menu from "@/features/menu/Menu";
 function MenuPage() {
   return (
     <section className="flex flex-col items-center bg-stone-100 lg:px-35">
-        <Menu />
+      <Menu />
     </section>
-  )
+  );
 }
 
-export default MenuPage
+export default MenuPage;

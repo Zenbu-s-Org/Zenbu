@@ -22,7 +22,7 @@ export type FormattedOrder = {
   orderNumber: string;
   items: string;
   price: number;
-  status: 'pending' | 'preparing' | 'ready';
+  status: "pending" | "preparing" | "ready";
 };
 
 export type Order = FormattedOrder;
