@@ -1,7 +1,7 @@
 import express from "express";
 import Order from "../models/Order.js";
 import { validateOrder } from "../middlewares/validateOrder.js";
-import { protect } from "../middlewares/authMiddleware.js";
+import { authorize, protect } from "../middlewares/authMiddleware.js";
 import { nanoid } from "nanoid";
 const router = express.Router();
 
@@ -70,7 +70,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST anrop för att skapa ny order /api/orders
-router.post("/", validateOrder, async (req, res) => {
+router.post("/", authorize, validateOrder, async (req, res) => {
   try {
     const order = await Order.create({
       ...req.body,
@@ -89,7 +89,7 @@ router.post("/", validateOrder, async (req, res) => {
 
 //PUT-anrop för att updatera en order
 
-router.put("/:id", validateOrder, async (req,res) => {
+router.put("/:id", authorize,validateOrder, async (req,res) => {
   try {
     const { status } = req.body
   const updatedOrder = await Order.findOneAndUpdate(
@@ -117,7 +117,7 @@ router.put("/:id", validateOrder, async (req,res) => {
   
 } )
 
-router.delete("/:id", async (req,res) => {
+router.delete("/:id", authorize, async (req,res) => {
   try {
     const deleteOrder = await Order.findOneAndDelete(
     {orderNumber: req.params.id}

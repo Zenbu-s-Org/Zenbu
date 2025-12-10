@@ -1,5 +1,6 @@
 import express from "express";
 import MenuItem from "../models/MenuItem.js";
+import { authorize } from "../middlewares/authMiddleware.js";
 import { nanoid } from 'nanoid'
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router.get("/:id", async (req, res) => {
 
 //post anrop för att göra ett nytt item i menyn
 
-router.post("/", async (req,res) => {
+router.post("/", authorize, async (req,res) => {
   try {
     const {name, price, category, img, desc} = req.body
     const id = `prod-${nanoid(5)}`
@@ -56,7 +57,7 @@ router.post("/", async (req,res) => {
 
 //uppdatera menuproduct
 
-router.put("/:id", async (req,res) => {
+router.put("/:id", authorize, async (req,res) => {
   try {
     const { name, price, category, img ,desc } = req.body
     
@@ -77,7 +78,7 @@ router.put("/:id", async (req,res) => {
 
 //delete menu product
 
-router.delete("/:id", async (req,res) => {
+router.delete("/:id", authorize, async (req,res) => {
   try {
     const deleteProduct = await MenuItem.findByIdAndDelete(
       req.params.id,
