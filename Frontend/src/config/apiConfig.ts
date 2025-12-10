@@ -1,10 +1,10 @@
-export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
+export const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5001/api";
 
 export const getAuthHeaders = (includeToken = false) => {
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };
-
 
   if (includeToken) {
     const token = localStorage.getItem("token");

@@ -1,5 +1,5 @@
-export {default as MenuCard} from "./components/MenuCard"
-export {default as MenuList} from "./components/MenuList"
-export {default as CategoryFilter} from "./components/CategoryFilter"
-export {default as SortButton} from "./components/SortButton"
-export * from "./types"
+export { default as MenuCard } from "./components/MenuCard";
+export { default as MenuList } from "./components/MenuList";
+export { default as CategoryFilter } from "./components/CategoryFilter";
+export { default as SortButton } from "./components/SortButton";
+export * from "./types";
