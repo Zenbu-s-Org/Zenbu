@@ -17,10 +17,10 @@ function Header() {
         <NavMenu />
         <Button 
           variant="primary" 
-          onClick={() => navigate(isAuthenticated ? "/myaccount" : "login")}
+          onClick={() => navigate(isAuthenticated ? "/myaccount" : "/login")}
           className="hidden lg:block mr-4"
         >
-          {isAuthenticated ? "My Account" : "Log In / Register"}
+          {isAuthenticated ? "My Account" : "Sign In / Register"}
         </Button>
     </header>
   )

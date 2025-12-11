@@ -36,36 +36,45 @@ function TheProcess() {
 
     
   return (
-    <section className='mb-20 mt-5'>
-        <section className='pl-8'>
-        <h1 className='text-2xl font-bold font-[Bricolage_Grotesque]'>The Process</h1>
-        <p className='mb-3'>Follow along how we do things</p>
+    <section className='mb-20 mt-5 lg:mt-30 lg:w-full px-4 lg:px-20'>
+        <section className='pl-6'>
+            <h1 className='text-2xl lg:text-5xl font-bold font-[Bricolage_Grotesque]'>The Process</h1>
+            <p className='mb-3'>Follow along how we do things</p>
         </section>
-        <Swiper pagination={true} modules={[Pagination]} slidesPerView={1} className="mySwiper" >
-            {containerInfo.map((con,index) => (
-                <SwiperSlide key={index}>
-                <div className='p-6 pb-10'>
-                <Container className='p-2' variant={con.variant}>
-                    <section className='flex flex-col items-center gap-5 w-[300px] h-[220px]'>
-                        <section className='flex items-center w-full px-4'>
-                        <img src={fireIcon} alt="icon fire emoji" />
-                        <p className='font-medium'>{con.title}</p>
+        <div className="lg:hidden">
+            <Swiper pagination={true} modules={[Pagination]} slidesPerView={1} className="mySwiper" >
+                {containerInfo.map((con,index) => (
+                    <SwiperSlide key={index}>
+                    <div className='p-6 pb-10'>
+                    <Container className='p-2' variant={con.variant}>
+                        <section className='flex flex-col items-center gap-5 px-4 pt-4 pb-10'>
+                            <section className='flex items-center w-full'>
+                                <img src={fireIcon} alt="icon fire emoji" />
+                                <p className='font-bold'>{con.title}</p>
+                            </section>
+                            <p className='font-bold font-[Nunito]' >{con.text}</p>
                         </section>
-                        <p className='max-w-[250px] font-medium font-[Nunito]' >{con.text}</p>
-                    </section>
-                    
-                </Container>
-                 </div>   
-                
-            </SwiperSlide>
+                    </Container>
+                    </div>   
+                </SwiperSlide>
+                ))}  
+            </Swiper>
+         </div>
 
+         <div className="hidden lg:grid grid-cols-3 gap-6 px-6 mt-10">
+            {containerInfo.map((con, index) => (
+                <Container key={index} className='p-2' variant={con.variant}>
+                    <section className='flex flex-col items-center gap-5 px-4 pt-4 pb-6'>
+                        <section className='flex items-center w-full'>
+                            <img src={fireIcon} alt="icon fire emoji" />
+                            <p className='font-bold'>{con.title}</p>
+                        </section>
+                        <p className='font-bold font-[Nunito]'>{con.text}</p>
+                    </section>
+                </Container>
             ))}
-            
-           
-            
-         </Swiper>
+        </div>
                  
-       
     </section>
   )
 }

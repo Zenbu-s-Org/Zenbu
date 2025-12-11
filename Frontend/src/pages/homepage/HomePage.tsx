@@ -2,47 +2,46 @@ import { Label } from "../../components/ui"
 import { Button }from "../../components/ui"
 import Banner from "./components/Banner"
 import ConfirmationBanner from "@/features/orderconfirmation/ConfirmationBanner"
-import heroImg from "../../assets/hero (1).png"
-import heroImg1 from "../../assets/hero.png"
-import waffle from "../../assets/Group.svg"
+import landingpageImg from "../../assets/landingpage-img.svg"
 import SignatureBowls from "./components/SignatureBowls"
 import TheProcess from "./components/TheProcess"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function HomePage() {
+  const navigate = useNavigate();
+
   return (
-    <main>
+    <main className="bg-stone-100 pt-10 flex flex-col"> 
       <ConfirmationBanner/>
-      <section className='mt-15 flex flex-row justify-between'>
-      <section className="pl-4">
-        <Label className="rotate-4 mb-4 text-sm" variant="green">
-          BETTER FOOD, LESS NOICE
-        </Label>
-        <div className='text-5xl tracking-tighter leading-10 font-extrabold mt-1' >
-          <h1>CRAFT YOUR</h1>
-          <h1 className='text-orange-600'>PERFECT</h1>
-          <h1 className='text-orange-400'>BOWL</h1>
+      <section className='px-4 lg:px-30 pt-10 flex flex-col sm:flex-row justify-between'>
+        <div className="lg:flex-1 flex flex-col">
+          <Label className="-rotate-4 mb-6 lg:mb-12 text-sm text-center w-60 lg:w-3/5 lg:text-base" variant="green">
+            BETTER FOOD, LESS NOICE
+          </Label>
+          <div className='tracking-tighter leading-10 font-extrabold mt-1' >
+            <h1 className="text-[60px] lg:text-8xl">CRAFT YOUR</h1>
+            <h1 className='text-[60px] lg:text-8xl text-orange-600'>PERFECT</h1>
+            <h1 className='text-[60px] lg:text-8xl text-orange-400'>BOWL</h1>
+          </div>
+          <p className="font-bold text-sm lg:text-lg w-5/6 lg:w-3/5">Try out our newest concept, craft your own bowl! It will blow your mind. From only 119kr.</p>
+          
+          <div className="flex flex-col gap-5 w-full px-4 mt-20 lg:mt-30 lg:mt-1 lg:mb-40 lg:flex-row">
+            <Button variant="primary" onClick={() => navigate("/menu#buildbowl")}>
+              Build Your Own Bowl
+            </Button>
+          
+            <Button variant="outline" onClick={() => navigate("/menu")}>
+              View Our Menu
+            </Button>
+          </div>
+
         </div>
-        <p className='max-w-[170px] '>Try out our newest concept, craft your own bowl! It will blow your mind. From only 149kr</p>
+        
+        <div className='flex lg:flex-1 hidden sm:block'>
+          <img className='w-full justify-center items-center pt-10' src={landingpageImg} alt="landingpage-img" />
+        </div>
       </section>
-      <div className='absolute right-4 px-3'>
-      <div className='relative w-[170px] h-[260px] mt-20 -z-24'>
-        <img className='w-[191px] absolute bottom-15 left-0 -z-10' src={waffle} alt="" />
-        <img className='w-[145px] absolute top-0  z-4' src={heroImg1} alt="" />
-        <img className='w-[145px] absolute top-25 left-7  z-3'src={heroImg} alt="" />
-      </div>
-      </div>
-      </section>
-      <div className="flex flex-col gap-5 px-4 mt-35">
-      <Link to="/menu" className="w-full">
-        <Button className="w-full" variant="primary">
-          View Our Menu
-        </Button>
-     </Link>
-     {/* <Button className="text-[18px]" variant="outline">
-      View
-     </Button> */}
-     </div>
+      
 
       <Banner/>
 

@@ -25,10 +25,10 @@ const handleClick = () => {
 
 
   return (
-    <div className="w-full fixed inset-0 bg-black/30 backdrop-blur-xs z-10 p-10 items-center pt-35"
+    <div className="w-full fixed inset-0 bg-black/30 backdrop-blur-xs z-10 p-10 items-center pt-35 lg:px-90"
     onClick={handleClick}
     >
-    <Container className="flex flex-col items-center gap-2 min-h-100 max-h-120 " onClick={(e) => e.stopPropagation()}>
+    <Container className="flex flex-col items-center gap-2 min-h-100 max-h-120" onClick={(e) => e.stopPropagation()}>
         <h1 className="font-bold text-2xl border-b border-b-stone-200 mb-2 w-full text-center">Your Cart</h1>
         <div className="flex flex-col overflow-y-scroll gap-5 w-full">
         {items.map(item => (

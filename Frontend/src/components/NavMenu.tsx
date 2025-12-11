@@ -28,13 +28,14 @@ function NavMenu() {
             </button>
             
             <Link to="/menu" onClick={() => setIsOpen(false)}>Menu</Link>
+            <Link to="/menu#buildbowl" onClick={() => setIsOpen(false)}>Build your own bowl</Link>
             <Link to="/about" onClick={() => setIsOpen(false)}>About us</Link>
             <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
             <Link 
               to={isAuthenticated ? "/myaccount" : "/login"} 
               onClick={() => setIsOpen(false)}
             >
-              {isAuthenticated ? "My Account" : "Sign In"}
+              {isAuthenticated ? "My Account" : "Sign In / Register"}
             </Link>
           </div>
 
@@ -44,9 +45,10 @@ function NavMenu() {
         </div>
         
         <div className="hidden lg:flex gap-12 font-bold text-stone-900 font-['Nunito'] text-xl">
-          <Link to="/">Menu</Link>
-          <Link to="/">About us</Link>
-          <Link to="/">Contact</Link>
+          <Link to="/menu">Menu</Link>
+          <Link to="/menu#buildbowl">Build your own bowl</Link>
+          <Link to="/about">About us</Link>
+          <Link to="/contact">Contact</Link>
         </div>
       </nav>
     </>

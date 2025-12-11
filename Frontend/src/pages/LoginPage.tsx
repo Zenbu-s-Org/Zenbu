@@ -40,7 +40,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-start justify-center">
+    <div className="min-h-screen bg-stone-100 flex items-start justify-center">
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-6 w-full max-w-sm">
         <h1 className="text-4xl font-bold text-center mb-4">Sign In</h1>
         
