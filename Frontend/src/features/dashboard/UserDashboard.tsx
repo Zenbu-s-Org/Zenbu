@@ -8,13 +8,23 @@ import type { Stats, BackendOrder, FormattedOrder } from "./Types";
 import { API_URL } from "@/config/apiConfig";
 
 function UserDashboard() {
-  const { user, isAuthenticated, isLoading: authLoading } = useAuthStore();
+  const {
+    user,
+    isAuthenticated,
+    isLoading: authLoading,
+    logout,
+  } = useAuthStore();
   const navigate = useNavigate();
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<FormattedOrder[]>([]);
   const [showAllOrders, setShowAllOrders] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     // Vänta tills auth är klar med att checka
@@ -142,6 +152,12 @@ function UserDashboard() {
           Welcome back, {user?.name || "Guest"}!
         </h1>
         <p className="text-stone-600">Manage your orders and preferences</p>
+        <button
+          onClick={handleLogout}
+          className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold"
+        >
+          Logout
+        </button>
       </div>
 
       <div className="px-4 mb-20 flex gap-4 justify-center">
