@@ -9,7 +9,6 @@ import imgplaceholder from "../../../assets/imgPlaceholder.svg"
 
 function SignatureBowls() {
     const { data: menu = [] } = useFetch<MenuItem[]>("/menu");
-    console.log(menu)
     const [toggle, setToggle] = useState<boolean>(false)
     const { addItem }= useCart()
     function handleButton(info:MenuItem){

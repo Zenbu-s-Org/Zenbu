@@ -44,6 +44,8 @@ router.post("/",authorize, async (req,res) => {
     res.status(500).json({ message: error.message });
     
   }
+});
+
 
 router.delete("/:id",  authorize, async (req,res) => {
   try {
@@ -66,7 +68,7 @@ router.delete("/:id",  authorize, async (req,res) => {
  
 
 })
-export default router;
+
 
 
 // uppdatera ingrediens
@@ -90,3 +92,4 @@ router.put("/:id", async (req,res) => {
     });
   }
 })
+export default router;

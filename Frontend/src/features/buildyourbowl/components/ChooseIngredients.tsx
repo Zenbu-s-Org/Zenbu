@@ -29,7 +29,7 @@ function ChooseIngredients({
         return (
           <div
             key={category}
-            className="mb-4 rounded-lg border-1 border-stone-400 bg-stone-200 p-4 lg:mx-2 lg:flex-1"
+            className="mb-4 rounded-lg border border-stone-400 bg-stone-200 p-4 lg:mx-2 lg:flex-1"
           >
             <h3 className="mb-2 font-['Nunito'] text-sm font-extrabold text-stone-600 uppercase">
               {categoryTitles[category]}
