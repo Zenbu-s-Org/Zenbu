@@ -6,6 +6,7 @@ import { useState } from "react";
 
 type Props = {
   order: Order;
+  onUpdate: (updated: Order) => void;
 };
 
 const statusMessages: Record<OrderStatus, string> = {
@@ -16,12 +17,28 @@ const statusMessages: Record<OrderStatus, string> = {
   cancelled: "Order cancelled — no further action needed",
 };
 
-function OrderModal({ order }: Props) {
+function OrderModal({ order, onUpdate }: Props) {
   const { closeModal } = useModal();
   const date = new Date(order.createdAt);
 
   const [status, setStatus] = useState<OrderStatus>(order.status);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const statusMsg = statusMessages[order.status];
+
+  const handleSave = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await onUpdate({ ...order, status });
+      closeModal();
+    } catch (error) {
+      setError("Updated failed. Try Again");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-5">
@@ -75,9 +92,11 @@ function OrderModal({ order }: Props) {
           <option value="Cancelled">Cancelled</option>
         </select>
       </SectionLabel>
-      <div className="w-full mt-10 flex flex-col gap-5">
-        <Button className="w-full" variant="submit">
-          Save
+
+      <div className="w-full mt-10 flex flex-col gap-5 items-center">
+        {error && <span className="font-bold text-red-600">{error}</span>}
+        <Button className="w-full" variant="submit" onClick={handleSave}>
+          {loading ? "Loading..." : "Save"}
         </Button>
         <Button className="w-full" variant="outline" onClick={closeModal}>
           Cancel

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 import {
   type ColumnDef,
   flexRender,
@@ -8,6 +8,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
+import { motion } from "motion/react";
 
 type DataTableProps<T extends object> = {
   data: T[];
@@ -15,19 +16,23 @@ type DataTableProps<T extends object> = {
   onSelect: (row: T) => void;
 };
 
-function DataTable<T extends object>({data, columns, onSelect}: DataTableProps<T>) {
-    const [sorting, setSorting] = useState<SortingState>([])
+function DataTable<T extends object>({
+  data,
+  columns,
+  onSelect,
+}: DataTableProps<T>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-    const table = useReactTable({
-        data,
-        columns,
-        state: {sorting},
-        onSortingChange: setSorting,
-        getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-    })
+  const table = useReactTable({
+    data,
+    columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
 
- return (
+  return (
     <table className="w-full border border-stone-500">
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
@@ -40,8 +45,17 @@ function DataTable<T extends object>({data, columns, onSelect}: DataTableProps<T
                     className="bg-stone-800 text-white font-semibold flex items-center cursor-pointer p-1 border-x border-stone-500"
                     onClick={header.column.getToggleSortingHandler()}
                   >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {isSorted === "asc" ? <ChevronUp size={15}/> : isSorted === "desc" ? <ChevronDown size={15}/> : <ChevronsUpDown size={15}/>}
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {isSorted === "asc" ? (
+                      <ChevronUp size={15} />
+                    ) : isSorted === "desc" ? (
+                      <ChevronDown size={15} />
+                    ) : (
+                      <ChevronsUpDown size={15} />
+                    )}
                   </div>
                 </th>
               );
@@ -50,7 +64,11 @@ function DataTable<T extends object>({data, columns, onSelect}: DataTableProps<T
         ))}
       </thead>
 
-      <tbody>
+      <motion.tbody
+        key={data.length}
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+      >
         {table.getRowModel().rows.map((row, index) => (
           <tr
             key={row.id}
@@ -66,9 +84,9 @@ function DataTable<T extends object>({data, columns, onSelect}: DataTableProps<T
             ))}
           </tr>
         ))}
-      </tbody>
+      </motion.tbody>
     </table>
   );
 }
 
-export default DataTable
+export default DataTable;
