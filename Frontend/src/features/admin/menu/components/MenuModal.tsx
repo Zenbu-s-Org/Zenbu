@@ -30,7 +30,7 @@ function MenuModal({ mode, item, onSave }: Props) {
   );
   const [desc, setDesc] = useState(item?.desc ?? "");
   const [available] = useState(item?.available ?? true);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>();
 
   const [base, setBase] = useState(item?.ingredients?.[0]?.id ?? "");
   const [protein, setProtein] = useState(item?.ingredients?.[1]?.id ?? "");
@@ -113,6 +113,15 @@ function MenuModal({ mode, item, onSave }: Props) {
       <h2 className="text-xl font-bold">
         {mode === "edit" ? "Edit Menu Item" : "Add New Menu Item"}
       </h2>
+      {item?.img && (
+        <div className="flex justify-center w-full">
+          <img
+            src={item.img}
+            alt={item.name}
+            className="w-32 h-32 object-contain border border-stone-300 rounded-md mb-2"
+          />
+        </div>
+      )}
       <input
         className="border-2 border-stone-900 rounded-lg cursor-pointer hover:bg-sky-50 text-center"
         type="file"
