@@ -52,7 +52,7 @@ function BuildYourBowl() {
         variant="primary"
         className="relative flex flex-col items-center"
       >
-        <span className="absolute top-[-40px] -rotate-6 rounded-3xl border-4 border-lime-900 bg-lime-300 px-6 py-1 font-['Bricolage_Grotesque'] text-2xl font-bold text-lime-900 uppercase">
+        <span className="absolute -top-10 -rotate-6 rounded-3xl border-4 border-lime-900 bg-lime-300 px-6 py-1 font-['Bricolage_Grotesque'] text-2xl font-bold text-lime-900 uppercase">
           149 sek
         </span>
         <img src={roundLogo} alt="round-logo" className="my-4"></img>

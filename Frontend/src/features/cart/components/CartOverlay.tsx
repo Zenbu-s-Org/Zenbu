@@ -23,7 +23,7 @@ function CartOverlay({ setOpen }: OverlayProps) {
   };
 
   return (
-<<<<<<< HEAD
+
     <div className="w-full fixed inset-0 bg-black/30 backdrop-blur-xs z-10 p-10 items-center pt-35 lg:px-90"
     onClick={handleClick}
     >

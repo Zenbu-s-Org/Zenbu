@@ -29,7 +29,7 @@ function MenuCard({ id, name, desc, price, img }: MenuCardProps) {
           </p>
           <p className="font-['Nunito'] text-sm">{desc}</p>
         </div>
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <img
             src={img || imgPlaceholder}
             alt={name}
