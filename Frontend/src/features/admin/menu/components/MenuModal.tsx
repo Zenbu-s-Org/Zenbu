@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Input } from "@/components/ui";
 import { useModal } from "@/components/modal";
 import { useFetch } from "@/hooks/useFetch";
+import { uploadImage } from "../../utils/cloudinaryUpload";
 
 import type {
   MenuItem,
@@ -29,6 +30,7 @@ function MenuModal({ mode, item, onSave }: Props) {
   );
   const [desc, setDesc] = useState(item?.desc ?? "");
   const [available] = useState(item?.available ?? true);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const [base, setBase] = useState(item?.ingredients?.[0]?.id ?? "");
   const [protein, setProtein] = useState(item?.ingredients?.[1]?.id ?? "");
@@ -81,32 +83,26 @@ function MenuModal({ mode, item, onSave }: Props) {
   async function handleSubmit() {
     const ingredients = buildIngredients();
 
+    let imageUrl = item?.img ?? "";
+
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile);
+    }
+
+    const payload = {
+      name,
+      price,
+      category,
+      desc,
+      available,
+      ingredients,
+      img: imageUrl,
+    };
+
     if (mode === "edit") {
-      if (!item) return;
-
-      const updated: MenuItem = {
-        ...item,
-        name,
-        price,
-        category,
-        desc,
-        available,
-        ingredients,
-      };
-
-      await onSave(updated, "edit");
+      await onSave({ ...item, ...payload }, "edit");
     } else {
-      const newItem: Omit<MenuItem, "_id" | "id"> = {
-        name,
-        price,
-        category,
-        desc,
-        available,
-        ingredients,
-        img: "",
-      };
-
-      await onSave(newItem, "create");
+      await onSave(payload, "create");
     }
 
     closeModal();
@@ -117,6 +113,13 @@ function MenuModal({ mode, item, onSave }: Props) {
       <h2 className="text-xl font-bold">
         {mode === "edit" ? "Edit Menu Item" : "Add New Menu Item"}
       </h2>
+      <input
+        className="border-2 border-stone-900 rounded-lg cursor-pointer hover:bg-sky-50 text-center"
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
+        placeholder="Choose image to upload"
+      />
 
       <Input
         label="Name"

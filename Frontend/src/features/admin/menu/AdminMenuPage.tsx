@@ -72,6 +72,7 @@ function MenuPage() {
   }
 
   function handleRowClick(item: MenuItem) {
+    console.log(item);
     openModal(<MenuModal mode="edit" item={item} onSave={handleSave} />);
   }
 
