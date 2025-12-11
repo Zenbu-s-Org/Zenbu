@@ -49,7 +49,7 @@ function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-start justify-center bg-white">
+    <div className="flex min-h-screen items-start justify-center bg-stone-100">
       <form
         onSubmit={handleSubmit}
         className="flex w-full max-w-sm flex-col gap-6 p-6"
