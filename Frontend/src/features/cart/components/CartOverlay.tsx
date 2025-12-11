@@ -23,21 +23,16 @@ function CartOverlay({ setOpen }: OverlayProps) {
   };
 
   return (
-    <div
-      className="fixed inset-0 z-10 w-full items-center bg-black/30 p-10 pt-35 backdrop-blur-xs"
-      onClick={handleClick}
+<<<<<<< HEAD
+    <div className="w-full fixed inset-0 bg-black/30 backdrop-blur-xs z-10 p-10 items-center pt-35 lg:px-90"
+    onClick={handleClick}
     >
-      <Container
-        className="flex max-h-120 min-h-100 flex-col items-center gap-2"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h1 className="mb-2 w-full border-b border-b-stone-200 text-center text-2xl font-bold">
-          Your Cart
-        </h1>
-        <div className="flex w-full flex-col gap-5 overflow-y-scroll">
-          {items.map((item) => (
-            <Counter id={item.id} key={item.id} />
-          ))}
+    <Container className="flex flex-col items-center gap-2 min-h-100 max-h-120" onClick={(e) => e.stopPropagation()}>
+        <h1 className="font-bold text-2xl border-b border-b-stone-200 mb-2 w-full text-center">Your Cart</h1>
+        <div className="flex flex-col overflow-y-scroll gap-5 w-full">
+        {items.map(item => (
+            <Counter id={item.id} key={item.id}/>
+        ))}
         </div>
         <span className="mt-auto text-2xl font-bold">{`${totalPrice} SEK`}</span>
         <a href="/order">

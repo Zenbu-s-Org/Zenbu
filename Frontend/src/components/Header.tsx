@@ -10,18 +10,18 @@ function Header() {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <header className="fixed top-0 z-1000 flex h-16 w-full justify-between border-b border-stone-300 bg-stone-100 lg:items-center">
-      <Link to="/">
-        <img src={blackLogo} alt="black-logo" className="mt-1 w-40 p-2"></img>
-      </Link>
-      <NavMenu />
-      <Button
-        variant="primary"
-        onClick={() => navigate(isAuthenticated ? "/myaccount" : "login")}
-        className="mr-4 hidden lg:block"
-      >
-        {isAuthenticated ? "My Account" : "Log In / Register"}
-      </Button>
+    <header className="bg-stone-100 w-full h-16 fixed top-0 flex justify-between lg:items-center border-b border-stone-300 z-1000">
+        <Link to="/">
+            <img src={blackLogo} alt="black-logo" className="w-40 p-2 mt-1"></img>
+        </Link>
+        <NavMenu />
+        <Button 
+          variant="primary" 
+          onClick={() => navigate(isAuthenticated ? "/myaccount" : "/login")}
+          className="hidden lg:block mr-4"
+        >
+          {isAuthenticated ? "My Account" : "Sign In / Register"}
+        </Button>
     </header>
   );
 }
