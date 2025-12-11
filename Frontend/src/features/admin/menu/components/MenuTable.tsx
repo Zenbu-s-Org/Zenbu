@@ -1,11 +1,11 @@
-import { type ColumnDef } from "@tanstack/react-table"
-import { DataTable } from "@/components/ui"
-import type { MenuItem } from "@/features/menu"
+import { type ColumnDef } from "@tanstack/react-table";
+import DataTable from "@/components/ui/DataTable";
+import type { MenuItem } from "../../types";
 
 type Props = {
-  data: MenuItem[] 
-  onSelect: (item: MenuItem) => void
-}
+  data: MenuItem[];
+  onSelect: (item: MenuItem) => void;
+};
 
 const columns: ColumnDef<MenuItem>[] = [
   {
@@ -23,31 +23,26 @@ const columns: ColumnDef<MenuItem>[] = [
     accessorKey: "price",
     header: "Price",
     enableSorting: true,
-    cell: ({ getValue }) => <span>{getValue<number>()} SEK</span>,
+    cell: ({ getValue }) => {
+      const price = getValue<number>();
+      return <span>{price} SEK</span>;
+    },
   },
   {
     accessorKey: "category",
     header: "Category",
     enableSorting: true,
     cell: ({ getValue }) => {
-      const category = getValue<string>()
-      return (
-        <span className="capitalize">
-          {category}
-        </span>
-      )
+      const category = getValue<MenuItem["category"]>();
+      return <span className="capitalize">{category}</span>;
     },
   },
-]
+];
 
 function MenuTable({ data, onSelect }: Props) {
   return (
-    <DataTable<MenuItem>
-      data={data}
-      columns={columns}
-      onSelect={onSelect}
-    />
-  )
+    <DataTable<MenuItem> data={data} columns={columns} onSelect={onSelect} />
+  );
 }
 
-export default MenuTable
+export default MenuTable;

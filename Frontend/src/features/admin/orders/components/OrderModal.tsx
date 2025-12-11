@@ -83,7 +83,7 @@ function OrderModal({ order, onUpdate }: Props) {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value as OrderStatus)}
-          className="border-2 border-stone-600 rounded-md p-1 font-semibold mt-1"
+          className="border-3 border-stone-900 shadow-[5px_5px_0_#1c1917] rounded-xl px-3 py-1 w-full"
         >
           <option value="pending">Pending</option>
           <option value="preparing">Preparing</option>

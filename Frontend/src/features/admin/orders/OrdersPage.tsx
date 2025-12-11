@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui";
 import { useState, useEffect, startTransition } from "react";
 import OrdersTable from "./components/OrdersTable";
 import OrderModal from "./components/OrderModal";
