@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
-import blackLogo from "../assets/black-logo.svg"
-import NavMenu from "./NavMenu"
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import blackLogo from "../assets/black-logo.svg";
+import NavMenu from "./NavMenu";
 import { Button } from "./ui";
 import { useAuthStore } from "@/stores/authStore";
 
 function Header() {
-    const navigate = useNavigate();
-    const { isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <header className="bg-stone-100 w-full h-16 fixed top-0 flex justify-between lg:items-center border-b border-stone-300 z-1000">
@@ -23,7 +23,7 @@ function Header() {
           {isAuthenticated ? "My Account" : "Sign In / Register"}
         </Button>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

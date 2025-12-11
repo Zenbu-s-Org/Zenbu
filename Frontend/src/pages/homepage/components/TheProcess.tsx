@@ -1,40 +1,33 @@
-import fireIcon from "../../../assets/flame-outline.png"
-import { Container } from '../../../components/ui'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import fireIcon from "../../../assets/flame-outline.png";
+import { Container } from "../../../components/ui";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
 type containerProps = {
-    variant: "sky" | "green" | "orange",
-    title: string,
-    text: string,
-}
+  variant: "sky" | "green" | "orange";
+  title: string;
+  text: string;
+};
 
 const containerInfo: containerProps[] = [
-    {
-        variant: "sky",
-        title: "Step 1 - Order",
-        text: "Browse our menu and place your order through our app or website. Choose your favorite dishes and customize them to your liking."
-    
-    },
-    {
-        variant: "green",
-        title: "Step 2 - Prepare",
-        text: "Our kitchen team prepares your meal fresh to order using premium ingredients. Every dish is carefully crafted to meet our quality standards. "
-    
-    },
-     {
-        variant: "orange",
-        title: "Step 3 - Come get it!",
-        text: "Your order is packaged for you to get it!. Enjoy restaurant-quality food in the comfort of your home."
-    
-    },
-
-
-]
+  {
+    variant: "sky",
+    title: "Step 1 - Order",
+    text: "Browse our menu and place your order through our app or website. Choose your favorite dishes and customize them to your liking.",
+  },
+  {
+    variant: "green",
+    title: "Step 2 - Prepare",
+    text: "Our kitchen team prepares your meal fresh to order using premium ingredients. Every dish is carefully crafted to meet our quality standards. ",
+  },
+  {
+    variant: "orange",
+    title: "Step 3 - Come get it!",
+    text: "Your order is packaged for you to get it!. Enjoy restaurant-quality food in the comfort of your home.",
+  },
+];
 
 function TheProcess() {
-
-    
   return (
     <section className='mb-20 mt-5 lg:mt-30 lg:w-full px-4 lg:px-20'>
         <section className='pl-6'>
@@ -76,7 +69,7 @@ function TheProcess() {
         </div>
                  
     </section>
-  )
+  );
 }
 
-export default TheProcess
+export default TheProcess;

@@ -2,7 +2,7 @@ export type MenuIngredient = {
   id: string;
   name: string;
   type: "base" | "protein" | "veg" | "sauce" | string;
-}
+};
 
 export type MenuItem = {
   _id: string;
@@ -11,6 +11,6 @@ export type MenuItem = {
   category: string;
   img?: string;
   price: number;
-  desc?: string
+  desc?: string;
   ingredients?: MenuIngredient[];
 };

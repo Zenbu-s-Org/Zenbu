@@ -43,14 +43,13 @@ function HomePage() {
       </section>
       
 
-      <Banner/>
+      <Banner />
 
-      <TheProcess/>
+      <TheProcess />
 
-      <SignatureBowls/>
-      
+      <SignatureBowls />
     </main>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

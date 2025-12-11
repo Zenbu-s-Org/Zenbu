@@ -8,9 +8,9 @@ import { Button } from "@/components/ui";
 import { useLocation } from "react-router-dom";
 
 function Menu() {
-    const {data } = useFetch<MenuItem[]>("/menu")
-    const [displayItems, setDisplayItems] = useState<MenuItem[]>([]);
-    const category_order = ["bowl", "drink"];
+  const { data } = useFetch<MenuItem[]>("/menu");
+  const [displayItems, setDisplayItems] = useState<MenuItem[]>([]);
+  const category_order = ["bowl", "drink"];
 
     const buildBowlRef = useRef<HTMLDivElement>(null);
     const location = useLocation();
@@ -51,7 +51,7 @@ function Menu() {
             <BuildYourBowl />
         </div>
     </>
-  )
+  );
 }
 
-export default Menu
+export default Menu;

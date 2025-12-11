@@ -1,15 +1,15 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import laxbowl from "../../../assets/lax-bowl.png"
-import avocadobowl from "../../../assets/Avocado.png"
-import freshbowl from "../../../assets/freshbowl.png"
-import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import laxbowl from "../../../assets/lax-bowl.png";
+import avocadobowl from "../../../assets/Avocado.png";
+import freshbowl from "../../../assets/freshbowl.png";
+import { Pagination } from "swiper/modules";
 
 type signatureProps = {
-    src: string,
-    alt: string,
-    title: string
-    ingridient: string
-}
+  src: string;
+  alt: string;
+  title: string;
+  ingridient: string;
+};
 
 const signatureInfo: signatureProps[] = [
     {src: laxbowl,alt: "lax-bowl-spicy", title: "Spicy Bowl", ingridient: "Spicy | Fish"},
@@ -53,7 +53,7 @@ function SignatureBowls() {
         </div>
         
     </section>
-  )
+  );
 }
 
-export default SignatureBowls
+export default SignatureBowls;
