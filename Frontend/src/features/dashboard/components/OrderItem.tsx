@@ -4,6 +4,7 @@ import type { Order } from "@/features/dashboard/Types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/features/cart/hooks/useCart";
+import { API_URL } from "@/config/apiConfig";
 
 type OrderItemProps = {
   order: Order;
@@ -21,14 +22,11 @@ function OrderItem({ order }: OrderItemProps) {
 
       // Hämta full order från backend för att få alla items
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:5001/api/order/${order.orderNumber}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${API_URL}/order/${order.orderNumber}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch order details");
@@ -38,7 +36,6 @@ function OrderItem({ order }: OrderItemProps) {
 
       // Lägg till alla items från ordern i cart
       fullOrder.items.forEach((item: any) => {
-        // Lägg till varje item så många gånger som qty
         for (let i = 0; i < item.qty; i++) {
           addItem({
             id: item.id,
@@ -82,6 +79,26 @@ function OrderItem({ order }: OrderItemProps) {
           <p className="text-sm font-bold">{order.price} SEK</p>
         </div>
       </div>
+      <div className="mb-2 flex items-center gap-2">
+        <p className="text-sm text-stone-800">Status:</p>
+        <Label
+          variant={
+            order.status === "pending"
+              ? "orange"
+              : order.status === "preparing"
+                ? "orange"
+                : order.status === "ready"
+                  ? "green"
+                  : "green"
+          }
+          className="px-3 text-xs"
+        >
+          {order.status === "pending" && "Pending"}
+          {order.status === "preparing" && "Preparing"}
+          {order.status === "ready" && "Ready"}
+          {order.status === "done" && "Done"}
+        </Label>
+      </div>
 
       <div className="flex items-center justify-between gap-2">
         <Button
@@ -92,13 +109,6 @@ function OrderItem({ order }: OrderItemProps) {
         >
           {isAdding ? "Adding..." : "Order Again?"}
         </Button>
-
-        <Label
-          variant={order.status === "pending" ? "orange" : "green"}
-          className="px-3 text-xs"
-        >
-          {order.status === "pending" ? "Pending" : "Done"}
-        </Label>
       </div>
     </div>
   );
