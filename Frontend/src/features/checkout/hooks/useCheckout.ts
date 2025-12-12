@@ -27,8 +27,8 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
       items: items,
       totalPrice: totalPrice,
     };
-
-    const response = await fetch("https://zenbu-ajsi.onrender.com/api/order", {
+    // byt url här https://zenbu-ajsi.onrender.com/api/order
+    const response = await fetch("http://localhost:5050/api/order", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(order),
