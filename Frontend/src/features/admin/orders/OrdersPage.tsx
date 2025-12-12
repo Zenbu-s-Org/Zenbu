@@ -11,6 +11,8 @@ function OrdersPage() {
   const { openModal } = useModal();
   const { data } = useFetch<Order[]>("/order");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     if (!data) return;
     startTransition(() => {
@@ -28,14 +30,11 @@ function OrdersPage() {
   };
 
   const handleUpdate = async (updated: Order) => {
-    const response = await fetch(
-      `http://localhost:5050/api/order/${updated.orderNumber}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated),
-      }
-    );
+    const response = await fetch(`${API_URL}/order/${updated.orderNumber}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updated),
+    });
 
     if (!response.ok) {
       throw new Error("Update failed");

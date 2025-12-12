@@ -3,6 +3,7 @@ import { useModal } from "@/components/modal";
 import { useFetch } from "@/hooks/useFetch";
 import MenuTable from "./components/MenuTable";
 import MenuModal from "./components/MenuModal";
+import { getAuthHeaders } from "@/config/apiConfig";
 
 import type { MenuItem } from "../types";
 import { Button } from "@/components/ui";
@@ -14,6 +15,8 @@ function MenuPage() {
 
   const [menu, setMenu] = useState<MenuItem[]>([]);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     if (data && Array.isArray(data)) {
       startTransition(() => setMenu(data));
@@ -22,9 +25,9 @@ function MenuPage() {
 
   // byta till rätt url/endpoint här
   async function updateMenuItem(item: MenuItem) {
-    const res = await fetch(`http://localhost:5050/api/menu/${item._id}`, {
+    const res = await fetch(`${API_URL}/menu/${item._id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(true),
       body: JSON.stringify(item),
     });
 
@@ -43,9 +46,9 @@ function MenuPage() {
 
   // byta till rätt url/endpoint här
   async function createMenuItem(item: Omit<MenuItem, "_id" | "id">) {
-    const res = await fetch(`http://localhost:5050/api/menu`, {
+    const res = await fetch(`${API_URL}/menu`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(true),
       body: JSON.stringify(item),
     });
 

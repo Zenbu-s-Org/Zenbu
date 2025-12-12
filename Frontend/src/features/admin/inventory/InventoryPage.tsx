@@ -5,6 +5,7 @@ import InventoryTable from "./components/InventoryTable";
 import InventoryModal from "./components/InventoryModal";
 import type { Ingredient } from "../types";
 import { Button } from "@/components/ui";
+import { getAuthHeaders } from "@/config/apiConfig";
 
 function InventoryPage() {
   const { openModal, closeModal } = useModal();
@@ -12,6 +13,8 @@ function InventoryPage() {
   const { data, error } = useFetch<Ingredient[]>("/ingredients");
 
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (data) {
@@ -21,14 +24,11 @@ function InventoryPage() {
 
   //byt url här
   async function updateIngredient(item: Ingredient) {
-    const res = await fetch(
-      `http://localhost:5050/api/ingredients/${item.id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(item),
-      }
-    );
+    const res = await fetch(`${API_URL}/ingredients/${item.id}`, {
+      method: "PUT",
+      headers: getAuthHeaders(true),
+      body: JSON.stringify(item),
+    });
 
     if (!res.ok) {
       console.error("Update failed");
@@ -47,9 +47,9 @@ function InventoryPage() {
 
   //byt url här
   async function createIngredient(item: Omit<Ingredient, "_id" | "id">) {
-    const res = await fetch(`http://localhost:5050/api/ingredients`, {
+    const res = await fetch(`${API_URL}/ingredients`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(true),
       body: JSON.stringify(item),
     });
 

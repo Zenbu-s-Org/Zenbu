@@ -3,7 +3,7 @@ import Ingredient from "../models/Ingredient.js";
 
 import { nanoid } from "nanoid";
 
-import { authorize } from "../middlewares/authMiddleware.js";
+import { authorize, protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", authorize, async (req, res) => {
+router.post("/", protect, authorize("admin"), async (req, res) => {
   try {
     const { name, category, qty } = req.body;
     const id = `ing-${nanoid(6)}`;
@@ -35,11 +35,12 @@ router.post("/", authorize, async (req, res) => {
       ingredient: addIngredient,
     });
   } catch (error) {
+    console.error("ingredient", error.message);
     res.status(500).json({ message: error.message });
   }
 });
 
-router.delete("/:id", authorize, async (req, res) => {
+router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
     const deleted = await Ingredient.findOneAndDelete({ id: req.params.id });
     if (!deleted) {
@@ -59,7 +60,7 @@ router.delete("/:id", authorize, async (req, res) => {
 });
 
 // uppdatera ingrediens
-router.put("/:id", authorize, async (req, res) => {
+router.put("/:id", protect, authorize("admin"), async (req, res) => {
   try {
     const { name, category, qty } = req.body;
 

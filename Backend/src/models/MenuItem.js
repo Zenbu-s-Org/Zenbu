@@ -15,15 +15,10 @@ const menuItemSchema = new mongoose.Schema(
     },
     img: {
       type: String,
-      required: true
     },
     category: {
       type: String,
-      enum: [
-        "bowl",
-        "drink",
-        "extra"
-      ],
+      enum: ["bowl", "drink", "extra"],
       required: true,
     },
     available: {
