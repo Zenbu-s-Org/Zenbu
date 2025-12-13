@@ -1,13 +1,13 @@
 import { cn } from "clsx-for-tailwind";
 import { ChevronDown } from "lucide-react";
 import { ChevronUp } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import Order from "./components/Order";
 import { useFetch } from "@/hooks/useFetch";
 
 type ItemProps = {
   orderId: string;
-  status: "pending" | "preparing" | "ready";
+  status: "pending" | "preparing" | "ready" | "cancelled" | "completed";
   items: {
     name: string;
     qty: number;
@@ -21,15 +21,37 @@ function ConfirmationBanner() {
   const [orderId, setOrderId] = useState<string | null>(null);
 
   useEffect(() => {
-    setOrderId(localStorage.getItem("currentOrder"));
+    startTransition(() => setOrderId(localStorage.getItem("currentOrder")));
   }, []);
-
-  const { data, loading } = useFetch<ItemProps>(
-    orderId ? `/order/${orderId}` : null,
+  const { data, refetch } = useFetch<ItemProps>(
+    orderId ? `/order/${orderId}` : null
   );
 
-  if (!orderId) return null;
-  if (loading || !data) return null;
+  useEffect(() => {
+    if (!orderId) return;
+    if (!data) return;
+
+    if (data.status === "cancelled" || data.status === "completed") {
+      localStorage.removeItem("currentOrder");
+      startTransition(() => setOrderId(null));
+      return;
+    }
+
+    const timeout = setInterval(() => {
+      refetch();
+    }, 5000);
+
+    return () => clearInterval(timeout);
+  }, [orderId, data, refetch]);
+
+  if (
+    !orderId ||
+    !data ||
+    data.status === "cancelled" ||
+    data.status === "completed"
+  ) {
+    return null;
+  }
 
   return (
     <div

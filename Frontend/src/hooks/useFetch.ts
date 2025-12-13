@@ -1,53 +1,34 @@
-import { useState, useEffect } from "react";
 import { API_URL } from "@/config/apiConfig";
+import { useEffect, useState, useCallback } from "react";
 
 export function useFetch<T>(endpoint: string | null) {
-  const [data, setData] = useState<T | undefined>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!endpoint) {
-      setData(undefined);
-      setError(null);
-      setLoading(false);
-      return;
-    }
+  const fetchData = useCallback(async () => {
+    if (!endpoint) return;
 
-    let ignore = false;
-
-    const url = `${API_URL}${
-      endpoint.startsWith("/") ? endpoint : `/${endpoint}`
-    }`;
-
-    async function fetchData() {
+    try {
       setLoading(true);
-      setError(null);
+      const res = await fetch(API_URL + endpoint, {
+        credentials: "include",
+      });
 
-      try {
-        const res = await fetch(url, {
-          credentials: "include",
-        });
+      if (!res.ok) throw new Error("Fetch failed");
 
-        if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
-
-        const json = (await res.json()) as T;
-        if (!ignore) setData(json);
-      } catch (err: unknown) {
-        if (!ignore) {
-          setError(err instanceof Error ? err.message : "Unknown error");
-        }
-      } finally {
-        if (!ignore) setLoading(false);
-      }
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setLoading(false);
     }
-
-    fetchData();
-
-    return () => {
-      ignore = true;
-    };
   }, [endpoint]);
 
-  return { data, loading, error, setData };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, error, loading, refetch: fetchData };
 }
