@@ -44,13 +44,12 @@ function InventoryPage() {
     closeModal();
   }
 
+
   async function createIngredient(item: Omit<Ingredient, "_id" | "id">) {
     const res = await fetch(`${API_URL}/ingredients`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify(item),
-    });
 
     if (!res.ok) {
       console.error("Create failed");
