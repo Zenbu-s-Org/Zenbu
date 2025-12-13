@@ -1,75 +1,96 @@
-import { useState } from "react"
-import { Button, Input } from "@/components/ui"
-import { useModal } from "@/components/modal"
-import type { Ingredient } from "@/features/buildyourbowl/types"
-import SectionLabel from "../../components/SectionLabel"
+import { useState } from "react";
+import { Button, Input } from "@/components/ui";
+import { useModal } from "@/components/modal";
+import type { Ingredient } from "../../types";
 
 type Props = {
-  ingredient: Ingredient
-}
+  mode: "edit" | "create";
+  item?: Ingredient;
+  onSave: (
+    payload: Ingredient | Omit<Ingredient, "_id" | "id">,
+    mode: "edit" | "create"
+  ) => Promise<void> | void;
+};
 
-const CATEGORY_OPTIONS = ["base", "protein", "veg", "sauce"] as const
+const CATEGORIES = [
+  "base",
+  "protein",
+  "veg",
+  "sauce",
+  "drink",
+  "extra",
+] as const;
 
-function InventoryModal({ ingredient }: Props) {
-  const { closeModal } = useModal()
+function InventoryModal({ mode, item, onSave }: Props) {
+  const { closeModal } = useModal();
 
-  const [name, setName] = useState(ingredient.name)
-  const [qty, setQty] = useState(ingredient.qty)
-  const [category, setCategory] = useState<Ingredient["category"]>(ingredient.category)
+  const [name, setName] = useState(item?.name ?? "");
+  const [qty, setQty] = useState<number>(item?.qty ?? 0);
+  const [category, setCategory] = useState<Ingredient["category"]>(
+    item?.category ?? "base"
+  );
 
-  function handleSave() {
-    // TODO: PUT request till backend
-    console.log("Saved:", { name, qty, category })
-    closeModal()
+  function handleSubmit() {
+    if (mode === "edit" && item) {
+      const updated: Ingredient = {
+        ...item,
+        name,
+        qty,
+        category,
+      };
+      onSave(updated, "edit");
+    } else {
+      const newItem: Omit<Ingredient, "_id" | "id"> = {
+        name,
+        qty,
+        category,
+      };
+      onSave(newItem, "create");
+    }
+
+    closeModal();
   }
 
   return (
-    <div className="flex flex-col items-center gap-6 ">
-      <h2 className="text-xl font-bold">{ingredient.id}</h2>
+    <div className="flex flex-col gap-4 w-full">
+      <h2 className="text-xl font-bold">
+        {mode === "edit" ? "Edit Ingredient" : "Add Ingredient"}
+      </h2>
 
-        <Input
-            label="Name"
-          type="text"
-          value={name}
-          placeholder="Ingredient name"
-          onChange={(e) => setName(e.target.value)}
-        />
-      
+      <Input
+        label="Name"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Ingredient Name"
+      />
 
-      <SectionLabel label="Category">
-        <select
-          className="border-2 border-stone-900 rounded-lg px-2 py-1 shadow-sm bg-white"
-          value={category}
-          onChange={(e) =>
-            setCategory(e.target.value as Ingredient["category"])
-          }
-        >
-          {CATEGORY_OPTIONS.map((opt) => (
-            <option key={opt} value={opt} className="capitalize">
-              {opt}
-            </option>
-          ))}
-        </select>
-      </SectionLabel>
-
-        <Input
+      <Input
         label="Quantity"
-          type="number"
-          value={qty}
-          onChange={(e) => setQty(Number(e.target.value))}
-          placeholder="Available quantity"
-        />
-      
-      <div className="flex flex-col gap-5 pt-4 w-full">
-        <Button variant="submit" onClick={handleSave}>
-          Save
-        </Button>
-        <Button variant="outline" onClick={closeModal}>
-          Cancel
-        </Button>
-      </div>
+        type="number"
+        value={qty}
+        onChange={(e) => setQty(Number(e.target.value))}
+        placeholder="Quantity"
+      />
+
+      <label className="font-semibold">Category</label>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value as Ingredient["category"])}
+        className="border p-1 rounded"
+      >
+        {CATEGORIES.map((c) => (
+          <option value={c} key={c}>
+            {c}
+          </option>
+        ))}
+      </select>
+
+      <Button variant="submit" onClick={handleSubmit}>
+        Save
+      </Button>
     </div>
-  )
+  );
 }
 
-export default InventoryModal
+export default InventoryModal;
