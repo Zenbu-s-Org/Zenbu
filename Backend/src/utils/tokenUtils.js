@@ -13,15 +13,14 @@ export const sendTokenResponse = (user, statusCode, res) => {
     ),
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
   };
 
-  res
+  return res
     .status(statusCode)
     .cookie("token", token, options)
     .json({
       success: true,
-      token,
       user: {
         id: user._id,
         name: user.name,

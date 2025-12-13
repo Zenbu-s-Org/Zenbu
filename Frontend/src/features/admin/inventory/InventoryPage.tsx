@@ -5,7 +5,6 @@ import InventoryTable from "./components/InventoryTable";
 import InventoryModal from "./components/InventoryModal";
 import type { Ingredient } from "../types";
 import { Button } from "@/components/ui";
-import { getAuthHeaders } from "@/config/apiConfig";
 
 function InventoryPage() {
   const { openModal, closeModal } = useModal();
@@ -25,7 +24,7 @@ function InventoryPage() {
   async function updateIngredient(item: Ingredient) {
     const res = await fetch(`${API_URL}/ingredients/${item.id}`, {
       method: "PUT",
-      headers: getAuthHeaders(true),
+      credentials: "include",
       body: JSON.stringify(item),
     });
 
@@ -47,7 +46,7 @@ function InventoryPage() {
   async function createIngredient(item: Omit<Ingredient, "_id" | "id">) {
     const res = await fetch(`${API_URL}/ingredients`, {
       method: "POST",
-      headers: getAuthHeaders(true),
+      credentials: "include",
       body: JSON.stringify(item),
     });
 
