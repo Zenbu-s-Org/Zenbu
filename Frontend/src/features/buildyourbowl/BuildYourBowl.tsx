@@ -30,15 +30,15 @@ function BuildYourBowl() {
   const customId = "custom-" + Math.floor(10000 + Math.random() * 90000);
 
   const handleConfirm = () => {
-    const selectedIngredients = ingredients.filter((i) =>
-      Object.values(selected).includes(i._id),
+    const selectedIngredients = ingredients?.filter((i) =>
+      Object.values(selected).includes(i._id)
     );
 
     const bowlItem = {
       id: customId,
       name: "Custom Bowl",
       price: bowl_price,
-      ingredients: selectedIngredients.map((i) => i.name),
+      ingredients: selectedIngredients?.map((i) => i.name),
     };
 
     addItem(bowlItem);
