@@ -10,7 +10,6 @@ function InventoryPage() {
   const { openModal, closeModal } = useModal();
 
   const { data, error } = useFetch<Ingredient[]>("/ingredients");
-
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -44,12 +43,13 @@ function InventoryPage() {
     closeModal();
   }
 
-
   async function createIngredient(item: Omit<Ingredient, "_id" | "id">) {
     const res = await fetch(`${API_URL}/ingredients`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
+      body: JSON.stringify(item),
+    });
 
     if (!res.ok) {
       console.error("Create failed");
@@ -58,7 +58,6 @@ function InventoryPage() {
 
     const json = await res.json();
     const created = json.ingredient as Ingredient;
-    console.log(created);
 
     setIngredients((prev) => [...prev, created]);
     closeModal();
@@ -68,9 +67,9 @@ function InventoryPage() {
     item: Ingredient | Omit<Ingredient, "_id" | "id">,
     mode: "edit" | "create"
   ) {
-    console.log("mode", mode);
-    console.log("item", item);
-    if (mode === "edit") return updateIngredient(item as Ingredient);
+    if (mode === "edit") {
+      return updateIngredient(item as Ingredient);
+    }
     return createIngredient(item as Omit<Ingredient, "_id" | "id">);
   }
 
