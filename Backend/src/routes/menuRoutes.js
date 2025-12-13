@@ -1,6 +1,7 @@
 import express from "express";
 import MenuItem from "../models/MenuItem.js";
 import { nanoid } from "nanoid";
+import { authorize, protect } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 // GET-anrop för att hämta alla rätter /api/menu
@@ -28,7 +29,7 @@ router.get("/:id", async (req, res) => {
 
 //post anrop för att göra ett nytt item i menyn
 
-router.post("/", async (req, res) => {
+router.post("/", protect, authorize("admin"), async (req, res) => {
   try {
     const { name, price, category, img, desc } = req.body;
     const id = `prod-${nanoid(5)}`;
@@ -48,13 +49,14 @@ router.post("/", async (req, res) => {
       product: newProduct,
     });
   } catch (error) {
+    console.error("CREATE PRODUCT ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 });
 
 //uppdatera menuproduct
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", protect, authorize("admin"), async (req, res) => {
   try {
     const { name, price, category, img, desc } = req.body;
 
@@ -75,7 +77,7 @@ router.put("/:id", async (req, res) => {
 
 //delete menu product
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
     const deleteProduct = await MenuItem.findByIdAndDelete(req.params.id);
     res.status(201).json({
