@@ -2,21 +2,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 export const protect = async (req, res, next) => {
-  let token;
+  const token = req.cookies?.token; // cookie-only
 
-  // Kolla efter token i Authorization header
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
-  // Kolla efter token i cookies
-  else if (req.cookies.token) {
-    token = req.cookies.token;
-  }
-
-  // Om ingen token finns
   if (!token) {
     return res.status(401).json({
       success: false,
