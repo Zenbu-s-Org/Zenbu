@@ -32,11 +32,13 @@ function OrdersPage() {
   const handleUpdate = async (updated: Order) => {
     const response = await fetch(`${API_URL}/order/${updated.orderNumber}`, {
       method: "PUT",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(updated),
     });
 
     if (!response.ok) {
+      console.log("update error", Error);
       throw new Error("Update failed");
     }
 

@@ -22,10 +22,10 @@ function MenuPage() {
     }
   }, [data]);
 
-  // byta till rätt url/endpoint här
   async function updateMenuItem(item: MenuItem) {
     const res = await fetch(`${API_URL}/menu/${item._id}`, {
       method: "PUT",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(item),
     });
@@ -47,6 +47,7 @@ function MenuPage() {
   async function createMenuItem(item: Omit<MenuItem, "_id" | "id">) {
     const res = await fetch(`${API_URL}/menu`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(item),
     });

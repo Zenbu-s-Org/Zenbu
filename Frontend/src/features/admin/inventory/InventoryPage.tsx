@@ -24,6 +24,7 @@ function InventoryPage() {
   async function updateIngredient(item: Ingredient) {
     const res = await fetch(`${API_URL}/ingredients/${item.id}`, {
       method: "PUT",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(item),
     });
@@ -46,6 +47,7 @@ function InventoryPage() {
   async function createIngredient(item: Omit<Ingredient, "_id" | "id">) {
     const res = await fetch(`${API_URL}/ingredients`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(item),
     });
