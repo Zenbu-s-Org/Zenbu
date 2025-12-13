@@ -22,7 +22,6 @@ function InventoryPage() {
     }
   }, [data]);
 
-  //byt url här
   async function updateIngredient(item: Ingredient) {
     const res = await fetch(`${API_URL}/ingredients/${item.id}`, {
       method: "PUT",
@@ -45,7 +44,6 @@ function InventoryPage() {
     closeModal();
   }
 
-  //byt url här
   async function createIngredient(item: Omit<Ingredient, "_id" | "id">) {
     const res = await fetch(`${API_URL}/ingredients`, {
       method: "POST",
