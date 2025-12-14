@@ -78,16 +78,13 @@ function InventoryModal({ mode, item, onSave, onDelete }: Props) {
         <option value="extra">Extra</option>
       </select>
 
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between mt-6 flex-col gap-5">
+        <Button onClick={handleSave}>Save</Button>
         {mode === "edit" && (
           <Button variant="outline" onClick={handleDelete}>
             Delete
           </Button>
         )}
-
-        <Button variant="submit" onClick={handleSave}>
-          Save
-        </Button>
       </div>
     </div>
   );

@@ -243,15 +243,14 @@ function MenuModal({ mode, item, onSave, onDelete }: Props) {
         onChange={(e) => setDesc(e.target.value)}
         placeholder="Describe Item"
       />
-
-      <Button variant="submit" onClick={handleSubmit}>
-        Save
-      </Button>
-      {mode === "edit" && item && onDelete && (
-        <Button variant="outline" onClick={() => onDelete(item)}>
-          Delete
-        </Button>
-      )}
+      <div className="flex flex-col w-full gap-5 mt-6">
+        <Button onClick={handleSubmit}>Save</Button>
+        {mode === "edit" && item && onDelete && (
+          <Button variant="outline" onClick={() => onDelete(item)}>
+            Delete
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
