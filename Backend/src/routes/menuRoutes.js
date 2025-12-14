@@ -79,13 +79,15 @@ router.put("/:id", protect, authorize("admin"), async (req, res) => {
 
 router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
-    const deleteProduct = await MenuItem.findByIdAndDelete(req.params.id);
+    const deleteProduct = await MenuItem.findOneAndDelete(req.params.id);
     res.status(201).json({
       success: true,
       product: deleteProduct,
       message: "product successfully deleted from menu",
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 export default router;
