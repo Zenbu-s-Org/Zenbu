@@ -1,88 +1,91 @@
 import { useEffect, useState, startTransition } from "react";
 import { useModal } from "@/components/modal";
-import { useFetch } from "@/hooks/useFetch";
 import InventoryTable from "./components/InventoryTable";
 import InventoryModal from "./components/InventoryModal";
 import type { Ingredient } from "../types";
 import { Button } from "@/components/ui";
 
+import {
+  getIngredients,
+  createIngredient,
+  updateIngredient,
+  deleteIngredient,
+} from "./ingredient.api";
+
 function InventoryPage() {
   const { openModal, closeModal } = useModal();
 
-  const { data, error } = useFetch<Ingredient[]>("/ingredients");
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-
-  const API_URL = import.meta.env.VITE_API_URL;
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data) {
-      startTransition(() => setIngredients(data));
-    }
-  }, [data]);
-
-  async function updateIngredient(item: Ingredient) {
-    const res = await fetch(`${API_URL}/ingredients/${item.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(item),
-    });
-
-    if (!res.ok) {
-      console.error("Update failed");
-      return;
+    async function loadIngredients() {
+      try {
+        const data = await getIngredients();
+        startTransition(() => setIngredients(data));
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load inventory.");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
-    const json = await res.json();
-    const updated = json.ingredient as Ingredient;
-
-    setIngredients((prev) =>
-      prev.map((i) => (i.id === updated.id ? updated : i))
-    );
-
-    closeModal();
-  }
-
-  async function createIngredient(item: Omit<Ingredient, "_id" | "id">) {
-    const res = await fetch(`${API_URL}/ingredients`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(item),
-    });
-
-    if (!res.ok) {
-      console.error("Create failed");
-      return;
-    }
-
-    const json = await res.json();
-    const created = json.ingredient as Ingredient;
-
-    setIngredients((prev) => [...prev, created]);
-    closeModal();
-  }
+    loadIngredients();
+  }, []);
 
   async function handleSave(
     item: Ingredient | Omit<Ingredient, "_id" | "id">,
     mode: "edit" | "create"
   ) {
-    if (mode === "edit") {
-      return updateIngredient(item as Ingredient);
+    try {
+      if (mode === "edit") {
+        const res = await updateIngredient(item as Ingredient);
+
+        setIngredients((prev) =>
+          prev.map((i) => (i.id === res.ingredient.id ? res.ingredient : i))
+        );
+      } else {
+        const res = await createIngredient(
+          item as Omit<Ingredient, "_id" | "id">
+        );
+
+        setIngredients((prev) => [...prev, res.ingredient]);
+      }
+
+      closeModal();
+    } catch (err) {
+      console.error(err);
     }
-    return createIngredient(item as Omit<Ingredient, "_id" | "id">);
+  }
+
+  async function handleDelete(id: string) {
+    try {
+      await deleteIngredient(id);
+      setIngredients((prev) => prev.filter((i) => i.id !== id));
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
   }
 
   function handleRowClick(item: Ingredient) {
-    openModal(<InventoryModal mode="edit" item={item} onSave={handleSave} />);
+    openModal(
+      <InventoryModal
+        mode="edit"
+        item={item}
+        onSave={handleSave}
+        onDelete={handleDelete}
+      />
+    );
   }
 
   function handleCreate() {
     openModal(<InventoryModal mode="create" onSave={handleSave} />);
   }
 
-  if (error) return <p className="text-red-600">Failed to load inventory.</p>;
-  if (!data) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading inventory...</p>;
+  if (error) return <p className="text-red-600">{error}</p>;
 
   return (
     <div className="flex flex-col items-center w-full px-3 gap-3">

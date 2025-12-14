@@ -1,53 +1,45 @@
-import { useState } from "react";
 import { Button, Input } from "@/components/ui";
 import { useModal } from "@/components/modal";
 import type { Ingredient } from "../../types";
+import { useState } from "react";
 
 type Props = {
   mode: "edit" | "create";
   item?: Ingredient;
   onSave: (
-    payload: Ingredient | Omit<Ingredient, "_id" | "id">,
+    item: Ingredient | Omit<Ingredient, "_id" | "id">,
     mode: "edit" | "create"
-  ) => Promise<void> | void;
+  ) => void;
+  onDelete?: (id: string) => void;
 };
 
-const CATEGORIES = [
-  "base",
-  "protein",
-  "veg",
-  "sauce",
-  "drink",
-  "extra",
-] as const;
-
-function InventoryModal({ mode, item, onSave }: Props) {
+function InventoryModal({ mode, item, onSave, onDelete }: Props) {
   const { closeModal } = useModal();
 
   const [name, setName] = useState(item?.name ?? "");
-  const [qty, setQty] = useState<number>(item?.qty ?? 0);
+  const [qty, setQty] = useState(item?.qty ?? 0);
   const [category, setCategory] = useState<Ingredient["category"]>(
     item?.category ?? "base"
   );
 
-  function handleSubmit() {
+  function handleSave() {
     if (mode === "edit" && item) {
-      const updated: Ingredient = {
-        ...item,
-        name,
-        qty,
-        category,
-      };
-      onSave(updated, "edit");
+      onSave({ ...item, name, qty, category }, "edit");
     } else {
-      const newItem: Omit<Ingredient, "_id" | "id"> = {
-        name,
-        qty,
-        category,
-      };
-      onSave(newItem, "create");
+      onSave({ name, qty, category }, "create");
     }
+  }
 
+  function handleDelete() {
+    if (!item || !onDelete) return;
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${item.name}"?`
+    );
+
+    if (!confirmed) return;
+
+    onDelete(item.id);
     closeModal();
   }
 
@@ -62,15 +54,15 @@ function InventoryModal({ mode, item, onSave }: Props) {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Ingredient Name"
+        placeholder="Ingredient name"
       />
 
       <Input
+        placeholder="product quantity"
         label="Quantity"
         type="number"
         value={qty}
         onChange={(e) => setQty(Number(e.target.value))}
-        placeholder="Quantity"
       />
 
       <label className="font-semibold">Category</label>
@@ -79,16 +71,24 @@ function InventoryModal({ mode, item, onSave }: Props) {
         onChange={(e) => setCategory(e.target.value as Ingredient["category"])}
         className="border p-1 rounded"
       >
-        {CATEGORIES.map((c) => (
-          <option value={c} key={c}>
-            {c}
-          </option>
-        ))}
+        <option value="base">Base</option>
+        <option value="protein">Protein</option>
+        <option value="veg">Vegetables</option>
+        <option value="sauce">Sauce</option>
+        <option value="extra">Extra</option>
       </select>
 
-      <Button variant="submit" onClick={handleSubmit}>
-        Save
-      </Button>
+      <div className="flex justify-between mt-4">
+        {mode === "edit" && (
+          <Button variant="outline" onClick={handleDelete}>
+            Delete
+          </Button>
+        )}
+
+        <Button variant="submit" onClick={handleSave}>
+          Save
+        </Button>
+      </div>
     </div>
   );
 }
