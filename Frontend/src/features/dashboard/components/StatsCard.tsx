@@ -3,10 +3,10 @@ import Container from "@/components/ui/Container";
 type StatsCardProps = {
   label: string;
   value: string | number;
-  variant?: 'primary' | 'sky' | 'green' | 'orange';
+  variant?: "primary" | "sky" | "green" | "orange";
 };
 
-function StatsCard({ label, value, variant = 'primary' }: StatsCardProps) {
+function StatsCard({ label, value, variant = "primary" }: StatsCardProps) {
   return (
     <Container variant={variant} className="flex-1">
       <div className="flex flex-col items-center justify-center py-2">

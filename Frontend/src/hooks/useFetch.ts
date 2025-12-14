@@ -1,31 +1,34 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "@/config/apiConfig";
 
 export function useFetch<T>(endpoint: string | null) {
   const [data, setData] = useState<T | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // const BASE_URL = "https://zenbu-ajsi.onrender.com/api";
-  const BASE_URL = "http://localhost:5050/api";
-  const url = BASE_URL + endpoint ;
-
   useEffect(() => {
-
-    if (!url) {
+    if (!endpoint) {
       setData(undefined);
       setError(null);
       setLoading(false);
       return;
     }
 
-    let ignore = false; 
+    let ignore = false;
+
+    const url = `${API_URL}${
+      endpoint.startsWith("/") ? endpoint : `/${endpoint}`
+    }`;
 
     async function fetchData() {
       setLoading(true);
       setError(null);
 
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, {
+          credentials: "include",
+        });
+
         if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
 
         const json = (await res.json()) as T;
@@ -42,9 +45,9 @@ export function useFetch<T>(endpoint: string | null) {
     fetchData();
 
     return () => {
-      ignore = true; 
+      ignore = true;
     };
-  }, [url]);
+  }, [endpoint]);
 
-  return { data, loading, error };
+  return { data, loading, error, setData };
 }

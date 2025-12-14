@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const menuItemSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
@@ -15,15 +20,10 @@ const menuItemSchema = new mongoose.Schema(
     },
     img: {
       type: String,
-      required: true
     },
     category: {
       type: String,
-      enum: [
-        "bowl",
-        "drink",
-        "extra"
-      ],
+      enum: ["bowl", "drink", "extra"],
       required: true,
     },
     available: {

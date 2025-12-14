@@ -83,7 +83,6 @@ export const login = async (req, res) => {
   }
 };
 
-
 //  Hämta inloggad användare
 export const getMe = async (req, res) => {
   try {
@@ -106,12 +105,12 @@ export const getMe = async (req, res) => {
   }
 };
 
-
 // Logga ut användare
 export const logout = (req, res) => {
-  res.cookie("token", "none", {
-    expires: new Date(Date.now() + 10 * 1000),
+  res.clearCookie("token", {
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
   });
 
   res.json({

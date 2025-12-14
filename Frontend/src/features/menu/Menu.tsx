@@ -5,13 +5,15 @@ import { Cart } from "@/features/cart";
 import { MenuList, CategoryFilter, SortButton } from "@/features/menu";
 import { BuildYourBowl } from "@/features/buildyourbowl";
 import { Button } from "@/components/ui";
+import { useLocation } from "react-router-dom";
 
 function Menu() {
-    const {data } = useFetch<MenuItem[]>("/menu")
-    const [displayItems, setDisplayItems] = useState<MenuItem[]>([]);
-    const category_order = ["bowl", "drink"];
+  const { data } = useFetch<MenuItem[]>("/menu");
+  const [displayItems, setDisplayItems] = useState<MenuItem[]>([]);
+  const category_order = ["bowl", "drink"];
 
     const buildBowlRef = useRef<HTMLDivElement>(null);
+    const location = useLocation();
     
     useEffect(() => {
         if (data) {
@@ -21,6 +23,14 @@ function Menu() {
             setDisplayItems(sorted);
           }
         }, [data]);
+
+    useEffect(() => {
+      if (location.hash === "#buildbowl") {
+        setTimeout(() => {
+          buildBowlRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      }
+    }, [location.hash]);
 
     const scrollToBuildBowl = () => {
         buildBowlRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -37,11 +47,11 @@ function Menu() {
             <Button variant="link" onClick={scrollToBuildBowl}>Build your own bowl</Button>
         </div>
         <MenuList items={displayItems} />
-        <div ref={buildBowlRef}>
+        <div id="buildbowl" ref={buildBowlRef}>
             <BuildYourBowl />
         </div>
     </>
-  )
+  );
 }
 
-export default Menu
+export default Menu;

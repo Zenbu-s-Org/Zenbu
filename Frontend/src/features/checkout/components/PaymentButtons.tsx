@@ -1,15 +1,16 @@
 import { Button } from "@/components/ui";
 import { useCheckout } from "../hooks/useCheckout";
+import { useAuthStore } from "@/stores/authStore";
+import { useNavigate } from "react-router-dom";
 
 function PaymentButtons() {
   const { setCustomer, submitOrder, paymentMethod } = useCheckout();
-
-  const userId = ""; // user från hook här
-  const isLoggedIn = false;
+  const { user, isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
 
   async function handlePurchase() {
-    if (isLoggedIn) {
-      setCustomer(userId);
+    if (isAuthenticated && user) {
+      setCustomer(user.id);
     } else {
       setCustomer("guest");
     }
@@ -18,24 +19,24 @@ function PaymentButtons() {
 
   return (
     <>
-      {isLoggedIn ? (
+      {isAuthenticated ? (
         <>
-          <Button
-            variant="submit"
-            className="w-full"
-            onClick={handlePurchase}
-          >
+          <Button variant="submit" className="w-full" onClick={handlePurchase}>
             Go To Payment
           </Button>
         </>
       ) : (
         <>
           <h3 className="font-bold">Have an account?</h3>
-          <div className="w-full flex flex-col items-center gap-2">
-            <Button variant="link" className="w-full">
+          <div className="flex w-full flex-col items-center gap-2">
+            <Button
+              variant="link"
+              className="w-full"
+              onClick={() => navigate("/login")}
+            >
               Sign In
             </Button>
-            <span className="font-bold text-lg">Or</span>
+            <span className="text-lg font-bold">Or</span>
 
             {paymentMethod ? (
               <Button
@@ -48,7 +49,7 @@ function PaymentButtons() {
             ) : (
               <p>Choose payment method to continue</p>
             )}
-          </div> 
+          </div>
         </>
       )}
     </>
@@ -56,20 +57,3 @@ function PaymentButtons() {
 }
 
 export default PaymentButtons;
-
-
-
-
-
-
-
-
-
-
-              
-
-
-
-
-
-

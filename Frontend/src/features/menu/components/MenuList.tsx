@@ -1,22 +1,21 @@
-import { type MenuItem } from "@/features/menu";;
+import { type MenuItem } from "@/features/menu";
 import MenuCard from "./MenuCard";
 
 type MenuListProps = {
-    items: MenuItem[] | undefined
-}
+  items: MenuItem[] | undefined;
+};
 
 function MenuList({ items }: MenuListProps) {
   const categoryTitles: Record<string, string> = {
-    "bowl": "Signature Bowls",
-    "drink": "Drinks",
+    bowl: "Signature Bowls",
+    drink: "Drinks",
   };
 
   let lastCategory: string | null = null;
 
   return (
     <section className="py-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {items?.map((item) => {
           const showTitle = item.category !== lastCategory;
           lastCategory = item.category;
@@ -24,7 +23,10 @@ function MenuList({ items }: MenuListProps) {
           return (
             <>
               {showTitle && (
-                <h2 key={item.category} className="col-span-full text-3xl font-bold font-['Bricolage_Grotesque'] mt-8">
+                <h2
+                  key={item.category}
+                  className="col-span-full mt-8 font-['Bricolage_Grotesque'] text-3xl font-bold"
+                >
                   {categoryTitles[item.category] || item.category}
                 </h2>
               )}
@@ -37,4 +39,4 @@ function MenuList({ items }: MenuListProps) {
   );
 }
 
-export default MenuList
+export default MenuList;

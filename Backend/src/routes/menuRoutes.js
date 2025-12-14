@@ -1,7 +1,12 @@
 import express from "express";
 import MenuItem from "../models/MenuItem.js";
+<<<<<<< HEAD
 import { authorize } from "../middlewares/authMiddleware.js";
 import { nanoid } from 'nanoid'
+=======
+import { nanoid } from "nanoid";
+import { authorize, protect } from "../middlewares/authMiddleware.js";
+>>>>>>> origin/dev
 const router = express.Router();
 
 // GET-anrop för att hämta alla rätter /api/menu
@@ -29,71 +34,75 @@ router.get("/:id", async (req, res) => {
 
 //post anrop för att göra ett nytt item i menyn
 
+<<<<<<< HEAD
 router.post("/", authorize, async (req,res) => {
+=======
+router.post("/", protect, authorize("admin"), async (req, res) => {
+>>>>>>> origin/dev
   try {
-    const {name, price, category, img, desc} = req.body
-    const id = `prod-${nanoid(5)}`
+    const { name, price, category, img, desc } = req.body;
+    const id = `prod-${nanoid(5)}`;
     const newProduct = await MenuItem.create({
       name: name,
-      price: price, 
+      price: price,
       category: category,
       desc: desc,
       img: img,
       id: id,
-      createdAt: new Date().toISOString()
-    })
-   
-        res.status(201).json({
-        success: true,
-        message: "product added to menu",
-        product: newProduct
-      })
-    
+      createdAt: new Date().toISOString(),
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "product added to menu",
+      product: newProduct,
+    });
   } catch (error) {
-     res.status(500).json({ message: error.message });
-    
+    console.error("CREATE PRODUCT ERROR:", error);
+    res.status(500).json({ message: error.message });
   }
-})
+});
 
 //uppdatera menuproduct
 
+<<<<<<< HEAD
 router.put("/:id", authorize, async (req,res) => {
+=======
+router.put("/:id", protect, authorize("admin"), async (req, res) => {
+>>>>>>> origin/dev
   try {
-    const { name, price, category, img ,desc } = req.body
-    
+    const { name, price, category, img, desc } = req.body;
+
     const updatedProduct = await MenuItem.findByIdAndUpdate(
       req.params.id, //söker efter id
-      {name,price,category,img,desc}, //req body
-      {new: true}
-    )
+      { name, price, category, img, desc }, //req body
+      { new: true }
+    );
     res.status(201).json({
       success: true,
       message: "product updated",
-      product: updatedProduct
-    })
-  } catch (error ) {
+      product: updatedProduct,
+    });
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
-})
+});
 
 //delete menu product
 
+<<<<<<< HEAD
 router.delete("/:id", authorize, async (req,res) => {
+=======
+router.delete("/:id", protect, authorize("admin"), async (req, res) => {
+>>>>>>> origin/dev
   try {
-    const deleteProduct = await MenuItem.findByIdAndDelete(
-      req.params.id,
-      
-    )
+    const deleteProduct = await MenuItem.findByIdAndDelete(req.params.id);
     res.status(201).json({
       success: true,
       product: deleteProduct,
-      message: "product successfully deleted from menu"
-      
-
-    })
-  } catch (error) {
-    
-  }
-})
+      message: "product successfully deleted from menu",
+    });
+  } catch (error) {}
+});
 
 export default router;
