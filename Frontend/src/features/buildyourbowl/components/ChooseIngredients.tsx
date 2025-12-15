@@ -24,8 +24,8 @@ function ChooseIngredients({
   return (
     <div className="flex flex-col lg:mx-6 lg:flex-row">
       {categories.map((category) => {
-        const items = ingredients.filter((i) => i.category === category);
-        if (!items.length) return null;
+        const items = ingredients?.filter((i) => i.category === category);
+        if (!items?.length) return null;
         return (
           <div
             key={category}
