@@ -7,11 +7,12 @@ import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import UserDashboard from "@/features/dashboard/UserDashboard";
 
-import { AdminLayout } from "@/features/admin";
 import {
-  AdminMenuPage,
+  AdminLayout,
   AdminInventoryPage,
+  AdminMenuPage,
   AdminOrdersPage,
+  AdminRoute,
 } from "@/features/admin";
 
 const router = createBrowserRouter([
@@ -29,20 +30,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin",
-    element: <AdminLayout />,
+    element: <AdminRoute />,
     children: [
       {
-        index: true,
-        element: (
-          <>
-            <h1 className="text-2xl">Welcome to zenbu dashboard</h1>
-          </>
-        ),
+        element: <AdminLayout />,
+        children: [
+          { path: "/admin", element: <h1>Welcome to Zenbu Dashboard</h1> },
+          { path: "/admin/orders", element: <AdminOrdersPage /> },
+          { path: "/admin/menu", element: <AdminMenuPage /> },
+          { path: "/admin/inventory", element: <AdminInventoryPage /> },
+        ],
       },
-      { path: "orders", element: <AdminOrdersPage /> },
-      { path: "menu", element: <AdminMenuPage /> },
-      { path: "inventory", element: <AdminInventoryPage /> },
     ],
   },
 ]);

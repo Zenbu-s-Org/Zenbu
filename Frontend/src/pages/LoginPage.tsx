@@ -5,7 +5,7 @@ import { Button, Input } from "../components/ui";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const login = useAuthStore((state) => state.login);
+  const { login } = useAuthStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -23,8 +23,12 @@ function LoginPage() {
     setIsLoading(true);
 
     try {
-      await login(email, password);
-      navigate("/menu");
+      const loggedInUser = await login(email, password);
+      if (loggedInUser.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/menu");
+      }
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

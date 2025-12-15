@@ -5,7 +5,7 @@ class AuthService {
   async register(
     name: string,
     email: string,
-    password: string,
+    password: string
   ): Promise<AuthResponse> {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
@@ -41,30 +41,21 @@ class AuthService {
   }
 
   async getCurrentUser(): Promise<CurrentUserResponse> {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      throw new Error("No token found");
-    }
-
     const response = await fetch(`${API_URL}/auth/me`, {
-      headers: getAuthHeaders(true),
+      method: "GET",
+      headers: getAuthHeaders(),
       credentials: "include",
     });
 
     const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to get user");
-    }
-
+    if (!response.ok) throw new Error(data.message || "Failed to get user");
     return data;
   }
 
   async logout(): Promise<void> {
     await fetch(`${API_URL}/auth/logout`, {
       method: "POST",
-      headers: getAuthHeaders(true),
+      headers: getAuthHeaders(),
       credentials: "include",
     });
   }

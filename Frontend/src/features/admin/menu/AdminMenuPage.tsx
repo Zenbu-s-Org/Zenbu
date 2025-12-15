@@ -3,77 +3,57 @@ import { useModal } from "@/components/modal";
 import { useFetch } from "@/hooks/useFetch";
 import MenuTable from "./components/MenuTable";
 import MenuModal from "./components/MenuModal";
+import { Button } from "@/components/ui";
 
 import type { MenuItem } from "../types";
-import { Button } from "@/components/ui";
+import { createMenuItem, updateMenuItem, deleteMenuItem } from "./menu.api";
 
 function MenuPage() {
   const { openModal, closeModal } = useModal();
 
   const { data, error } = useFetch<MenuItem[]>("/menu");
-
   const [menu, setMenu] = useState<MenuItem[]>([]);
 
   useEffect(() => {
-    if (data && Array.isArray(data)) {
+    if (data) {
       startTransition(() => setMenu(data));
     }
   }, [data]);
-
-  // byta till rätt url/endpoint här
-  async function updateMenuItem(item: MenuItem) {
-    const res = await fetch(`http://localhost:5050/api/menu/${item._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
-    });
-
-    if (!res.ok) {
-      console.error("Update failed:", res.status);
-      return;
-    }
-
-    const json = await res.json();
-    const updated = json.product as MenuItem;
-
-    setMenu((prev) => prev.map((m) => (m._id === updated._id ? updated : m)));
-
-    closeModal();
-  }
-
-  // byta till rätt url/endpoint här
-  async function createMenuItem(item: Omit<MenuItem, "_id" | "id">) {
-    const res = await fetch(`http://localhost:5050/api/menu`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
-    });
-
-    if (!res.ok) {
-      console.error("Create failed");
-      return;
-    }
-
-    const json = await res.json();
-    const created = json.product as MenuItem;
-
-    setMenu((prev) => [...prev, created]);
-    closeModal();
-  }
 
   async function handleSave(
     payload: MenuItem | Omit<MenuItem, "_id" | "id">,
     mode: "edit" | "create"
   ) {
     if (mode === "edit") {
-      return updateMenuItem(payload as MenuItem);
+      const updated = await updateMenuItem(payload as MenuItem);
+      setMenu((prev) => prev.map((m) => (m._id === updated._id ? updated : m)));
+    } else {
+      const created = await createMenuItem(
+        payload as Omit<MenuItem, "_id" | "id">
+      );
+      setMenu((prev) => [...prev, created]);
     }
-    return createMenuItem(payload as Omit<MenuItem, "_id" | "id">);
+
+    closeModal();
+  }
+
+  async function handleDelete(item: MenuItem) {
+    if (!confirm(`Delete "${item.name}"?`)) return;
+
+    await deleteMenuItem(item.id);
+    setMenu((prev) => prev.filter((m) => m.id !== item.id));
+    closeModal();
   }
 
   function handleRowClick(item: MenuItem) {
-    console.log(item);
-    openModal(<MenuModal mode="edit" item={item} onSave={handleSave} />);
+    openModal(
+      <MenuModal
+        mode="edit"
+        item={item}
+        onSave={handleSave}
+        onDelete={handleDelete}
+      />
+    );
   }
 
   function handleCreate() {

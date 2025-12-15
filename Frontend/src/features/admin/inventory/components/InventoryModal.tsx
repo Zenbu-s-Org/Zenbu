@@ -1,75 +1,93 @@
-import { useState } from "react"
-import { Button, Input } from "@/components/ui"
-import { useModal } from "@/components/modal"
-import type { Ingredient } from "@/features/buildyourbowl/types"
-import SectionLabel from "../../components/SectionLabel"
+import { Button, Input } from "@/components/ui";
+import { useModal } from "@/components/modal";
+import type { Ingredient } from "../../types";
+import { useState } from "react";
 
 type Props = {
-  ingredient: Ingredient
-}
+  mode: "edit" | "create";
+  item?: Ingredient;
+  onSave: (
+    item: Ingredient | Omit<Ingredient, "_id" | "id">,
+    mode: "edit" | "create"
+  ) => void;
+  onDelete?: (id: string) => void;
+};
 
-const CATEGORY_OPTIONS = ["base", "protein", "veg", "sauce"] as const
+function InventoryModal({ mode, item, onSave, onDelete }: Props) {
+  const { closeModal } = useModal();
 
-function InventoryModal({ ingredient }: Props) {
-  const { closeModal } = useModal()
-
-  const [name, setName] = useState(ingredient.name)
-  const [qty, setQty] = useState(ingredient.qty)
-  const [category, setCategory] = useState<Ingredient["category"]>(ingredient.category)
+  const [name, setName] = useState(item?.name ?? "");
+  const [qty, setQty] = useState(item?.qty ?? 0);
+  const [category, setCategory] = useState<Ingredient["category"]>(
+    item?.category ?? "base"
+  );
 
   function handleSave() {
-    // TODO: PUT request till backend
-    console.log("Saved:", { name, qty, category })
-    closeModal()
+    if (mode === "edit" && item) {
+      onSave({ ...item, name, qty, category }, "edit");
+    } else {
+      onSave({ name, qty, category }, "create");
+    }
+  }
+
+  function handleDelete() {
+    if (!item || !onDelete) return;
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${item.name}"?`
+    );
+
+    if (!confirmed) return;
+
+    onDelete(item.id);
+    closeModal();
   }
 
   return (
-    <div className="flex flex-col items-center gap-6 ">
-      <h2 className="text-xl font-bold">{ingredient.id}</h2>
+    <div className="flex flex-col gap-4 w-full">
+      <h2 className="text-xl font-bold">
+        {mode === "edit" ? "Edit Ingredient" : "Add Ingredient"}
+      </h2>
 
-        <Input
-            label="Name"
-          type="text"
-          value={name}
-          placeholder="Ingredient name"
-          onChange={(e) => setName(e.target.value)}
-        />
-      
+      <Input
+        label="Name"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Ingredient name"
+      />
 
-      <SectionLabel label="Category">
-        <select
-          className="border-2 border-stone-900 rounded-lg px-2 py-1 shadow-sm bg-white"
-          value={category}
-          onChange={(e) =>
-            setCategory(e.target.value as Ingredient["category"])
-          }
-        >
-          {CATEGORY_OPTIONS.map((opt) => (
-            <option key={opt} value={opt} className="capitalize">
-              {opt}
-            </option>
-          ))}
-        </select>
-      </SectionLabel>
-
-        <Input
+      <Input
+        placeholder="product quantity"
         label="Quantity"
-          type="number"
-          value={qty}
-          onChange={(e) => setQty(Number(e.target.value))}
-          placeholder="Available quantity"
-        />
-      
-      <div className="flex flex-col gap-5 pt-4 w-full">
-        <Button variant="submit" onClick={handleSave}>
-          Save
-        </Button>
-        <Button variant="outline" onClick={closeModal}>
-          Cancel
-        </Button>
+        type="number"
+        value={qty}
+        onChange={(e) => setQty(Number(e.target.value))}
+      />
+
+      <label className="font-semibold">Category</label>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value as Ingredient["category"])}
+        className="border p-1 rounded"
+      >
+        <option value="base">Base</option>
+        <option value="protein">Protein</option>
+        <option value="veg">Vegetables</option>
+        <option value="sauce">Sauce</option>
+        <option value="extra">Extra</option>
+      </select>
+
+      <div className="flex justify-between mt-6 flex-col gap-5">
+        <Button onClick={handleSave}>Save</Button>
+        {mode === "edit" && (
+          <Button variant="outline" onClick={handleDelete}>
+            Delete
+          </Button>
+        )}
       </div>
     </div>
-  )
+  );
 }
 
-export default InventoryModal
+export default InventoryModal;

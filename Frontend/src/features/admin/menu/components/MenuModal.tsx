@@ -18,9 +18,10 @@ type Props = {
     payload: MenuItem | Omit<MenuItem, "_id" | "id">,
     mode: "edit" | "create"
   ) => Promise<void> | void;
+  onDelete?: (item: MenuItem) => void;
 };
 
-function MenuModal({ mode, item, onSave }: Props) {
+function MenuModal({ mode, item, onSave, onDelete }: Props) {
   const { closeModal } = useModal();
 
   const [name, setName] = useState(item?.name ?? "");
@@ -242,10 +243,14 @@ function MenuModal({ mode, item, onSave }: Props) {
         onChange={(e) => setDesc(e.target.value)}
         placeholder="Describe Item"
       />
-
-      <Button variant="submit" onClick={handleSubmit}>
-        Save
-      </Button>
+      <div className="flex flex-col w-full gap-5 mt-6">
+        <Button onClick={handleSubmit}>Save</Button>
+        {mode === "edit" && item && onDelete && (
+          <Button variant="outline" onClick={() => onDelete(item)}>
+            Delete
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

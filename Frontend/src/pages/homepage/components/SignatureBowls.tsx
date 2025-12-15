@@ -27,7 +27,7 @@ function SignatureBowls() {
     <section className="mb-10">
         <h1 className="font-[Bricolage_Grotesque] pl-6 font-bold text-3xl mb-10">Signature Bowls</h1>
         <Swiper pagination={true} modules={[Pagination]} slidesPerView={1} className="mySwiper">
-            {menu.slice(0,3).map((info,index) => (
+            {menu?.slice(0,3).map((info,index) => (
                 <SwiperSlide key={index} >
                     <section className="  border-2  rounded-xl p-6 flex flex-col justify-between mx-5 mb-8">
                     <img className="w-full h-full object-cover" src={info.img || imgplaceholder} onError={(e) => (e.currentTarget.src = imgplaceholder)} />

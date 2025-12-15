@@ -9,6 +9,8 @@ type CheckoutState = {
   submitOrder: () => void;
 };
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const useCheckout = create<CheckoutState>((set, get) => ({
   paymentMethod: null,
   customer: null,
@@ -28,7 +30,7 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
       totalPrice: totalPrice,
     };
 
-    const response = await fetch("https://zenbu-ajsi.onrender.com/api/order", {
+    const response = await fetch(`${API_URL}/order`, {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(order),

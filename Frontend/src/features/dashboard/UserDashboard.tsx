@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/stores/authStore";
 import StatsCard from "./components/StatsCard";
@@ -15,90 +15,56 @@ function UserDashboard() {
     logout,
   } = useAuthStore();
   const navigate = useNavigate();
+
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<FormattedOrder[]>([]);
   const [showAllOrders, setShowAllOrders] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/");
-  };
-
-  useEffect(() => {
-    // Vänta tills auth är klar med att checka
-    if (authLoading) return;
-
-    // Om inte inloggad, redirect till login
-    if (!isAuthenticated || !user) {
-      navigate("/login");
-      return;
-    }
-
-    // Om inloggad, hämta dashboard data
-    fetchDashboardData();
-  }, [isAuthenticated, user, authLoading, navigate]);
-
-  useEffect(() => {
-    // Polling: uppdatera dashboard data var 10:e sekund
-    if (!isAuthenticated || !user) return;
-
-    const interval = setInterval(() => {
-      fetchDashboardData();
-    }, 300000); // 300000 ms = 5 minuter
-
-    // Cleanup för att undvika memory leak
-    return () => clearInterval(interval);
-  }, [isAuthenticated, user]);
-
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = useCallback(async () => {
     if (!user) return;
 
     try {
       setIsLoading(true);
       setError(null);
 
-      const token = localStorage.getItem("token");
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-
       const userId = user.id;
 
-      // Hämta stats
+      // Hämta stats (cookie skickas automatiskt)
       const statsRes = await fetch(`${API_URL}/order/stats/${userId}`, {
-        headers,
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
       });
+
       if (!statsRes.ok) {
         if (statsRes.status === 401) {
-          localStorage.removeItem("token");
           navigate("/login");
           return;
         }
         throw new Error("Failed to fetch stats");
       }
-      const statsData = await statsRes.json();
+
+      const statsData: Stats = await statsRes.json();
       setStats(statsData);
 
-      // Hämta orders
+      // Hämta orders (cookie skickas automatiskt)
       const ordersRes = await fetch(`${API_URL}/order/user/${userId}`, {
-        headers,
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
       });
+
       if (!ordersRes.ok) {
         if (ordersRes.status === 401) {
-          localStorage.removeItem("token");
           navigate("/login");
           return;
         }
         throw new Error("Failed to fetch orders");
       }
+
       const ordersData: BackendOrder[] = await ordersRes.json();
 
       // Formatera orders för UI
@@ -117,7 +83,32 @@ function UserDashboard() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user, navigate]);
+
+  useEffect(() => {
+    // Vänta tills auth är klar med att checka
+    if (authLoading) return;
+
+    // Om inte inloggad, redirect till login
+    if (!isAuthenticated || !user) {
+      navigate("/login");
+      return;
+    }
+
+    // Om inloggad, hämta dashboard data
+    fetchDashboardData();
+  }, [isAuthenticated, user, authLoading, navigate, fetchDashboardData]);
+
+  useEffect(() => {
+    // Polling: uppdatera dashboard data var 5:e minut
+    if (!isAuthenticated || !user) return;
+
+    const interval = setInterval(() => {
+      fetchDashboardData();
+    }, 300000);
+
+    return () => clearInterval(interval);
+  }, [isAuthenticated, user, fetchDashboardData]);
 
   // Visa loading medan auth checkas
   if (authLoading || isLoading) {
