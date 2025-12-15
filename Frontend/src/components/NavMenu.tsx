@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import redLogo from "../assets/red-logo.svg";
 import { useAuthStore } from "@/stores/authStore";
 
 function NavMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    setIsOpen(false);
+    navigate("/");
+  };
 
   return (
     <>
@@ -33,24 +40,37 @@ function NavMenu() {
             >
               close
             </button>
-            
-            <Link to="/menu" onClick={() => setIsOpen(false)}>Menu</Link>
-            <Link to="/menu#buildbowl" onClick={() => setIsOpen(false)}>Build your own bowl</Link>
-            <Link to="/about" onClick={() => setIsOpen(false)}>About us</Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
-            <Link 
-              to={isAuthenticated ? "/myaccount" : "/login"} 
+
+            <Link to="/menu" onClick={() => setIsOpen(false)}>
+              Menu
+            </Link>
+            <Link to="/menu#buildbowl" onClick={() => setIsOpen(false)}>
+              Build your own bowl
+            </Link>
+            <Link to="/about" onClick={() => setIsOpen(false)}>
+              About us
+            </Link>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>
+              Contact
+            </Link>
+            <Link
+              to={isAuthenticated ? "/myaccount" : "/login"}
               onClick={() => setIsOpen(false)}
             >
               {isAuthenticated ? "My Account" : "Sign In / Register"}
             </Link>
+            {isAuthenticated && (
+              <button onClick={handleLogout} className="text-red-500">
+                Logout
+              </button>
+            )}
           </div>
 
           <div className="mt-auto flex justify-center pb-6">
             <img src={redLogo} alt="red-logo" className="w-52"></img>
           </div>
         </div>
-        
+
         <div className="hidden lg:flex gap-12 font-bold text-stone-900 font-['Nunito'] text-xl">
           <Link to="/menu">Menu</Link>
           <Link to="/menu#buildbowl">Build your own bowl</Link>
