@@ -9,8 +9,14 @@ function CustomerDetails() {
 
     const [name, setName] = useState(user?.name ?? "");
     const [phone, setPhone] = useState(user?.phone ?? "");
+    const [error, setError] = useState("");
 
     function handlePlaceOrder() {
+        if (!name.trim()) {
+            setError("*Name is required");
+            return;
+        }
+        setError("");
         setCustomer({ name, phone });
         submitOrder();
     }
@@ -31,6 +37,7 @@ function CustomerDetails() {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
+        {error && <p className="text-red-600 text-sm">{error}</p>}
       <Button variant="submit" className="mt-6" onClick={handlePlaceOrder}>Place Order</Button>
     </div>
   )
