@@ -33,7 +33,7 @@ function MenuCard({ id, name, desc, price, img }: MenuCardProps) {
           <img
             src={img || imgPlaceholder}
             alt={name}
-            className="mt-4 h-24 h-auto w-24 w-26 object-cover"
+            className="mt-4 h-24 w-26 object-cover"
             onError={(e) => (e.currentTarget.src = imgPlaceholder)}
           />
         </div>
