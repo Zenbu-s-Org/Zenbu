@@ -14,7 +14,7 @@ export type BackendOrder = {
     price: number;
   }>;
   totalPrice: number;
-  status: "pending" | "preparing" | "ready" | "done";
+  status: "pending" | "preparing" | "ready" | "completed" | "cancelled";
 };
 
 export type FormattedOrder = {
@@ -22,7 +22,7 @@ export type FormattedOrder = {
   orderNumber: string;
   items: string;
   price: number;
-  status: "pending" | "preparing" | "ready" | "done";
+  status: "pending" | "preparing" | "ready" | "completed" | "cancelled";
 };
 
 export type Order = FormattedOrder;

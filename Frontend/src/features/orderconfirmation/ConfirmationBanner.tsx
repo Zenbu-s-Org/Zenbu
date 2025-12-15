@@ -1,11 +1,9 @@
-import { cn } from "clsx-for-tailwind";
-import { ChevronDown } from "lucide-react";
-import { ChevronUp } from "lucide-react";
 import { useState, useEffect, startTransition } from "react";
-import Order from "./components/Order";
 import { useFetch } from "@/hooks/useFetch";
+import OrderBannerContent from "./components/OrderBannerContent";
+import ConfirmCancelModal from "./components/ConfirmCancelModal";
 
-type ItemProps = {
+type OrderData = {
   orderId: string;
   status: "pending" | "preparing" | "ready" | "cancelled" | "completed";
   items: {
@@ -17,19 +15,24 @@ type ItemProps = {
 };
 
 function ConfirmationBanner() {
-  const [toggle, setToggle] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
 
+  // Hämta currentOrder från localStorage
   useEffect(() => {
     startTransition(() => setOrderId(localStorage.getItem("currentOrder")));
   }, []);
-  const { data, refetch } = useFetch<ItemProps>(
+
+  // Fetcha order data
+  const { data, refetch } = useFetch<OrderData>(
     orderId ? `/order/${orderId}` : null
   );
 
+  // Polling och cleanup
   useEffect(() => {
-    if (!orderId) return;
-    if (!data) return;
+    if (!orderId || !data) return;
 
     if (data.status === "cancelled" || data.status === "completed") {
       localStorage.removeItem("currentOrder");
@@ -37,13 +40,48 @@ function ConfirmationBanner() {
       return;
     }
 
-    const timeout = setInterval(() => {
+    const interval = setInterval(() => {
       refetch();
     }, 5000);
 
-    return () => clearInterval(timeout);
+    return () => clearInterval(interval);
   }, [orderId, data, refetch]);
 
+  // Cancel order handler
+  const handleCancelOrder = async () => {
+    if (!orderId) return;
+
+    setIsCancelling(true);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/order/${orderId}/cancel`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        setShowCancelModal(false);
+        refetch();
+      } else {
+        alert(result.message || "Kunde inte avbryta beställningen");
+      }
+    } catch (error) {
+      console.error("Error cancelling order:", error);
+      alert("Något gick fel vid avbokning");
+    } finally {
+      setIsCancelling(false);
+    }
+  };
+
+  // Visa inte bannern om ingen order eller cancelled/completed
   if (
     !orderId ||
     !data ||
@@ -54,29 +92,23 @@ function ConfirmationBanner() {
   }
 
   return (
-    <div
-      className={cn("fixed top-15 z-10 w-full text-orange-900", {
-        "bg-orange-300": data.status === "pending",
-        "bg-fuchsia-300": data.status === "preparing",
-        "bg-lime-300": data.status === "ready",
-      })}
-    >
-      <section className="flex flex-col items-center pt-2 font-bold">
-        <h2 className="border-b text-lg">Your order</h2>
-        <p className="text-sm">Order: {orderId}</p>
-        <p className="text-sm">Status: {data.status}</p>
-      </section>
+    <>
+      <OrderBannerContent
+        orderId={orderId}
+        status={data.status}
+        items={data.items}
+        isExpanded={isExpanded}
+        onToggle={() => setIsExpanded(!isExpanded)}
+        onCancelClick={() => setShowCancelModal(true)}
+      />
 
-      {toggle &&
-        data.items.map((item, i) => (
-          <Order key={i} title={item.name} qty={item.qty} />
-        ))}
-      <section className="flex flex-col items-center pb-1">
-        <button onClick={() => setToggle(!toggle)}>
-          {toggle ? <ChevronUp /> : <ChevronDown />}
-        </button>
-      </section>
-    </div>
+      <ConfirmCancelModal
+        isOpen={showCancelModal}
+        isLoading={isCancelling}
+        onConfirm={handleCancelOrder}
+        onCancel={() => setShowCancelModal(false)}
+      />
+    </>
   );
 }
 

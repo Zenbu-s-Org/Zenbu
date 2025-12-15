@@ -42,6 +42,47 @@ router.get("/stats/:userId", protect, async (req, res) => {
   }
 });
 
+// PUT-anrop för att cancella en order /api/orders/:id/cancel
+// Både gäster och inloggade användare kan cancella sin egen order
+router.put("/:id/cancel", async (req, res) => {
+  try {
+    const orderNumber = req.params.id;
+
+    const order = await Order.findOne({ orderNumber });
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    // Kan ENDAST cancella orders med status "pending"
+    if (order.status !== "pending") {
+      return res.status(400).json({
+        success: false,
+        message: `Cannot cancel order with status "${order.status}". Only pending orders can be cancelled.`,
+      });
+    }
+
+    // Uppdatera status till cancelled
+    order.status = "cancelled";
+    await order.save();
+
+    res.json({
+      success: true,
+      message: "Order cancelled successfully",
+      order,
+    });
+  } catch (error) {
+    console.error("Error cancelling order:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 // GET-anrop för att hämta alla orders för en specifik användare /api/order/user/:userId
 router.get("/user/:userId", protect, async (req, res) => {
   try {

@@ -136,6 +136,11 @@ function UserDashboard() {
     );
   }
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <div className="min-h-screen bg-stone-50 pb-8">
       <div className="px-4 pt-6 pb-4 justify-center text-center">
