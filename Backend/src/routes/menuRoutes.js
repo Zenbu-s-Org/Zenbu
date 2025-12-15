@@ -1,12 +1,8 @@
 import express from "express";
 import MenuItem from "../models/MenuItem.js";
-<<<<<<< HEAD
-import { authorize } from "../middlewares/authMiddleware.js";
-import { nanoid } from 'nanoid'
-=======
 import { nanoid } from "nanoid";
 import { authorize, protect } from "../middlewares/authMiddleware.js";
->>>>>>> origin/dev
+
 const router = express.Router();
 
 // GET-anrop för att hämta alla rätter /api/menu
@@ -34,11 +30,7 @@ router.get("/:id", async (req, res) => {
 
 //post anrop för att göra ett nytt item i menyn
 
-<<<<<<< HEAD
-router.post("/", authorize, async (req,res) => {
-=======
 router.post("/", protect, authorize("admin"), async (req, res) => {
->>>>>>> origin/dev
   try {
     const { name, price, category, img, desc } = req.body;
     const id = `prod-${nanoid(5)}`;
@@ -65,11 +57,7 @@ router.post("/", protect, authorize("admin"), async (req, res) => {
 
 //uppdatera menuproduct
 
-<<<<<<< HEAD
-router.put("/:id", authorize, async (req,res) => {
-=======
 router.put("/:id", protect, authorize("admin"), async (req, res) => {
->>>>>>> origin/dev
   try {
     const { name, price, category, img, desc } = req.body;
 
@@ -90,11 +78,7 @@ router.put("/:id", protect, authorize("admin"), async (req, res) => {
 
 //delete menu product
 
-<<<<<<< HEAD
-router.delete("/:id", authorize, async (req,res) => {
-=======
 router.delete("/:id", protect, authorize("admin"), async (req, res) => {
->>>>>>> origin/dev
   try {
     const deleteProduct = await MenuItem.findOneAndDelete(req.params.id);
     res.status(201).json({
