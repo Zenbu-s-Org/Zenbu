@@ -1,6 +1,7 @@
 import { cn } from "clsx-for-tailwind";
 import { ChevronDown, ChevronUp, XCircle } from "lucide-react";
 import Order from "./Order";
+import Button from "@/components/ui/Button";
 
 interface OrderBannerContentProps {
   orderId: string;
@@ -60,18 +61,20 @@ export default function OrderBannerContent({
             ))}
           </div>
 
+          {/* Cancel Button */}
           {status === "pending" && (
             <div className="flex justify-center pt-2">
-              <button
+              <Button
+                variant="outline"
                 onClick={onCancelClick}
-                className="group flex items-center gap-2 rounded-lg border-2 border-red-600 bg-white px-5 py-2.5 font-semibold text-red-600 shadow-sm transition-all hover:bg-red-600 hover:text-white hover:shadow-md active:scale-95"
+                className="group flex items-center gap-2 border-orange-600 text-orange-900 hover:bg-orange-600 hover:text-white"
               >
                 <XCircle
                   size={18}
                   className="transition-transform group-hover:rotate-90"
                 />
                 Cancel Order
-              </button>
+              </Button>
             </div>
           )}
         </div>

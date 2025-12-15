@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-
+import Button from "@/components/ui/Button";
 interface ConfirmCancelModalProps {
   isOpen: boolean;
   isLoading: boolean;
@@ -17,11 +17,11 @@ export default function ConfirmCancelModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
       onClick={() => !isLoading && onCancel()}
     >
       <div
-        className="w-11/12 max-w-md rounded-lg bg-white p-6 shadow-xl"
+        className="w-11/12 max-w-md rounded-2xl border-4 border-stone-900 bg-white p-6 shadow-[8px_8px_0_#1c1917]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-start justify-between">
@@ -29,9 +29,9 @@ export default function ConfirmCancelModal({
           <button
             onClick={onCancel}
             disabled={isLoading}
-            className="text-gray-400 hover:text-gray-600 disabled:opacity-50"
+            className="rounded-full p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600 disabled:opacity-50"
           >
-            <X size={24} />
+            <X size={20} />
           </button>
         </div>
 
@@ -41,20 +41,22 @@ export default function ConfirmCancelModal({
         </p>
 
         <div className="flex gap-3">
-          <button
+          <Button
+            variant="secondary"
             onClick={onCancel}
             disabled={isLoading}
-            className="flex-1 rounded border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-50"
+            className="flex-1"
           >
-            No, go back
-          </button>
-          <button
+            Go back
+          </Button>
+          <Button
+            variant="submit"
             onClick={onConfirm}
             disabled={isLoading}
-            className="flex-1 rounded bg-red-600 px-4 py-2 font-medium text-white transition hover:bg-red-700 disabled:opacity-50"
+            className="flex-1"
           >
             {isLoading ? "Cancelling..." : "Yes, cancel"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>
