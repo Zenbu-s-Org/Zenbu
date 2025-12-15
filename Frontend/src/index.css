@@ -3,9 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import "tailwindcss";
 
-@import "swiper/css";
-@import "swiper/css/pagination";
-
 @layer base {
   h1,
   h2,
@@ -28,8 +25,4 @@
   h3 {
     @apply text-2xl;
   }
-}
-
-.mySwiper .swiper-pagination {
-  bottom: -5px !important; /* move dots lower */
 }

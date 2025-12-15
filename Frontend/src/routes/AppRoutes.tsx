@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "@/layouts/MainLayout";
-import MenuPage from "@/pages/MenuPage";
-import OrderPage from "@/pages/OrderPage";
-import HomePage from "@/pages/homepage/HomePage";
-import LoginPage from "@/pages/LoginPage";
-import RegisterPage from "@/pages/RegisterPage";
 import UserDashboard from "@/features/dashboard/UserDashboard";
-
+import {
+  HomePage,
+  MenuPage,
+  OrderPage,
+  LoginPage,
+  RegisterPage,
+} from "@/pages";
 import {
   AdminLayout,
   AdminInventoryPage,

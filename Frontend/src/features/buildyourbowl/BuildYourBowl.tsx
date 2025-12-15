@@ -26,7 +26,7 @@ function BuildYourBowl() {
   };
 
   const { addItem } = useCart();
-  const bowl_price = 149;
+  const bowl_price = 99;
   const customId = "custom-" + Math.floor(10000 + Math.random() * 90000);
 
   const handleConfirm = () => {
@@ -53,7 +53,7 @@ function BuildYourBowl() {
         className="relative flex flex-col items-center"
       >
         <span className="absolute -top-10 -rotate-6 rounded-3xl border-4 border-lime-900 bg-lime-300 px-6 py-1 font-['Bricolage_Grotesque'] text-2xl font-bold text-lime-900 uppercase">
-          149 sek
+          99 sek
         </span>
         <img src={roundLogo} alt="round-logo" className="my-4"></img>
         <h2 className="font-['Bricolage_Grotesque']">Build Your Own Bowl</h2>
