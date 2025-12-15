@@ -1,28 +1,27 @@
 import { Button } from "@/components/ui";
-import { useCheckout } from "../hooks/useCheckout";
 import { useAuthStore } from "@/stores/authStore";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../hooks/useCheckout";
 
-function PaymentButtons() {
-  const { setCustomer, submitOrder, paymentMethod } = useCheckout();
-  const { user, isAuthenticated } = useAuthStore();
+type PaymentButtonProps = {
+  onGuestContinue: () => void;
+}
+
+function PaymentButtons({ onGuestContinue }: PaymentButtonProps) {
+  const { paymentMethod } = useCheckout();
+  const { isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
 
-  async function handlePurchase() {
-    if (isAuthenticated && user) {
-      setCustomer(user.id);
-    } else {
-      setCustomer("guest");
-    }
-    submitOrder();
+  if (!paymentMethod) {
+    return <p>Choose payment method to continue</p>;
   }
 
   return (
     <>
       {isAuthenticated ? (
         <>
-          <Button variant="submit" className="w-full" onClick={handlePurchase}>
-            Go To Payment
+          <Button variant="submit" className="w-full" onClick={onGuestContinue}>
+            Continue
           </Button>
         </>
       ) : (
@@ -38,17 +37,13 @@ function PaymentButtons() {
             </Button>
             <span className="text-lg font-bold">Or</span>
 
-            {paymentMethod ? (
-              <Button
-                variant="submit"
-                className="w-full"
-                onClick={handlePurchase}
-              >
-                Continue as Guest
-              </Button>
-            ) : (
-              <p>Choose payment method to continue</p>
-            )}
+            <Button
+              variant="submit"
+              className="w-full"
+              onClick={onGuestContinue}
+            >
+              Continue as Guest
+            </Button>
           </div>
         </>
       )}

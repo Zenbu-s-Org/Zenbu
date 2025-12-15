@@ -1,11 +1,16 @@
 import { create } from "zustand";
 import { useCart } from "@/features/cart";
 
+type Customer = {
+  name?: string;
+  phone?: string;
+}
+
 type CheckoutState = {
   paymentMethod: string | null;
-  customer: string | null;
+  customer: Customer | null;
   setPaymentMethod: (method: string) => void;
-  setCustomer: (value: string) => void;
+  setCustomer: (value: Customer) => void;
   submitOrder: () => void;
 };
 
