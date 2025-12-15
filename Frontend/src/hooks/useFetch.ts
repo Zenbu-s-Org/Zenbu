@@ -1,6 +1,6 @@
 import { API_URL } from "@/config/apiConfig";
 import { useEffect, useState, useCallback } from "react";
-
+import { getAuthHeaders } from "@/config/apiConfig";
 export function useFetch<T>(endpoint: string | null) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -13,6 +13,7 @@ export function useFetch<T>(endpoint: string | null) {
       setLoading(true);
       const res = await fetch(API_URL + endpoint, {
         credentials: "include",
+        headers: getAuthHeaders(),
       });
 
       if (!res.ok) throw new Error("Fetch failed");
