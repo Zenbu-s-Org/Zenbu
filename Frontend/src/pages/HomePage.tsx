@@ -5,10 +5,12 @@ import {
   BowlsCarousel,
 } from "@/features/landing";
 import { Label } from "@/components/ui";
+import ConfirmationBanner from "@/features/orderconfirmation/ConfirmationBanner";
 
 function HomePage() {
   return (
     <div className="flex flex-col items-center overflow-x-hidden pt-15 bg-stone-50 md:pt-5">
+      <ConfirmationBanner />
       <HeroSection />
       <div className=" bg-blue-100 w-full pb-10">
         <Marquee className="-top-4 text-white">
