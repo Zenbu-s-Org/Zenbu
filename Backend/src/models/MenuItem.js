@@ -2,28 +2,28 @@ import mongoose from "mongoose";
 
 const menuItemSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
     },
-    description: {
+    desc: {
       type: String,
     },
     price: {
       type: Number,
       required: true,
     },
+    img: {
+      type: String,
+    },
     category: {
       type: String,
-      enum: [
-        "signature-bowl",
-        "custom-bowl",
-        "base",
-        "protein",
-        "vegetable",
-        "dressing",
-        "topping",
-      ],
+      enum: ["bowl", "drink", "extra"],
       required: true,
     },
     available: {
@@ -31,10 +31,6 @@ const menuItemSchema = new mongoose.Schema(
       default: true,
     },
     ingredients: [String],
-    customizable: {
-      type: Boolean,
-      default: false,
-    },
   },
   { timestamps: true }
 );

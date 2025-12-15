@@ -8,9 +8,13 @@ const orderSchema = new mongoose.Schema(
       unique: true,
     },
     customer: {
-      type: String,
-      // ref: "User",
-      required: true,
+      name: {
+        type: String,
+        required: true,
+      },
+      phone: {
+        type: String,
+      },
     },
     items: [
       {
@@ -44,7 +48,7 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "preparing", "ready"],
+      enum: ["pending", "preparing", "ready", "completed", "cancelled"],
       default: "pending",
     },
     // estimatedTime: {
