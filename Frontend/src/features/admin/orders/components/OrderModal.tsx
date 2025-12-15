@@ -45,7 +45,8 @@ function OrderModal({ order, onUpdate }: Props) {
       <h2>Order: {order.orderNumber}</h2>
       <p>Status: {statusMsg}</p>
       <SectionLabel label="customer">
-        <p>{order.customer}</p>
+        <p>{order.customer.name}</p>
+        {order.customer.phone && <p>{order.customer.phone}</p>}
       </SectionLabel>
       <SectionLabel label="createdAt">
         <p>

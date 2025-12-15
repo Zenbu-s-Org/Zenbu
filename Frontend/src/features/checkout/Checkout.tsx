@@ -1,9 +1,11 @@
 import CartDisplay from "./components/CartDisplay";
 import PaymentMethod from "./components/PaymentMethod";
 import PaymentButtons from "./components/PaymentButtons";
+import { useState } from "react";
+import CustomerDetails from "./components/CustomerDetails";
 
 function OrderPage() {
-  // funktion för att kolla om det är en guest eller inloggad
+  const [showCustomerDetails, setShowCustomerDetails] = useState(false);
 
   return (
     <>
@@ -16,7 +18,11 @@ function OrderPage() {
         <PaymentMethod />
       </section>
       <section className="flex w-full flex-col items-center gap-3">
-        <PaymentButtons />
+        {!showCustomerDetails && (
+          <PaymentButtons onGuestContinue={() => setShowCustomerDetails(true)} />
+        )}
+
+        {showCustomerDetails && <CustomerDetails />}
       </section>
       <a href="/menu" className="text-xl font-semibold underline">
         {" "}

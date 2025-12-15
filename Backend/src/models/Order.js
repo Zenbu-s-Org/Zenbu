@@ -8,9 +8,13 @@ const orderSchema = new mongoose.Schema(
       unique: true,
     },
     customer: {
-      type: String,
-      // ref: "User",
-      required: true,
+      name: {
+        type: String,
+        required: true,
+      },
+      phone: {
+        type: String,
+      },
     },
     items: [
       {

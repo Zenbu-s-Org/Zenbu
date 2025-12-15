@@ -50,10 +50,15 @@ export type OrderStatus =
   | "completed"
   | "cancelled";
 
+export type Customer = {
+  name: string;
+  phone?: string;
+};
+
 export type Order = {
   _id?: string;
   orderNumber: string;
-  customer: string;
+  customer: Customer;
   items: OrderItem[];
   totalPrice: number;
   paymentMethod: string;

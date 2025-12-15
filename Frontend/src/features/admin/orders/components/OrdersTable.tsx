@@ -25,8 +25,13 @@ const columns: ColumnDef<Order>[] = [
     accessorKey: "customer",
     header: "Customer",
     cell: ({ getValue }) => {
-      const value = getValue<string>();
-      return <span>{value}</span>;
+    const customer = getValue<{ name?: string; phone?: string }>();
+    if (!customer) return <span>Unknown</span>;
+    return (
+      <span>
+        {customer.name ?? "No Name"} {customer.phone ? `(${customer.phone})` : ""}
+      </span>
+      );
     },
   },
   {
