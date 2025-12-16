@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 export const sendTokenResponse = (user, statusCode, res) => {
   const token = jwt.sign(
     { id: user._id, role: user.role },
@@ -10,8 +12,8 @@ export const sendTokenResponse = (user, statusCode, res) => {
       Date.now() + (process.env.JWT_COOKIE_EXPIRE || 7) * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: true,
+    sameSite: none,
   };
 
   return res
