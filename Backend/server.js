@@ -18,7 +18,7 @@ app.set("trust proxy", 1);
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://zenbu-app.s3-website.eu-north-1.amazonaws.com",
+  "http://zenbu-app.s3-website.eu-north-1.amazonaws.com",
 ];
 
 // Middleware
