@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 export const sendTokenResponse = (user, statusCode, res) => {
   const token = jwt.sign(
     { id: user._id, role: user.role },
@@ -11,7 +13,7 @@ export const sendTokenResponse = (user, statusCode, res) => {
     ),
     httpOnly: true,
     secure: true,
-    sameSite: none,
+    sameSite: "none",
   };
 
   return res

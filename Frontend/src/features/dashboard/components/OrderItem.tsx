@@ -96,7 +96,7 @@ function OrderItem({ order }: OrderItemProps) {
           {order.status === "pending" && "Pending"}
           {order.status === "preparing" && "Preparing"}
           {order.status === "ready" && "Ready"}
-          {order.status === "done" && "Done"}
+          {order.status === "completed" && "Completed"}
         </Label>
       </div>
 
