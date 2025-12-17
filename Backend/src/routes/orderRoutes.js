@@ -3,6 +3,8 @@ import Order from "../models/Order.js";
 import { validateOrder } from "../middlewares/validateOrder.js";
 import { authorize, protect } from "../middlewares/authMiddleware.js";
 import { nanoid } from "nanoid";
+import { deductQuantity } from "../services/inventoryService.js";
+
 const router = express.Router();
 
 // GET-anrop för att hämta alla orders /api/orders
@@ -125,6 +127,7 @@ router.post("/", validateOrder, async (req, res) => {
       status: "pending",
       orderNumber: nanoid(7),
     });
+    await deductQuantity(order);
 
     res.status(201).json({
       message: "success",
