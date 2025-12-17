@@ -5,7 +5,7 @@ import { useCart } from "@/features/cart/hooks/useCart";
 import { API_URL } from "@/config/apiConfig";
 import OrderBannerContent from "./components/OrderBannerContent";
 import ConfirmCancelModal from "./components/ConfirmCancelModal";
-import ConfirmEditModal from "./components/ConfirmEditModal"; // ✅ LÄGG TILL DENNA RAD
+import ConfirmEditModal from "./components/ConfirmEditModal";
 
 type OrderData = {
   orderId: string;

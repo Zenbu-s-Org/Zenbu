@@ -24,12 +24,10 @@ export default function ConfirmEditModal({
         className="w-11/12 max-w-md rounded-2xl border-4 border-stone-900 bg-white shadow-[8px_8px_0_#1c1917]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between border-b-3 border-stone-900 bg-blue-300 px-6 py-4">
           <h3 className="text-xl font-bold text-stone-900">Edit Order?</h3>
         </div>
 
-        {/* Content */}
         <div className="p-6">
           <p className="mb-6 text-gray-600">
             Your order will be moved to cart and cancelled. You can then modify
