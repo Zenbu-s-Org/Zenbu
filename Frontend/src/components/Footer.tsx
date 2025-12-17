@@ -1,4 +1,5 @@
 import redLogo from "../assets/red-logo.svg";
+import { Instagram, Facebook } from "lucide-react";
 
 function Footer() {
   return (
@@ -22,7 +23,10 @@ function Footer() {
           </div>
           <div>
             <h3 className="mb-2 text-2xl uppercase underline">Socials</h3>
-            <p>test</p>
+            <div className="flex gap-2">
+              <Instagram />
+              <Facebook />
+            </div>
           </div>
         </div>
       </div>

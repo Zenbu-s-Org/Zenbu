@@ -18,7 +18,7 @@ function MenuCard({ id, name, desc, price, img }: MenuCardProps) {
   };
 
   return (
-    <article className="flex h-60 w-85 flex-col rounded-2xl border-2 border-stone-300 bg-stone-50 p-4">
+    <article className="flex min-h-[15rem] w-full max-w-sm flex-col rounded-2xl border-2 border-stone-300 bg-stone-50 p-4">
       <div className="flex justify-between">
         <div className="min-w-0">
           <h3 className="font-['Bricolage_Grotesque'] text-xl font-bold">
