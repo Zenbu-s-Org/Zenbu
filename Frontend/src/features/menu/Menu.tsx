@@ -28,7 +28,7 @@ function Menu() {
       if (location.hash === "#buildbowl") {
         setTimeout(() => {
           buildBowlRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 150);
+        }, 250);
       }
     }, [location.hash]);
 

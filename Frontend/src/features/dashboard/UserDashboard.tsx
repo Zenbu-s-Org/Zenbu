@@ -142,7 +142,7 @@ function UserDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 pb-8">
+    <div className="min-h-screen bg-stone-50 pb-8 lg:px-50 pt-6">
       <div className="px-4 pt-6 pb-4 justify-center text-center">
         <h1 className="text-3xl font-bold mb-1">
           Welcome back, {user?.name || "Guest"}!
