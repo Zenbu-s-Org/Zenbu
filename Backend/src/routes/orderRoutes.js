@@ -127,7 +127,6 @@ router.post("/", validateOrder, async (req, res) => {
       status: "pending",
       orderNumber: nanoid(7),
     });
-    await deductQuantity(order);
 
     res.status(201).json({
       message: "success",
@@ -139,32 +138,46 @@ router.post("/", validateOrder, async (req, res) => {
 });
 
 //PUT-anrop för att updatera en order
-
 router.put(
-  "/:id",
+  "/:orderNumber",
   validateOrder,
   protect,
   authorize("admin"),
   async (req, res) => {
     try {
+      // ⬇️ plocka ENDAST status
       const { status } = req.body;
+
+      // 1. Hämta order före uppdatering
+      const prevOrder = await Order.findOne({
+        orderNumber: req.params.orderNumber,
+      });
+
+      if (!prevOrder) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      // 2. Uppdatera status
       const updatedOrder = await Order.findOneAndUpdate(
-        { orderNumber: req.params.id }, //söker id
-        { status }, //req in body
+        { orderNumber: req.params.orderNumber },
+        { status },
         { new: true }
       );
-      if (!updatedOrder) {
-        return res.status(404).json({
-          success: false,
-          message: "order not found",
-        });
+
+      // 3. Kör inventory-logik endast pending → preparing
+      if (
+        prevOrder.status === "pending" &&
+        updatedOrder.status === "preparing"
+      ) {
+        await deductQuantity(updatedOrder);
       }
-      return res.status(200).json({
+
+      res.json({
         success: true,
-        message: "order updated",
         order: updatedOrder,
       });
     } catch (error) {
+      console.error(error);
       res.status(500).json({ message: error.message });
     }
   }
