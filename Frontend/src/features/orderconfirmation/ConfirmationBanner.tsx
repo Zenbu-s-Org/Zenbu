@@ -1,7 +1,11 @@
 import { useState, useEffect, startTransition } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFetch } from "@/hooks/useFetch";
+import { useCart } from "@/features/cart/hooks/useCart";
+import { API_URL } from "@/config/apiConfig";
 import OrderBannerContent from "./components/OrderBannerContent";
 import ConfirmCancelModal from "./components/ConfirmCancelModal";
+import ConfirmEditModal from "./components/ConfirmEditModal"; // ✅ LÄGG TILL DENNA RAD
 
 type OrderData = {
   orderId: string;
@@ -18,7 +22,12 @@ function ConfirmationBanner() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [isCancelling, setIsCancelling] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const { addItem } = useCart();
+  const navigate = useNavigate();
 
   // Hämta currentOrder från localStorage
   useEffect(() => {
@@ -47,23 +56,18 @@ function ConfirmationBanner() {
     return () => clearInterval(interval);
   }, [orderId, data, refetch]);
 
-  // Cancel order handler
   const handleCancelOrder = async () => {
     if (!orderId) return;
-
     setIsCancelling(true);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/order/${orderId}/cancel`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/order/${orderId}/cancel`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       const result = await response.json();
 
@@ -71,13 +75,46 @@ function ConfirmationBanner() {
         setShowCancelModal(false);
         refetch();
       } else {
-        alert(result.message || "Kunde inte avbryta beställningen");
+        console.error("Cancel failed:", result.message);
       }
     } catch (error) {
       console.error("Error cancelling order:", error);
-      alert("Något gick fel vid avbokning");
     } finally {
       setIsCancelling(false);
+    }
+  };
+
+  const handleEditOrder = async () => {
+    if (!orderId || !data) return;
+    setIsEditing(true);
+
+    try {
+      // 1. Lägg alla items från ordern i cart
+      data.items.forEach((item) => {
+        for (let i = 0; i < item.qty; i++) {
+          addItem({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+          });
+        }
+      });
+
+      await fetch(`${API_URL}/order/${orderId}/cancel`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      localStorage.removeItem("currentOrder");
+
+      navigate("/menu");
+    } catch (error) {
+      console.error("Error editing order:", error);
+    } finally {
+      setIsEditing(false);
     }
   };
 
@@ -100,6 +137,7 @@ function ConfirmationBanner() {
         isExpanded={isExpanded}
         onToggle={() => setIsExpanded(!isExpanded)}
         onCancelClick={() => setShowCancelModal(true)}
+        onEditClick={() => setShowEditModal(true)}
       />
 
       <ConfirmCancelModal
@@ -107,6 +145,13 @@ function ConfirmationBanner() {
         isLoading={isCancelling}
         onConfirm={handleCancelOrder}
         onCancel={() => setShowCancelModal(false)}
+      />
+
+      <ConfirmEditModal
+        isOpen={showEditModal}
+        isLoading={isEditing}
+        onConfirm={handleEditOrder}
+        onCancel={() => setShowEditModal(false)}
       />
     </>
   );
