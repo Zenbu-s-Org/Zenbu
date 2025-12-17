@@ -80,7 +80,7 @@ router.put("/:id", protect, authorize("admin"), async (req, res) => {
 
 router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
-    const deleteProduct = await MenuItem.findOneAndDelete(req.params.id);
+    const deleteProduct = await MenuItem.findByIdAndDelete(req.params.id);
     res.status(201).json({
       success: true,
       product: deleteProduct,
