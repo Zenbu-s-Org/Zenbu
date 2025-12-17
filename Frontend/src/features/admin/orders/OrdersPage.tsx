@@ -4,6 +4,7 @@ import OrderModal from "./components/OrderModal";
 import { useModal } from "@/components/modal";
 import { useFetch } from "@/hooks/useFetch";
 import type { Order } from "../types";
+import { getAuthHeaders } from "@/config/apiConfig";
 
 function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -32,7 +33,7 @@ function OrdersPage() {
   const handleUpdate = async (updated: Order) => {
     const response = await fetch(`${API_URL}/order/${updated.orderNumber}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       credentials: "include",
       body: JSON.stringify(updated),
     });

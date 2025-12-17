@@ -1,9 +1,11 @@
 import type { MenuItem } from "../types";
+import { getAuthHeaders } from "@/config/apiConfig";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export async function fetchMenu(): Promise<MenuItem[]> {
   const res = await fetch(`${API_URL}/menu`, {
+    headers: getAuthHeaders(),
     credentials: "include",
   });
   if (!res.ok) throw new Error("Failed to fetch menu");
@@ -15,7 +17,7 @@ export async function createMenuItem(
 ): Promise<MenuItem> {
   const res = await fetch(`${API_URL}/menu`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     credentials: "include",
     body: JSON.stringify(payload),
   });
@@ -27,7 +29,7 @@ export async function createMenuItem(
 export async function updateMenuItem(item: MenuItem): Promise<MenuItem> {
   const res = await fetch(`${API_URL}/menu/${item._id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     credentials: "include",
     body: JSON.stringify(item),
   });
@@ -39,7 +41,7 @@ export async function updateMenuItem(item: MenuItem): Promise<MenuItem> {
 export async function deleteMenuItem(id: string): Promise<void> {
   const res = await fetch(`${API_URL}/menu/${id}`, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     credentials: "include",
   });
   if (!res.ok) throw new Error("Delete failed");
