@@ -31,7 +31,7 @@ app.use(
 );
 app.use(express.json()); // för att kunna läsa JSON i request body
 app.use(cookieParser()); // För att du kan läsa cookies i req.cookies
-app.use(apiKeyAuth)
+// app.use(apiKeyAuth) justerar senare i egen branch
 // Test-route
 app.get("/", (req, res) => {
   res.send("API is running");
