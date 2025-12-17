@@ -8,6 +8,7 @@ import ingredientRoutes from "./src/routes/ingredientRoutes.js"
 import userRoutes from "./src/routes/userRoutes.js";
 import orderRoutes from "./src/routes/orderRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
+import { apiKeyAuth } from "./src/middlewares/apiKeyAuth.js";
 import { errorHandler, notFound } from "./src/middlewares/errorHandler.js";
 
 dotenv.config();
@@ -17,7 +18,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://zenbu-app.s3-website.eu-north-1.amazonaws.com",
 ];
-
+console.log("API_KEY loaded:", JSON.stringify(process.env.API_KEY));
 // Middleware
 app.use(
   cors({
@@ -27,7 +28,7 @@ app.use(
 );
 app.use(express.json()); // för att kunna läsa JSON i request body
 app.use(cookieParser()); // För att du kan läsa cookies i req.cookies
-
+app.use(apiKeyAuth)
 // Test-route
 app.get("/", (req, res) => {
   res.send("API is running");
