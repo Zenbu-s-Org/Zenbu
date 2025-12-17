@@ -39,8 +39,10 @@ function MenuPage() {
 
   async function handleDelete(item: MenuItem) {
     if (!confirm(`Delete "${item.name}"?`)) return;
-
-    await deleteMenuItem(item.id);
+    if (!item._id) {
+      return console.error("delete error");
+    }
+    await deleteMenuItem(item._id);
     setMenu((prev) => prev.filter((m) => m.id !== item.id));
     closeModal();
   }

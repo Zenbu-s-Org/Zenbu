@@ -62,7 +62,7 @@ function BuildYourBowl() {
         </h3>
 
         <ChooseIngredients
-          ingredients={ingredients}
+          ingredients={ingredients ?? []}
           selected={selected}
           toggle={toggleIngredient}
         />

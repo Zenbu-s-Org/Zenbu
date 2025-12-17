@@ -7,7 +7,7 @@ import {
   Flame,
   Pickaxe,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, type Variants } from "motion/react";
 
 type CardProps = {
   icon: LucideIcon;
@@ -43,7 +43,7 @@ const cards: CardProps[] = [
   },
 ];
 
-const listVariants = {
+const listVariants: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -52,7 +52,7 @@ const listVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 20,
@@ -62,7 +62,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: [0.16, 1, 0.3, 1], // ✅ korrekt easing-typ
     },
   },
 };
@@ -114,7 +114,7 @@ function StepSection() {
                   {c.title}
                 </span>
 
-                <p className="min-h-[4.5rem] max-w-xs text-center text-lg font-semibold">
+                <p className="min-h-18 max-w-xs text-center text-lg font-semibold">
                   {c.desc}
                 </p>
               </Container>

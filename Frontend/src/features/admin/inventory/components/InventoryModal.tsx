@@ -39,7 +39,7 @@ function InventoryModal({ mode, item, onSave, onDelete }: Props) {
 
     if (!confirmed) return;
 
-    onDelete(item.id);
+    onDelete(item._id);
     closeModal();
   }
 

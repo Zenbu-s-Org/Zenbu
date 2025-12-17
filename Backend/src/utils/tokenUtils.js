@@ -7,13 +7,15 @@ export const sendTokenResponse = (user, statusCode, res) => {
     { expiresIn: process.env.JWT_EXPIRE || "7d" }
   );
 
+  const isProduction = process.env.NODE_ENV === "production";
+
   const options = {
     expires: new Date(
       Date.now() + (process.env.JWT_COOKIE_EXPIRE || 7) * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
   };
 
   return res

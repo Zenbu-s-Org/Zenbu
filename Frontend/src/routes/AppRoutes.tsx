@@ -15,6 +15,7 @@ import {
   AdminOrdersPage,
   AdminRoute,
 } from "@/features/admin";
+import AboutPage from "@/pages/AboutPage";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
       { path: "/menu", element: <MenuPage /> },
       { path: "/order", element: <OrderPage /> },
       { path: "/contact", element: <div>contact</div> },
-      { path: "/about", element: <div>about</div> },
+      { path: "/about", element: <AboutPage/> },
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <RegisterPage /> },
       { path: "/Myaccount", element: <UserDashboard /> },
