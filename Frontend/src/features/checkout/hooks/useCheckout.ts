@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { useCart } from "@/features/cart";
+import { getAuthHeaders } from "@/config/apiConfig";
 
 type Customer = {
   name?: string;
   phone?: string;
-}
+};
 
 type CheckoutState = {
   paymentMethod: string | null;
@@ -36,7 +37,7 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
     };
 
     const response = await fetch(`${API_URL}/order`, {
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       method: "POST",
       body: JSON.stringify(order),
     });
