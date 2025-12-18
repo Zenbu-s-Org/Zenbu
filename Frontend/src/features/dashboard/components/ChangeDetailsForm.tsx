@@ -15,10 +15,12 @@ function ChangeDetailsForm({ userName, userEmail }: ChangeDetailsFormProps) {
 
   return (
     <Container variant="primary">
-      <div className="p-4">
-        <h2 className="text-2xl font-bold mb-4 text-center">Change Details</h2>
+      <div className="p-4 md:p-6">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center">
+          Change Details
+        </h2>
 
-        <div className="space-y-4">
+        <div className="space-y-4 md:space-y-5">
           <Input
             label="Name"
             type="text"
@@ -43,9 +45,11 @@ function ChangeDetailsForm({ userName, userEmail }: ChangeDetailsFormProps) {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button variant="primary" className="w-full">
-            Save
-          </Button>
+          <div className="pt-2">
+            <Button variant="primary" className="w-full md:text-base">
+              Save Changes
+            </Button>
+          </div>
         </div>
       </div>
     </Container>
