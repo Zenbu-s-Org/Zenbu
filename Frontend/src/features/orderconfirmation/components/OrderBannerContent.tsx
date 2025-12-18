@@ -1,5 +1,5 @@
 import { cn } from "clsx-for-tailwind";
-import { ChevronDown, ChevronUp, XCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, XCircle, Edit } from "lucide-react";
 import Order from "./Order";
 import Button from "@/components/ui/Button";
 
@@ -10,6 +10,7 @@ interface OrderBannerContentProps {
   isExpanded: boolean;
   onToggle: () => void;
   onCancelClick: () => void;
+  onEditClick: () => void;
 }
 
 const getStatusMessage = (status: string) => {
@@ -32,6 +33,7 @@ export default function OrderBannerContent({
   isExpanded,
   onToggle,
   onCancelClick,
+  onEditClick,
 }: OrderBannerContentProps) {
   return (
     <div
@@ -54,16 +56,26 @@ export default function OrderBannerContent({
 
       {isExpanded && (
         <div className="space-y-3 px-4 pb-3">
-          {/* Order Items */}
           <div className="space-y-2">
             {items.map((item, i) => (
               <Order key={i} title={item.name} qty={item.qty} />
             ))}
           </div>
 
-          {/* Cancel Button */}
           {status === "pending" && (
-            <div className="flex justify-center pt-2">
+            <div className="flex justify-center gap-3 pt-2">
+              <Button
+                variant="outline"
+                onClick={onEditClick}
+                className="group flex items-center gap-2 border-blue-600 text-blue-900 hover:bg-blue-600 hover:text-white"
+              >
+                <Edit
+                  size={18}
+                  className="transition-transform group-hover:scale-110"
+                />
+                Edit Order
+              </Button>
+
               <Button
                 variant="outline"
                 onClick={onCancelClick}

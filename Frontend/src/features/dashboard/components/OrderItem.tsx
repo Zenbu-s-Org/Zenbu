@@ -97,6 +97,7 @@ function OrderItem({ order }: OrderItemProps) {
           {order.status === "preparing" && "Preparing"}
           {order.status === "ready" && "Ready"}
           {order.status === "completed" && "Completed"}
+          { order.status === "cancelled" && "Cancelled"}
         </Label>
       </div>
 
