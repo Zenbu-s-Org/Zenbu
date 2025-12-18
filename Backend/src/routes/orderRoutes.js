@@ -27,7 +27,7 @@ router.get("/stats/:userId", protect, async (req, res) => {
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    const orders = await Order.find({ customer: userId });
+    const orders = await Order.find({ userId: userId });
 
     const totalOrders = orders.length;
     const amountSpent = orders.reduce(
@@ -95,7 +95,7 @@ router.get("/user/:userId", protect, async (req, res) => {
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    const orders = await Order.find({ customer: userId }).sort({
+    const orders = await Order.find({ userId: userId }).sort({
       createdAt: -1,
     });
 
