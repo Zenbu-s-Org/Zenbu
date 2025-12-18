@@ -135,7 +135,6 @@ function UserDashboard() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-8">
-      {/* Container med max-width för desktop */}
       <div className="max-w-7xl mx-auto">
         <div className="px-4 pt-6 pb-4 justify-center text-center">
           <h1 className="text-3xl font-bold mb-1">
@@ -150,7 +149,6 @@ function UserDashboard() {
           </button>
         </div>
 
-        {/* Stats cards - grid layout på desktop */}
         <div className="px-4 mb-20 grid grid-cols-2 gap-4 max-w-2xl mx-auto">
           <StatsCard
             label="Total Orders"
@@ -164,7 +162,6 @@ function UserDashboard() {
           />
         </div>
 
-        {/* Order History - begränsad bredd */}
         <div className="px-4 mb-20 max-w-4xl mx-auto">
           <OrderHistory
             orders={orders}
@@ -173,7 +170,6 @@ function UserDashboard() {
           />
         </div>
 
-        {/* Change Details Form - mindre på desktop */}
         <div className="px-4 mb-20 max-w-2xl mx-auto">
           <ChangeDetailsForm
             userName={user?.name || ""}

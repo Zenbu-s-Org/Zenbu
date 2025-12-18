@@ -64,9 +64,7 @@ function OrderItem({ order }: OrderItemProps) {
         </div>
       )}
 
-      {/* Desktop: Horizontal layout, Mobile: Vertical layout */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        {/* Left section - Order info */}
         <div className="flex-1">
           <p className="mb-1 text-sm md:text-base font-bold">
             {order.orderNumber}
@@ -74,7 +72,6 @@ function OrderItem({ order }: OrderItemProps) {
           <p className="text-sm md:text-base text-stone-600">{order.items}</p>
         </div>
 
-        {/* Middle section - Status */}
         <div className="flex items-center gap-2 md:justify-center">
           <p className="text-sm md:text-base text-stone-800">Status:</p>
           <Label
@@ -97,7 +94,6 @@ function OrderItem({ order }: OrderItemProps) {
           </Label>
         </div>
 
-        {/* Right section - Price and action */}
         <div className="flex items-center gap-4 md:flex-col md:items-end md:gap-2">
           <p className="text-sm md:text-base font-bold flex-1 md:flex-none">
             {order.price} SEK
