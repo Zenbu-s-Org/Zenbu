@@ -22,7 +22,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://zenbu-app.s3-website.eu-north-1.amazonaws.com",
 ];
-console.log("API_KEY loaded:", JSON.stringify(process.env.API_KEY));
+
 // Middleware
 app.use(
   cors({
