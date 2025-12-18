@@ -3,5 +3,5 @@ export const API_URL =
 
 export const getAuthHeaders = (): HeadersInit => ({
   "Content-Type": "application/json",
-  // "x-api-key": import.meta.env.VITE_API_KEY
+  "zenbu-key": import.meta.env.VITE_API_KEY,
 });
