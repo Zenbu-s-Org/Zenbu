@@ -38,6 +38,7 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
       items: items,
       totalPrice: totalPrice,
     };
+    console.log("POSTING TO:", `${API_URL}/order`);
 
     const response = await fetch(`${API_URL}/order`, {
       headers: getAuthHeaders(),
