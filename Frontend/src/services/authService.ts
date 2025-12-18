@@ -1,4 +1,4 @@
-import { API_URL, getAuthHeaders } from "../config/apiConfig";
+import { getAuthHeaders } from "../config/apiConfig";
 import type { AuthResponse, CurrentUserResponse } from "../types/authTypes";
 
 class AuthService {
@@ -7,7 +7,7 @@ class AuthService {
     email: string,
     password: string
   ): Promise<AuthResponse> {
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const response = await fetch(`api/auth/register`, {
       method: "POST",
       headers: getAuthHeaders(),
       credentials: "include",
@@ -24,7 +24,7 @@ class AuthService {
   }
 
   async login(email: string, password: string): Promise<AuthResponse> {
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const response = await fetch(`api/auth/login`, {
       method: "POST",
       headers: getAuthHeaders(),
       credentials: "include",
@@ -41,7 +41,7 @@ class AuthService {
   }
 
   async getCurrentUser(): Promise<CurrentUserResponse> {
-    const response = await fetch(`${API_URL}/auth/me`, {
+    const response = await fetch(`api/auth/me`, {
       method: "GET",
       headers: getAuthHeaders(),
       credentials: "include",
@@ -53,7 +53,7 @@ class AuthService {
   }
 
   async logout(): Promise<void> {
-    await fetch(`${API_URL}/auth/logout`, {
+    await fetch(`api/auth/logout`, {
       method: "POST",
       headers: getAuthHeaders(),
       credentials: "include",
