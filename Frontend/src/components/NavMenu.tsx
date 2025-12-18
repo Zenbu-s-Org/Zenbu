@@ -50,9 +50,6 @@ function NavMenu() {
             <Link to="/about" onClick={() => setIsOpen(false)}>
               About us
             </Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              Contact
-            </Link>
             <Link
               to={isAuthenticated ? "/myaccount" : "/login"}
               onClick={() => setIsOpen(false)}
@@ -75,7 +72,6 @@ function NavMenu() {
           <Link to="/menu">Menu</Link>
           <Link to="/menu#buildbowl">Build your own bowl</Link>
           <Link to="/about">About us</Link>
-          <Link to="/contact">Contact</Link>
         </div>
       </nav>
     </>
