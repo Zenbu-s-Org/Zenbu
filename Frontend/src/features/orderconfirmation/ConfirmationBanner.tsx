@@ -2,7 +2,7 @@ import { useState, useEffect, startTransition } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetch } from "@/hooks/useFetch";
 import { useCart } from "@/features/cart/hooks/useCart";
-import { API_URL, getAuthHeaders } from "@/config/apiConfig";
+import { getAuthHeaders } from "@/config/apiConfig";
 import OrderBannerContent from "./components/OrderBannerContent";
 import ConfirmCancelModal from "./components/ConfirmCancelModal";
 import ConfirmEditModal from "./components/ConfirmEditModal";
@@ -61,7 +61,7 @@ function ConfirmationBanner() {
     setIsCancelling(true);
 
     try {
-      const response = await fetch(`${API_URL}/order/${orderId}/cancel`, {
+      const response = await fetch(`api/order/${orderId}/cancel`, {
         method: "PUT",
         headers: getAuthHeaders(),
         credentials: "include",
@@ -98,7 +98,7 @@ function ConfirmationBanner() {
         }
       });
 
-      await fetch(`${API_URL}/order/${orderId}/cancel`, {
+      await fetch(`api/order/${orderId}/cancel`, {
         method: "PUT",
         headers: getAuthHeaders(),
         credentials: "include",

@@ -5,7 +5,7 @@ import StatsCard from "./components/StatsCard";
 import OrderHistory from "./components/OrderHistory";
 import ChangeDetailsForm from "./components/ChangeDetailsForm";
 import type { Stats, BackendOrder, FormattedOrder } from "./Types";
-import { API_URL, getAuthHeaders } from "@/config/apiConfig";
+import { getAuthHeaders } from "@/config/apiConfig";
 
 function UserDashboard() {
   const {
@@ -32,7 +32,7 @@ function UserDashboard() {
 
       const userId = user.id;
 
-      const statsRes = await fetch(`${API_URL}/order/stats/${userId}`, {
+      const statsRes = await fetch(`api/order/stats/${userId}`, {
         method: "GET",
         credentials: "include",
         headers: getAuthHeaders(),
@@ -49,7 +49,7 @@ function UserDashboard() {
       const statsData: Stats = await statsRes.json();
       setStats(statsData);
 
-      const ordersRes = await fetch(`${API_URL}/order/user/${userId}`, {
+      const ordersRes = await fetch(`api/order/user/${userId}`, {
         method: "GET",
         credentials: "include",
         headers: getAuthHeaders(),

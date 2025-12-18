@@ -16,8 +16,6 @@ type CheckoutState = {
   submitOrder: () => void;
 };
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 export const useCheckout = create<CheckoutState>((set, get) => ({
   paymentMethod: null,
   customer: null,
@@ -38,9 +36,8 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
       items: items,
       totalPrice: totalPrice,
     };
-    console.log("POSTING TO:", `${API_URL}/order`);
 
-    const response = await fetch(`${API_URL}/order`, {
+    const response = await fetch(`api/order`, {
       headers: getAuthHeaders(),
       method: "POST",
       body: JSON.stringify(order),
