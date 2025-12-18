@@ -29,11 +29,11 @@ function MenuCard({ id, name, desc, price, img }: MenuCardProps) {
           </p>
           <p className="font-['Nunito'] text-sm">{desc}</p>
         </div>
-        <div className="shrink-0">
+        <div className="shrink-0 w-28 h-28 overflow-hidden">
           <img
             src={img || imgPlaceholder}
             alt={name}
-            className="mt-4 h-24 w-26 object-cover"
+            className="w-full h-full object-contain"
             onError={(e) => (e.currentTarget.src = imgPlaceholder)}
           />
         </div>
