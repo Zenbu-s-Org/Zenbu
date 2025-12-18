@@ -1,10 +1,8 @@
 import type { MenuItem } from "../types";
 import { getAuthHeaders } from "@/config/apiConfig";
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 export async function fetchMenu(): Promise<MenuItem[]> {
-  const res = await fetch(`${API_URL}/menu`, {
+  const res = await fetch(`api/menu`, {
     headers: getAuthHeaders(),
     credentials: "include",
   });
@@ -15,7 +13,7 @@ export async function fetchMenu(): Promise<MenuItem[]> {
 export async function createMenuItem(
   payload: Omit<MenuItem, "_id" | "id">
 ): Promise<MenuItem> {
-  const res = await fetch(`${API_URL}/menu`, {
+  const res = await fetch(`api/menu`, {
     method: "POST",
     headers: getAuthHeaders(),
     credentials: "include",
@@ -27,7 +25,7 @@ export async function createMenuItem(
 }
 
 export async function updateMenuItem(item: MenuItem): Promise<MenuItem> {
-  const res = await fetch(`${API_URL}/menu/${item._id}`, {
+  const res = await fetch(`api/menu/${item._id}`, {
     method: "PUT",
     headers: getAuthHeaders(),
     credentials: "include",
@@ -39,7 +37,7 @@ export async function updateMenuItem(item: MenuItem): Promise<MenuItem> {
 }
 
 export async function deleteMenuItem(id: string): Promise<void> {
-  const res = await fetch(`${API_URL}/menu/${id}`, {
+  const res = await fetch(`api/menu/${id}`, {
     method: "DELETE",
     headers: getAuthHeaders(),
     credentials: "include",
