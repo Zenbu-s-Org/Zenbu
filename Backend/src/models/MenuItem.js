@@ -1,5 +1,18 @@
 import mongoose from "mongoose";
 
+const menuIngredientSchema = new mongoose.Schema(
+  {
+    id: { type: String, required: true }, // ing-001
+    name: { type: String, required: true }, // Rice
+    category: {
+      type: String,
+      enum: ["base", "protein", "veg", "sauce", "extra", "drink"],
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const menuItemSchema = new mongoose.Schema(
   {
     id: {
@@ -30,7 +43,10 @@ const menuItemSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    ingredients: [String],
+    ingredients: {
+      type: [menuIngredientSchema],
+      default: [],
+    },
   },
   { timestamps: true }
 );
