@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/features/cart/hooks/useCart";
 import { API_URL } from "@/config/apiConfig";
+import { getAuthHeaders } from "@/config/apiConfig";
 
 type OrderItemProps = {
   order: Order;
@@ -20,11 +21,9 @@ function OrderItem({ order }: OrderItemProps) {
     try {
       setIsAdding(true);
 
-      const token = localStorage.getItem("token");
       const response = await fetch(`${API_URL}/order/${order.orderNumber}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: "include",
+        headers: getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -50,62 +49,74 @@ function OrderItem({ order }: OrderItemProps) {
       }, 1500);
     } catch (error) {
       console.error("Error adding order to cart:", error);
-      alert("Failed to add items to cart");
     } finally {
       setIsAdding(false);
     }
   };
 
   return (
-    <div className="relative rounded-xl border-3 border-stone-900 bg-stone-50 p-4 md:p-6">
+    <div className="relative rounded-xl border-3 border-stone-900 bg-stone-50 p-4 md:p-6 hover:shadow-lg transition-shadow">
       {showSuccess && (
-        <div className="bg-opacity-90 absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-lime-300">
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-lime-300/90 backdrop-blur-sm">
           <p className="text-2xl font-bold text-stone-900">✓ Added to Cart!</p>
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 md:gap-6">
         <div className="flex-1">
-          <p className="mb-1 text-sm md:text-base font-bold">
-            {order.orderNumber}
+          <div className="flex items-start justify-between mb-2 md:mb-3">
+            <div>
+              <p className="text-sm md:text-base font-bold text-stone-900">
+                Order #{order.orderNumber}
+              </p>
+            </div>
+            <p className="text-base md:text-lg font-bold text-stone-900 md:hidden">
+              {order.price} SEK
+            </p>
+          </div>
+
+          <p className="text-sm md:text-base text-stone-600 mb-3 md:mb-4">
+            {order.items}
           </p>
-          <p className="text-sm md:text-base text-stone-600">{order.items}</p>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-stone-700 font-medium">
+                Status:
+              </span>
+              <Label
+                variant={
+                  order.status === "pending"
+                    ? "orange"
+                    : order.status === "preparing"
+                      ? "orange"
+                      : order.status === "ready"
+                        ? "green"
+                        : "green"
+                }
+                className="px-3 py-1 text-xs md:text-sm"
+              >
+                {order.status === "pending" && "Pending"}
+                {order.status === "preparing" && "Preparing"}
+                {order.status === "ready" && "Ready"}
+                {order.status === "completed" && "Completed"}
+                {order.status === "cancelled" && "Cancelled"}
+              </Label>
+            </div>
+
+            <Button
+              variant="link"
+              className="px-4 py-1.5 text-sm"
+              onClick={handleOrderAgain}
+              disabled={isAdding}
+            >
+              {isAdding ? "Adding..." : "Order Again?"}
+            </Button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 md:justify-center">
-          <p className="text-sm md:text-base text-stone-800">Status:</p>
-          <Label
-            variant={
-              order.status === "pending"
-                ? "orange"
-                : order.status === "preparing"
-                  ? "orange"
-                  : order.status === "ready"
-                    ? "green"
-                    : "green"
-            }
-            className="px-3 text-xs md:text-sm"
-          >
-            {order.status === "pending" && "Pending"}
-            {order.status === "preparing" && "Preparing"}
-            {order.status === "ready" && "Ready"}
-            {order.status === "completed" && "Completed"}
-            {order.status === "cancelled" && "Cancelled"}
-          </Label>
-        </div>
-
-        <div className="flex items-center gap-4 md:flex-col md:items-end md:gap-2">
-          <p className="text-sm md:text-base font-bold flex-1 md:flex-none">
-            {order.price} SEK
-          </p>
-          <Button
-            variant="link"
-            className="px-4 py-1 text-sm md:text-base md:min-w-[140px]"
-            onClick={handleOrderAgain}
-            disabled={isAdding}
-          >
-            {isAdding ? "Adding..." : "Order Again?"}
-          </Button>
+        <div className="hidden md:block text-right">
+          <p className="text-lg font-bold text-stone-900">{order.price} SEK</p>
         </div>
       </div>
     </div>

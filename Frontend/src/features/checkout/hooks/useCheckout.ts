@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { useCart } from "@/features/cart";
 import { getAuthHeaders } from "@/config/apiConfig";
+import { useAuthStore } from "@/stores/authStore";
 
 type Customer = {
   name?: string;
@@ -27,9 +28,11 @@ export const useCheckout = create<CheckoutState>((set, get) => ({
   submitOrder: async () => {
     const { paymentMethod, customer } = get();
     const { items, getTotalPrice, clearCart } = useCart.getState();
+    const { user, isAuthenticated } = useAuthStore.getState();
     const totalPrice = getTotalPrice();
 
     const order = {
+      userId: isAuthenticated && user ? user.id : undefined,
       customer: customer,
       paymentMethod: paymentMethod,
       items: items,
