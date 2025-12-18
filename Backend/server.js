@@ -35,8 +35,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
-
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -66,7 +64,7 @@ app.use("/api/menu", apiKeyAuth, menuRoutes);
 app.use("/api/ingredients", apiKeyAuth, ingredientRoutes);
 app.use("/api/order", apiKeyAuth, orderRoutes);
 app.use("/api/users", apiKeyAuth, userRoutes);
-app.use("/api/auth", apiKeyAuth, authRoutes);
+app.use("/api/auth", authRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

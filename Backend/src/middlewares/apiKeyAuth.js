@@ -2,18 +2,29 @@ export function apiKeyAuth(req, res, next) {
   if (req.method === "OPTIONS") {
     return next();
   }
-  const clientkey = req.get("zenbu-key");
-  const apikey = process.env.API_KEY;
-  if (!clientkey) return res.status(401).json({ message: "Api-key required" });
-  if (clientkey.trim() !== apikey.trim())
-    return res.status(401).json({ message: "Invalid key" });
 
-  if (!apikey) {
-    //error
-    return res.status(500).json({ message: "server error" });
+  const clientKey = req.get("zenbu-key");
+  const apiKey = process.env.API_KEY;
+
+  if (!apiKey) {
+    return res.status(500).json({
+      success: false,
+      message: "API key not configured on server",
+    });
   }
-  if (!clientkey) {
-    return res.status(401).json({ message: "Api-key required" });
+
+  if (!clientKey) {
+    return res.status(401).json({
+      success: false,
+      message: "API key required",
+    });
+  }
+
+  if (clientKey !== apiKey) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid API key",
+    });
   }
 
   next();
