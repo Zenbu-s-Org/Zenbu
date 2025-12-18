@@ -6,7 +6,7 @@ import ImagePlaceholder from "../assets/imgPlaceholder.svg"
 
 function AboutPage() {
   return (
-    <div className="px-6 flex flex-col gap-5 mb-7.5">
+    <div className="px-6 flex flex-col gap-5 mb-7.5 mx-auto max-w-[1200px]">
     <h1 className="border-b-2 border-orange-400 w-50 my-5">About us</h1>
     <div className="flex flex-col gap-4 md:flex md:flex-row md:gap-4 ">
     <Container variant="sky">
