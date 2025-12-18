@@ -18,10 +18,7 @@ const app = express();
 
 app.set("trust proxy", 1);
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://zenbuapp.vercel.app/",
-];
+const allowedOrigins = ["http://localhost:5173", "https://zenbuapp.vercel.app"];
 
 // Middleware
 app.use(
