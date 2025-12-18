@@ -5,7 +5,7 @@ import StatsCard from "./components/StatsCard";
 import OrderHistory from "./components/OrderHistory";
 import ChangeDetailsForm from "./components/ChangeDetailsForm";
 import type { Stats, BackendOrder, FormattedOrder } from "./Types";
-import { API_URL } from "@/config/apiConfig";
+import { API_URL, getAuthHeaders } from "@/config/apiConfig";
 
 function UserDashboard() {
   const {
@@ -32,11 +32,10 @@ function UserDashboard() {
 
       const userId = user.id;
 
-      // Hämta stats (cookie skickas automatiskt)
       const statsRes = await fetch(`${API_URL}/order/stats/${userId}`, {
         method: "GET",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
       });
 
       if (!statsRes.ok) {
@@ -50,11 +49,10 @@ function UserDashboard() {
       const statsData: Stats = await statsRes.json();
       setStats(statsData);
 
-      // Hämta orders (cookie skickas automatiskt)
       const ordersRes = await fetch(`${API_URL}/order/user/${userId}`, {
         method: "GET",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
       });
 
       if (!ordersRes.ok) {
@@ -67,7 +65,6 @@ function UserDashboard() {
 
       const ordersData: BackendOrder[] = await ordersRes.json();
 
-      // Formatera orders för UI
       const formattedOrders: FormattedOrder[] = ordersData.map((order) => ({
         id: order._id,
         orderNumber: order.orderNumber,
@@ -86,21 +83,17 @@ function UserDashboard() {
   }, [user, navigate]);
 
   useEffect(() => {
-    // Vänta tills auth är klar med att checka
     if (authLoading) return;
 
-    // Om inte inloggad, redirect till login
     if (!isAuthenticated || !user) {
       navigate("/login");
       return;
     }
 
-    // Om inloggad, hämta dashboard data
     fetchDashboardData();
   }, [isAuthenticated, user, authLoading, navigate, fetchDashboardData]);
 
   useEffect(() => {
-    // Polling: uppdatera dashboard data var 5:e minut
     if (!isAuthenticated || !user) return;
 
     const interval = setInterval(() => {
@@ -110,7 +103,6 @@ function UserDashboard() {
     return () => clearInterval(interval);
   }, [isAuthenticated, user, fetchDashboardData]);
 
-  // Visa loading medan auth checkas
   if (authLoading || isLoading) {
     return (
       <div className="min-h-screen bg-stone-50 flex items-center justify-center">
@@ -143,45 +135,47 @@ function UserDashboard() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-8">
-      <div className="px-4 pt-6 pb-4 justify-center text-center">
-        <h1 className="text-3xl font-bold mb-1">
-          Welcome back, {user?.name || "Guest"}!
-        </h1>
-        <p className="text-stone-600">Manage your orders and preferences</p>
-        <button
-          onClick={handleLogout}
-          className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold"
-        >
-          Logout
-        </button>
-      </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="px-4 pt-6 pb-4 justify-center text-center">
+          <h1 className="text-3xl font-bold mb-1">
+            Welcome back, {user?.name || "Guest"}!
+          </h1>
+          <p className="text-stone-600">Manage your orders and preferences</p>
+          <button
+            onClick={handleLogout}
+            className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold"
+          >
+            Logout
+          </button>
+        </div>
 
-      <div className="px-4 mb-20 flex gap-4 justify-center">
-        <StatsCard
-          label="Total Orders"
-          value={stats?.totalOrders || 0}
-          variant="primary"
-        />
-        <StatsCard
-          label="Amount Spent"
-          value={`${stats?.amountSpent || 0} SEK`}
-          variant="green"
-        />
-      </div>
+        <div className="px-4 mb-20 grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <StatsCard
+            label="Total Orders"
+            value={stats?.totalOrders || 0}
+            variant="primary"
+          />
+          <StatsCard
+            label="Amount Spent"
+            value={`${stats?.amountSpent || 0} SEK`}
+            variant="green"
+          />
+        </div>
 
-      <div className="px-4 mb-20">
-        <OrderHistory
-          orders={orders}
-          showAll={showAllOrders}
-          setShowAll={setShowAllOrders}
-        />
-      </div>
+        <div className="px-4 mb-20 max-w-4xl mx-auto">
+          <OrderHistory
+            orders={orders}
+            showAll={showAllOrders}
+            setShowAll={setShowAllOrders}
+          />
+        </div>
 
-      <div className="px-4 mb-20">
-        <ChangeDetailsForm
-          userName={user?.name || ""}
-          userEmail={user?.email || ""}
-        />
+        <div className="px-4 mb-20 max-w-2xl mx-auto">
+          <ChangeDetailsForm
+            userName={user?.name || ""}
+            userEmail={user?.email || ""}
+          />
+        </div>
       </div>
     </div>
   );

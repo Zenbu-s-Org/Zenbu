@@ -42,7 +42,7 @@ router.post("/", protect, authorize("admin"), async (req, res) => {
 
 router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
-    const deleted = await Ingredient.findOneAndDelete({ id: req.params.id });
+    const deleted = await Ingredient.findByIdAndDelete(req.params.id);
     if (!deleted) {
       return res.status(400).json({
         success: false,

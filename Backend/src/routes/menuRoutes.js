@@ -32,7 +32,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", protect, authorize("admin"), async (req, res) => {
   try {
-    const { name, price, category, img, desc } = req.body;
+    const { name, price, category, img, desc, ingredients } = req.body;
     const id = `prod-${nanoid(5)}`;
     const newProduct = await MenuItem.create({
       name: name,
@@ -41,6 +41,7 @@ router.post("/", protect, authorize("admin"), async (req, res) => {
       desc: desc,
       img: img,
       id: id,
+      ingredients: ingredients,
       createdAt: new Date().toISOString(),
     });
 
@@ -80,7 +81,7 @@ router.put("/:id", protect, authorize("admin"), async (req, res) => {
 
 router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
-    const deleteProduct = await MenuItem.findOneAndDelete(req.params.id);
+    const deleteProduct = await MenuItem.findByIdAndDelete(req.params.id);
     res.status(201).json({
       success: true,
       product: deleteProduct,
